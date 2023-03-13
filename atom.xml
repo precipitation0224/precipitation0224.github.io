@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>yummy home</title>
   
-  
+  <subtitle>欢迎你来看看我呀</subtitle>
   <link href="http://chyang.cn/atom.xml" rel="self"/>
   
   <link href="http://chyang.cn/"/>
@@ -10,7 +10,7 @@
   <id>http://chyang.cn/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>Yummy</name>
     
   </author>
   
