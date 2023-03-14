@@ -1,3 +1,4 @@
+http://precipitation0224.github.io/2023/03/15/thoughts/
 http://precipitation0224.github.io/about/index.html
 http://precipitation0224.github.io/2023/03/14/Tcpip%E5%8D%B7%E4%B8%80%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/
 http://precipitation0224.github.io/2023/03/14/STL%E8%AE%BE%E8%AE%A1%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/
@@ -6,3 +7,4 @@ http://precipitation0224.github.io/2023/03/14/CSAPP%E7%9F%A5%E8%AF%86%E6%80%BB%E
 http://precipitation0224.github.io/2023/03/14/effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/
 http://precipitation0224.github.io/
 http://precipitation0224.github.io/tags/my-notes/
+http://precipitation0224.github.io/tags/my-os/
