@@ -7,19 +7,22 @@
   
   
   
-  <title>Hello World | yummy home</title>
+  <title>STL设计知识总结 | yummy home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="reference link: https:&#x2F;&#x2F;blog.csdn.net&#x2F;fengbingchun&#x2F;article&#x2F;details&#x2F;103223914  慎重选择容器类型，序列容器，关联容器，非STL容器，对STL进行分类，连续内存容器(vector、string、deque)和基于节点的容器(list、forward_list)，容器内部的引用计数技术，rope基于引用计数，本身是用可持久化平">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://precipitation0224.github.io/2023/03/13/hello-world/index.html">
+<meta property="og:title" content="STL设计知识总结">
+<meta property="og:url" content="http://precipitation0224.github.io/2023/03/14/STL%E8%AE%BE%E8%AE%A1%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="yummy home">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="reference link: https:&#x2F;&#x2F;blog.csdn.net&#x2F;fengbingchun&#x2F;article&#x2F;details&#x2F;103223914  慎重选择容器类型，序列容器，关联容器，非STL容器，对STL进行分类，连续内存容器(vector、string、deque)和基于节点的容器(list、forward_list)，容器内部的引用计数技术，rope基于引用计数，本身是用可持久化平">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-13T13:17:23.617Z">
-<meta property="article:modified_time" content="2023-03-13T13:17:23.617Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21906909/1677981449440-89bff10a-e505-4057-bc6d-49ae3aad5afa.png">
+<meta property="article:published_time" content="2023-03-14T15:06:54.000Z">
+<meta property="article:modified_time" content="2023-03-14T07:10:20.006Z">
 <meta property="article:author" content="Yummy">
+<meta property="article:tag" content="my notes">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2023/png/21906909/1677981449440-89bff10a-e505-4057-bc6d-49ae3aad5afa.png">
   
     <link rel="alternative" href="/atom.xml" title="yummy home" type="application/atom+xml">
   
@@ -199,7 +202,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        
+                        <a href="/tags/my-notes/" style="font-size: 10px;">my notes</a>
                     </div>
                 </section>
                 
@@ -276,11 +279,11 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-STL设计知识总结" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a  href="/2023/03/13/hello-world/" class="article-date">
-      <time datetime="2023-03-13T13:17:23.617Z" itemprop="datePublished">2023-03-13</time>
+      <a  href="/2023/03/14/STL%E8%AE%BE%E8%AE%A1%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" class="article-date">
+      <time datetime="2023-03-14T15:06:54.000Z" itemprop="datePublished">2023-03-14</time>
 </a>
 
     </div>
@@ -294,7 +297,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      STL设计知识总结
     </h1>
   
 
@@ -305,6 +308,10 @@
         
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/my-notes/" rel="tag">my notes</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -312,21 +319,19 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<p>没有什么好说的了吧，既来之，则安之</p>
-<p>不可不变</p>
+        <p>reference link: <a target="_blank" rel="noopener" href="https://blog.csdn.net/fengbingchun/article/details/103223914">https://blog.csdn.net/fengbingchun/article/details/103223914</a></p>
+<ol>
+<li>慎重选择容器类型，序列容器，关联容器，非STL容器，对STL进行分类，连续内存容器(vector、string、deque)和基于节点的容器(list、forward_list)，容器内部的引用计数技术，rope基于引用计数，本身是用可持久化平衡树实现的重型string<img src="https://cdn.nlark.com/yuque/0/2023/png/21906909/1677981449440-89bff10a-e505-4057-bc6d-49ae3aad5afa.png" alt="img"></li>
+<li>STL本身是泛化，不写独立于容器类型的代码，数组泛化为以其包含对象类型为参数的容器，函数泛化为以其使用的迭代器类型为参数的算法，将容器隐藏到一个类中，以减少通过类接口与容器相关的信息</li>
+<li>确保容器中的对象拷贝正确高效，对象是其拷贝在容器中，取出对象也是对象的拷贝，存在继承关系时，拷贝会导致剥离，防止子对象特有信息丢失就是使容器包含指针</li>
+<li>调用empty检测size()是否为0</li>
+<li>区间成员函数优先于与之对应的单元素成员函数，用两个迭代器确定成员操作所执行的区间，推荐assign和insert，清楚表达意图，表现更高效率</li>
+<li>视情况使用命名迭代器对象</li>
+<li>容器中包含new指针，在析构前delete掉指针，为避免资源泄漏，必须用引用计数计数形式的智能指针对象代替指针</li>
+<li>切勿创建包含auto_ptr的容器对象，创建后即转移对象的所有权，包含智能指针没问题</li>
+<li>慎用选择删除元素的方法，对于vector、string或deque这样的容器，erase-remove是删除特定值元素的最好办法，list对应list::remove，关联map这样的容器使用erase，判别式加if，遍历容器元素，返回值更新迭代器，关联容器则后缀递增</li>
+<li>分配子的约定和限制</li>
+</ol>
 
       
     </div>
@@ -335,13 +340,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a  href="/2023/03/13/hello-world/">Hello World</a></p>
+        <p><span>本文标题:</span><a  href="/2023/03/14/STL%E8%AE%BE%E8%AE%A1%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">STL设计知识总结</a></p>
         <p><span>文章作者:</span><a  href="/" title="访问  的个人博客"></a></p>
-        <p><span>发布时间:</span>2023年03月13日 - 13时17分</p>
-        <p><span>最后更新:</span>2023年03月13日 - 21时17分</p>
+        <p><span>发布时间:</span>2023年03月14日 - 15时06分</p>
+        <p><span>最后更新:</span>2023年03月14日 - 15时10分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2023/03/13/hello-world/" title="Hello World">http://precipitation0224.github.io/2023/03/13/hello-world/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://precipitation0224.github.io/2023/03/13/hello-world/　　作者: " title=""></span>
+            <span>原始链接:</span><a class="post-url" href="/2023/03/14/STL%E8%AE%BE%E8%AE%A1%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="STL设计知识总结">http://precipitation0224.github.io/2023/03/14/STL%E8%AE%BE%E8%AE%A1%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://precipitation0224.github.io/2023/03/14/STL%E8%AE%BE%E8%AE%A1%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/　　作者: " title=""></span>
         </p>
         <p>
             <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
@@ -352,15 +357,20 @@
 
 <nav id="article-nav">
   
-    <a  href="/2023/03/13/Blog-belongs-to-yummy/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a  href="/2023/03/14/TcpIp%E5%8D%B7%E4%B8%80%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          (no title)
+          TcpIp卷一协议知识总结
         
       </div>
     </a>
   
+  
+    <a  href="/2023/03/14/more-effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">more-effective-c++知识总结</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
   
 </nav>
 
@@ -370,7 +380,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    
 </div>
 <style>
     .left-col .switch-btn {
@@ -443,16 +453,18 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a  href="/2023/03/13/Blog-belongs-to-yummy/" title="上一篇: ">
+            <a  href="/2023/03/14/TcpIp%E5%8D%B7%E4%B8%80%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="上一篇: TcpIp卷一协议知识总结">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a  href="/2023/03/14/more-effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="下一篇: more-effective-c++知识总结">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023/03/14/effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">effective-c++知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/03/14/CSAPP%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">CSAPP知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/03/13/Blog-belongs-to-yummy/">Blog-belongs-to-yummy</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/03/13/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2023/03/14/TcpIp%E5%8D%B7%E4%B8%80%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">TcpIp卷一协议知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/03/14/STL%E8%AE%BE%E8%AE%A1%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">STL设计知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/03/14/more-effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">more-effective-c++知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/03/14/effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">effective-c++知识总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2023/03/14/CSAPP%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/">CSAPP知识总结</a></li></ul>
     
 <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 
