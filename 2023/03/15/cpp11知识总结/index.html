@@ -16,22 +16,22 @@
   <meta name="author" content="Yummy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="修bug真的是好烦！">
+    <meta name="description" content="1、c++11的一些特性 类型推导——C++11引入了auto和decltype关键字，使用他们可以在编译期就推导出变量或者表达式的类型，方便开发者编码也简化了代码。 其中有两个关键字：  auto：让编译器在编译器就推导出变量的类型，可以通过&#x3D;右边的类型推导出变量的类型。  1auto a &#x3D; 2; &#x2F;&#x2F; boost::typeindex::type_id_with_cur&lt;de">
 <meta property="og:type" content="article">
-<meta property="og:title" content="thoughts">
-<meta property="og:url" content="http://precipitation0224.github.io/2023/03/15/thoughts/index.html">
+<meta property="og:title" content="cpp11知识总结">
+<meta property="og:url" content="http://precipitation0224.github.io/2023/03/15/cpp11%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="yummy home">
-<meta property="og:description" content="修bug真的是好烦！">
+<meta property="og:description" content="1、c++11的一些特性 类型推导——C++11引入了auto和decltype关键字，使用他们可以在编译期就推导出变量或者表达式的类型，方便开发者编码也简化了代码。 其中有两个关键字：  auto：让编译器在编译器就推导出变量的类型，可以通过&#x3D;右边的类型推导出变量的类型。  1auto a &#x3D; 2; &#x2F;&#x2F; boost::typeindex::type_id_with_cur&lt;de">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-14T20:20:44.000Z">
-<meta property="article:modified_time" content="2023-03-14T12:21:18.949Z">
+<meta property="article:published_time" content="2023-03-15T10:29:13.000Z">
+<meta property="article:modified_time" content="2023-03-15T02:49:53.632Z">
 <meta property="article:author" content="Yummy">
-<meta property="article:tag" content="my os">
+<meta property="article:tag" content="interview">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>thoughts - yummy home</title>
+  <title>cpp11知识总结 - yummy home</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="thoughts"></span>
+            <span id="subtitle" data-typed-text="cpp11知识总结"></span>
           
         </div>
 
@@ -209,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-14 20:20" pubdate>
-          March 14, 2023 pm
+        <time datetime="2023-03-15 10:29" pubdate>
+          March 15, 2023 am
         </time>
       </span>
     
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          10 words
+          2.4k words
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          1 mins
+          21 mins
         
       </span>
     
@@ -270,12 +270,54 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">thoughts</h1>
+            <h1 style="display: none">cpp11知识总结</h1>
             
             
               <div class="markdown-body">
                 
-                <p>修bug真的是好烦！</p>
+                <p>1、c++11的一些特性</p>
+<p><em><strong>类型推导</strong></em>——C++11引入了auto和decltype关键字，使用他们可以在编译期就推导出变量或者表达式的类型，方便开发者编码也简化了代码。</p>
+<p>其中有两个关键字：</p>
+<ul>
+<li><strong>auto</strong>：让编译器在编译器就推导出变量的类型，可以通过&#x3D;右边的类型推导出变量的类型。</li>
+</ul>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ruby">auto a = <span class="hljs-number">2</span>; <span class="hljs-regexp">//</span> boost::typeindex::type_id_with_cur&lt;decltype(a)&gt;().pretty_name() = int<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>decltype</strong>：相对于auto用于推导变量类型，而decltype则用于推导表达式类型，这里只用于编译器分析表达式的类型，表达式实际不会进行运算。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">const</span> <span class="hljs-type">int</span> &amp;i = <span class="hljs-number">1</span>;<span class="hljs-keyword">decltype</span>(i) b = <span class="hljs-number">2</span>; <span class="hljs-comment">// boost::typeindex::type_id_with_cur&lt;decltype(b)&gt;().pretty_name() = const int&amp;</span><br></code></pre></td></tr></table></figure>
+
+<p><em><strong>左值右值</strong></em>——复制构造和移动构造，空间占用堆内存是否拷贝，如果临时对象即将消亡，并且它里面的资源是需要被再利用的，这个时候我们就可以触发移动构造。</p>
+<p>std::move函数可以将左值转换为右值引用，减少了不必要的拷贝操作。</p>
+<p><code>std::string str = &quot;Hello&quot;;std::vector&lt;string&gt; vec;vec.push_back(std::move(str)); // str==&quot;&quot;;</code><br>尽可能地<em><strong>列表初始化</strong></em></p>
+<p><em><strong>std::function和lambda表达式</strong></em></p>
+<p>可调用对象满足一点即可：</p>
+<ul>
+<li><p>是一个函数指针</p>
+</li>
+<li><p>是一个具有operator()成员函数的类对象(传说中的仿函数)，lambda表达式</p>
+</li>
+<li><p>是一个可被转换为函数指针的类对象</p>
+</li>
+<li><p>是一个类成员(函数)指针</p>
+</li>
+<li><p>bind表达式或其它函数对象</p>
+</li>
+</ul>
+<p>function是上面这种可调用对象的封装器，可以把std::function看做一个函数对象，用于表示函数这个抽象概念。std::function的实例可以存储、复制和调用任何可调用对象，存储的可调用对象称为std::function的目标，若std::function不含目标，则称它为空，调用空的std::function的目标会抛出std::bad_function_call异常。</p>
+<p>lambda表达式可以说是c++11引用的最重要的特性之一，它定义了一个匿名函数，可以捕获一定范围的变量在函数内部使用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> a = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">auto</span> f1 = [=]()&#123; <span class="hljs-keyword">return</span> a; &#125;; <span class="hljs-comment">// 值捕获a</span><br>cout &lt;&lt; <span class="hljs-built_in">f1</span>() &lt;&lt; endl;<br><br><span class="hljs-keyword">auto</span> f2 = [=]() &#123; <span class="hljs-keyword">return</span> a++; &#125;; <span class="hljs-comment">// 修改按值捕获的外部变量，error</span><br><span class="hljs-keyword">auto</span> f3 = [=]() <span class="hljs-keyword">mutable</span> &#123; <span class="hljs-keyword">return</span> a++; &#125;;<br></code></pre></td></tr></table></figure>
+
+<p><em><strong>default</strong></em>默认构造函数，这就不会让编译器隐式生成默认构造函数</p>
+<p><em><strong>nullptr</strong></em>是c++11用来表示空指针新引入的常量值，在c++中如果表示空指针语义时建议使用nullptr而不要使用NULL，因为NULL本质上是个int型的0，其实不是个指针。</p>
+<p><em><strong>final和override</strong></em>，其中final用于修饰一个类，表示禁止该类进一步派生和虚函数的进一步重载，override用于修饰派生类中的成员函数，标明该函数重写了基类函数，如果一个函数声明了override但父类却没有这个虚函数，编译报错，使用override关键字可以避免开发者在重写基类函数时无意产生的错误。</p>
+<p><em><strong>enum class</strong></em>带作用域的枚举代码，使用带有作用域的枚举类型后，对不同的枚举进行比较会导致编译失败，消除潜在bug，同时带作用域的枚举类型可以选择底层类型，默认是int，可以改成char等别的类型。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">AColor</span> &#123;<br>    kRed,<br>    kGreen,<br>    kBlue<br>&#125;;<br><br><span class="hljs-keyword">enum</span> <span class="hljs-title class_">BColor</span> &#123;<br>    kWhite,<br>    kBlack,<br>    kYellow<br>&#125;;<br><br><span class="hljs-keyword">enum class</span> <span class="hljs-title class_">AColorc</span> &#123;<br>    kRed,<br>    kGreen,<br>    kBlue<br>&#125;;<br><br><span class="hljs-keyword">enum class</span> <span class="hljs-title class_">BColorc</span> &#123;<br>    kWhite,<br>    kBlack,<br>    kYellow<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (kRed == kWhite) &#123;<br>        cout &lt;&lt; <span class="hljs-string">&quot;red == white&quot;</span> &lt;&lt; endl;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (AColorc::kRed == BColorc::kWhite) &#123; <span class="hljs-comment">// 编译失败</span><br>        cout &lt;&lt; <span class="hljs-string">&quot;red == white&quot;</span> &lt;&lt; endl;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><em><strong>constexpr</strong></em>用于编译时的常量和常量函数，这里直接介绍constexpr和const的区别：</p>
+<p>两者都代表可读，const只表示read only的语义，只保证了运行时不可以被修改，但它修饰的仍然有可能是个动态变量，而constexpr修饰的才是真正的常量，它会在编译期间就会被计算出来，整个运行过程中都不可以被改变，constexpr可以用于修饰函数，这个函数的返回值会尽可能在编译期间被计算出来当作一个常量，但是如果编译期间此函数不能被计算出来，那它就会当作一个普通函数被处理。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-keyword">constexpr</span> <span class="hljs-type">int</span> <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-type">int</span> i)</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> i + <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">2</span>;<br>    <span class="hljs-built_in">func</span>(i);<span class="hljs-comment">// 普通函数</span><br>    <span class="hljs-built_in">func</span>(<span class="hljs-number">2</span>);<span class="hljs-comment">// 编译期间就会被计算出来</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -288,7 +330,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/my-os/">#my os</a>
+        <a href="/tags/interview/">#interview</a>
       
     </div>
   
@@ -300,8 +342,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>thoughts</div>
-      <div>http://precipitation0224.github.io/2023/03/15/thoughts/</div>
+      <div>cpp11知识总结</div>
+      <div>http://precipitation0224.github.io/2023/03/15/cpp11知识总结/</div>
     </div>
     <div class="license-meta">
       
@@ -313,7 +355,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 14, 2023</div>
+          <div>March 15, 2023</div>
         </div>
       
       
@@ -345,9 +387,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/15/cpp11%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="cpp11知识总结">
+                      <a href="/2023/03/15/%E4%B8%A4%E9%81%93%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" title="两道基础算法">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">cpp11知识总结</span>
+                        <span class="hidden-mobile">两道基础算法</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -355,8 +397,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/14/Tcpip%E5%8D%B7%E4%B8%80%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" title="Tcpip卷一协议知识总结">
-                        <span class="hidden-mobile">Tcpip卷一协议知识总结</span>
+                      <a href="/2023/03/15/thoughts/" title="thoughts">
+                        <span class="hidden-mobile">thoughts</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
