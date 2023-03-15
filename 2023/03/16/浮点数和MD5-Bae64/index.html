@@ -20,22 +20,22 @@
   <meta name="author" content="Yummy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="2、std::string的缺陷 最大的缺点是 std::string 是「字节串」而非「字符串」  它是可变对象，任何对 string 对象的操作都会改变原对象的值而不是重新生成一个 string 对象，线程不安全； 不能很好的处理宽字节的字符； 没有足够多的好用的函数，没有format格式输出，要借助要用stdio.h头文件里的 sprintf 函数。  3、智能指针和原生指针的开销 泛型指针">
+    <meta name="description" content="4、浮点数的存储方式  符号位：‘+’存储为0，‘-’存储为1  将数字转化成二进制数  将二进制数规范化为 1.xxxxxxxx*2^n  将n转化为指数（+127） 尾数xxxx后面补零   5、介绍MD5、Base64 MD5即Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语">
 <meta property="og:type" content="article">
-<meta property="og:title" content="string的缺陷和指针选择">
-<meta property="og:url" content="http://precipitation0224.github.io/2023/03/15/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/index.html">
+<meta property="og:title" content="浮点数和MD5,Bae64">
+<meta property="og:url" content="http://precipitation0224.github.io/2023/03/16/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/index.html">
 <meta property="og:site_name" content="yummy home">
-<meta property="og:description" content="2、std::string的缺陷 最大的缺点是 std::string 是「字节串」而非「字符串」  它是可变对象，任何对 string 对象的操作都会改变原对象的值而不是重新生成一个 string 对象，线程不安全； 不能很好的处理宽字节的字符； 没有足够多的好用的函数，没有format格式输出，要借助要用stdio.h头文件里的 sprintf 函数。  3、智能指针和原生指针的开销 泛型指针">
+<meta property="og:description" content="4、浮点数的存储方式  符号位：‘+’存储为0，‘-’存储为1  将数字转化成二进制数  将二进制数规范化为 1.xxxxxxxx*2^n  将n转化为指数（+127） 尾数xxxx后面补零   5、介绍MD5、Base64 MD5即Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-15T13:07:29.000Z">
-<meta property="article:modified_time" content="2023-03-15T05:08:01.595Z">
+<meta property="article:published_time" content="2023-03-15T18:32:32.000Z">
+<meta property="article:modified_time" content="2023-03-15T10:33:21.847Z">
 <meta property="article:author" content="Yummy">
 <meta property="article:tag" content="interview">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>string的缺陷和指针选择 - yummy home</title>
+  <title>浮点数和MD5,Bae64 - yummy home</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="string的缺陷和指针选择"></span>
+            <span id="subtitle" data-typed-text="浮点数和MD5,Bae64"></span>
           
         </div>
 
@@ -213,7 +213,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-15 13:07" pubdate>
+        <time datetime="2023-03-15 18:32" pubdate>
           March 15, 2023 pm
         </time>
       </span>
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k words
+          546 words
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          11 mins
+          5 mins
         
       </span>
     
@@ -274,33 +274,26 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">string的缺陷和指针选择</h1>
+            <h1 style="display: none">浮点数和MD5,Bae64</h1>
             
             
               <div class="markdown-body">
                 
-                <p>2、std::string的缺陷</p>
-<p>最大的缺点是 std::string 是「字节串」而非「字符串」</p>
+                <p>4、浮点数的存储方式</p>
 <ol>
-<li>它是可变对象，任何对 string 对象的操作都会改变原对象的值而不是重新生成一个 string 对象，线程不安全；</li>
-<li>不能很好的处理宽字节的字符；</li>
-<li>没有足够多的好用的函数，没有format格式输出，要借助要用stdio.h头文件里的 sprintf 函数。</li>
+<li><p>符号位：‘+’存储为0，‘-’存储为1</p>
+</li>
+<li><p>将数字转化成二进制数</p>
+</li>
+<li><p>将二进制数规范化为 1.xxxxxxxx*2^n</p>
+</li>
+<li><p>将n转化为指数（+127） 尾数xxxx后面补零</p>
+</li>
 </ol>
-<p>3、智能指针和原生指针的开销</p>
-<p><strong>泛型指针：</strong></p>
-<p>泛型指针有多种含义。1) 指void*指针，可以指向任意数据类型，因此具有“泛型”含义。2) 指具有指针特性的泛型数据结构，包含泛型的迭代器、智能指针等。 广义的迭代器是一种不透明指针，能够实现遍历访问操作。通常所说的迭代器是指狭义的迭代器，即基于C++的STL中基于泛型的iterator_traits实现的类的实例。总体来说，泛型指针和迭代器是两个不同的概念，其中的交集则是通常提到的迭代器类。</p>
-<p><strong>原生指针：</strong></p>
-<p>原生指针就是普通指针， 定义类似：类型 <em>变量名（int <em>p）;相反的若是一个类重载了‘</em>’和‘-&gt;’的运算符，能够像指针同样用‘</em>’和‘-&gt;’操做，就不是原生的，如iterator等。说“原生”是指“最简朴最基本的那一种”。因为现在很多东西都抽象化理论化了，所以“以前的那种最简朴最基本的指针”只是一个抽象概念（比如iterator）的表现形式之一。</p>
-<p>c++的原生指针又可以分为普通指针，成员指针，函数指针。</p>
-<p><strong>智能指针：</strong></p>
-<p>智能指针是c++2.0的新特性之一，其最大的特点在于其结合了指针和对象构造析构的优点RAII，使得其在其生存期结束时可以及时释放其所管理的资源（动态内存分配得到的资源）。由于 C++ 语言没有自动内存回收机制，程序员每次得自己处理内存相关问题，但用智能指针便可以有效缓解这类问题。 一般是把指针封装到一个称之为智能指针类中，这个类中另外还封装了一个使用计数器，对指针的复制等操作将导致该计数器的值加1，对指针的delete操作则会减1，值为0时，指针为NULL。下面是智能指针的选择。</p>
-<p>（1）如果程序要使用多个指向同一个对象的指针，应选择 shared_ptr。这样的情况包括三种：</p>
-<ol>
-<li>有一个指针数组，并使用一些辅助指针来标示特定的元素，如最大的元素和最小的元素；</li>
-<li>两个对象包含都指向第三个对象的指针；</li>
-<li>STL 容器包含指针。很多 STL 算法都支持复制和赋值操作，这些操作可用于 shared_ptr，但不能用于 unique_ptr（编译器发出 warning）和 auto_ptr（行为不确定）。如果你的编译器没有提供 shared_ptr，可使用 Boost 库提供的 shared_ptr。</li>
-</ol>
-<p>（2）如果程序不需要多个指向同一个对象的指针，则可使用 unique_ptr。如果函数使用 new 分配内存，并返还指向该内存的指针，将其返回类型声明为 unique_ptr 是不错的选择。这样，所有权转让给接受返回值的 unique_ptr，而该智能指针将负责调用 delete。</p>
+<p>5、介绍MD5、Base64</p>
+<p>MD5即Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语言普遍已有MD5实现。将数据（如汉字）运算为另一固定长度值，是杂凑算法的基础原理，MD5的前身有MD2、MD3和MD4。md5运算结果是一个固定长度为128位的二进制数，经过一系列的运算得到32个16进制数。</p>
+<p>Base64是一种使用64基的位置计数法。它使用2的最大次方来代表仅可打印的ASCII字符。这使它可用来作为电子邮件的传输编码。在Base64中的变量使用字符A-Z、a-z和0-9，这样共有62个字符，用来作为开始的64个数字，最后两个用来作为数字的符号在不同的系统中而不同。一些如unencode的其他编码方法，和之后binhex的版本使用不同的64字符集来代表6个二进制数字，但是它们不叫Base64。</p>
+<p>MD5加密算法是不可逆的，base64加密算法是可逆的；MD5加密算法是不可逆的，base64加密算法是可逆的</p>
 
                 
               </div>
@@ -325,8 +318,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>string的缺陷和指针选择</div>
-      <div>http://precipitation0224.github.io/2023/03/15/string的缺陷和指针选择/</div>
+      <div>浮点数和MD5,Bae64</div>
+      <div>http://precipitation0224.github.io/2023/03/16/浮点数和MD5-Bae64/</div>
     </div>
     <div class="license-meta">
       
@@ -370,18 +363,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/16/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/" title="浮点数和MD5,Bae64">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">浮点数和MD5,Bae64</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/15/%E4%B8%A4%E9%81%93%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" title="两道基础算法">
-                        <span class="hidden-mobile">两道基础算法</span>
+                      <a href="/2023/03/15/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/" title="string的缺陷和指针选择">
+                        <span class="hidden-mobile">string的缺陷和指针选择</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
