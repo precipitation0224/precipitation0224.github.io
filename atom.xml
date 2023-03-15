@@ -6,7 +6,7 @@
   <link href="http://precipitation0224.github.io/atom.xml" rel="self"/>
   
   <link href="http://precipitation0224.github.io/"/>
-  <updated>2023-03-15T11:00:16.115Z</updated>
+  <updated>2023-03-15T11:53:49.191Z</updated>
   <id>http://precipitation0224.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>http缺陷，tls和QUIC</title>
+    <link href="http://precipitation0224.github.io/2023/03/16/tls/"/>
+    <id>http://precipitation0224.github.io/2023/03/16/tls/</id>
+    <published>2023-03-15T19:53:04.000Z</published>
+    <updated>2023-03-15T11:53:49.191Z</updated>
+    
+    <content type="html"><![CDATA[<p>10、http安全保证，tls，如何握手</p><p>HTTP协议没有任何的加密以及身份验证的机制，非常容易遭到窃听、劫持、篡改等。不安全的原因主要包含以下方面：</p><ol><li>通信使用明文，内容可能被窃听。</li><li>不验证通信方的身份，因此有可能遭到伪装。</li><li>无法验证报文的完整性，所以有可能被篡改。</li><li>传统的HTTP请求过程都是明文传输的，所谓的明文指的是没有经过加密的信息，如果HTTP请求和响应被黑客拦截，并且里面含有密码等敏感数据的话，会非常危险。</li></ol><p><em><strong>QUIC</strong></em> 协议 (RFC 9000) 旨在提高 Web 性能并减少访问延迟，同时保持通信机密。 一种基本方法是通过将 QUIC 握手与 TLS 1.3 握手集成并将多个 QUIC 数据包合并到一个 UDP 数据报中来减少初始往返时间 (RTT)。</p><p>总的来说，QUIC 相比于 HTTP&#x2F;2.0 来说，具有下面这些优势：</p><ul><li>使用 UDP 协议，不需要三次连接进行握手，而且也会缩短 TLS 建立连接的时间。</li><li>解决了队头阻塞问题</li><li>实现动态可插拔，在应用层实现了拥塞控制算法，可以随时切换。</li><li>报文头和报文体分别进行认证和加密处理，保障安全性。</li><li>连接能够平滑迁移</li></ul><p>连接平滑迁移指的是，你的手机或者移动设备在 4G 信号下和 WiFi 等网络情况下切换，不会断线重连，用户甚至无任何感知，能够直接实现平滑的信号切换。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;10、http安全保证，tls，如何握手&lt;/p&gt;
+&lt;p&gt;HTTP协议没有任何的加密以及身份验证的机制，非常容易遭到窃听、劫持、篡改等。不安全的原因主要包含以下方面：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;通信使用明文，内容可能被窃听。&lt;/li&gt;
+&lt;li&gt;不验证通信方的身份，因此有可能遭</summary>
+      
+    
+    
+    
+    
+    <category term="interview" scheme="http://precipitation0224.github.io/tags/interview/"/>
+    
+  </entry>
   
   <entry>
     <title>cookie总结</title>

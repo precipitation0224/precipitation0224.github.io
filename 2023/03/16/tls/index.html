@@ -20,22 +20,22 @@
   <meta name="author" content="Yummy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="8、cookie cookie是当前识别用户，实现持久化会话的最好方式。简单点说就是服务器知道正在和哪个客户端通信，以及保持与已识别出的客户端通信。Cookie的基本思想就是让浏览器积累一组服务器特有的信息，每次访问服务器时都将这些信息提供给它。同时可以对连接另一端的用户有更多的了解，并且能在用户浏览页面时对其进行跟踪。 cookie可以分为以下两类： （1）会话cookie。临时cookie，记">
+    <meta name="description" content="10、http安全保证，tls，如何握手 HTTP协议没有任何的加密以及身份验证的机制，非常容易遭到窃听、劫持、篡改等。不安全的原因主要包含以下方面：  通信使用明文，内容可能被窃听。 不验证通信方的身份，因此有可能遭到伪装。 无法验证报文的完整性，所以有可能被篡改。 传统的HTTP请求过程都是明文传输的，所谓的明文指的是没有经过加密的信息，如果HTTP请求和响应被黑客拦截，并且里面含有密码等敏感">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cookie总结">
-<meta property="og:url" content="http://precipitation0224.github.io/2023/03/16/cookie%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="http缺陷，tls和QUIC">
+<meta property="og:url" content="http://precipitation0224.github.io/2023/03/16/tls/index.html">
 <meta property="og:site_name" content="yummy home">
-<meta property="og:description" content="8、cookie cookie是当前识别用户，实现持久化会话的最好方式。简单点说就是服务器知道正在和哪个客户端通信，以及保持与已识别出的客户端通信。Cookie的基本思想就是让浏览器积累一组服务器特有的信息，每次访问服务器时都将这些信息提供给它。同时可以对连接另一端的用户有更多的了解，并且能在用户浏览页面时对其进行跟踪。 cookie可以分为以下两类： （1）会话cookie。临时cookie，记">
+<meta property="og:description" content="10、http安全保证，tls，如何握手 HTTP协议没有任何的加密以及身份验证的机制，非常容易遭到窃听、劫持、篡改等。不安全的原因主要包含以下方面：  通信使用明文，内容可能被窃听。 不验证通信方的身份，因此有可能遭到伪装。 无法验证报文的完整性，所以有可能被篡改。 传统的HTTP请求过程都是明文传输的，所谓的明文指的是没有经过加密的信息，如果HTTP请求和响应被黑客拦截，并且里面含有密码等敏感">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-15T18:59:45.000Z">
-<meta property="article:modified_time" content="2023-03-15T11:00:16.115Z">
+<meta property="article:published_time" content="2023-03-15T19:53:04.000Z">
+<meta property="article:modified_time" content="2023-03-15T11:53:49.191Z">
 <meta property="article:author" content="Yummy">
 <meta property="article:tag" content="interview">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>cookie总结 - yummy home</title>
+  <title>http缺陷，tls和QUIC - yummy home</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="cookie总结"></span>
+            <span id="subtitle" data-typed-text="http缺陷，tls和QUIC"></span>
           
         </div>
 
@@ -213,7 +213,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-15 18:59" pubdate>
+        <time datetime="2023-03-15 19:53" pubdate>
           March 15, 2023 pm
         </time>
       </span>
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          932 words
+          527 words
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          8 mins
+          5 mins
         
       </span>
     
@@ -274,24 +274,29 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">cookie总结</h1>
+            <h1 style="display: none">http缺陷，tls和QUIC</h1>
             
             
               <div class="markdown-body">
                 
-                <p>8、cookie</p>
-<p><strong>cookie</strong>是当前识别用户，实现持久化会话的最好方式。简单点说就是服务器知道正在和哪个客户端通信，以及保持与已识别出的客户端通信。Cookie的基本思想就是让浏览器积累一组服务器特有的信息，每次访问服务器时都将这些信息提供给它。同时可以对连接另一端的用户有更多的了解，并且能在用户浏览页面时对其进行跟踪。</p>
-<p><strong>cookie</strong>可以分为以下两类：</p>
-<p>（1）会话cookie。临时cookie，记录了用户访问站点时的设置和偏好。用户退出浏览器时，会话cookie就被删除了。</p>
-<p>（2）持久cookie。持久cookie的生存时间更长一些；它们存储在硬盘上，浏览器退出，计算机重启时它们仍然存在。通常会用持久cookie维护某个用户会周期性访问的站点的配置文件或登录名。</p>
-<p>唯一区别就是它们的过期时间。如果设置了Discard参数或没有设置Expires或没有设置Max-Age参数则说明这个cookie就是一个会话cookie。</p>
-<p><strong>存储</strong>——浏览器负责存储cookie信息。不同的浏览器会以不同的方式来存储cookie。有的浏览器用cookis.txt存储。有的浏览器存储在高速缓存目录下独立的文本文件中。</p>
-<p><strong>cookie</strong>存在安全隐患。第三方Web站点使用持久cookie来跟踪用户就是对cookie一种最大的滥用。将这种做法与IP地址和Referer首部信息结合在一起，这些营销公司就可以构建起相当精确的用户档案和浏览模式信息。</p>
-<p><strong>cookie工作原理</strong></p>
-<p>（1）用户首次访问Web站点时，Web服务器对用户一无所知。</p>
-<p>（2）Web服务器通过Set-Cookie首部将cookie存放到浏览器中的cookie数据库中。cookie中包含了N个键值对，例如Cookie: id&#x3D;“1234”。cookie中可以包含任意信息，但它们通常都只包含一个服务器为了进行跟踪而产生的独特的识别码。</p>
-<p>（3）将来用户再次访问同一站点时，浏览器会从cookie数据库中挑中那个服务器设置的cookie，并在cookie请求首部中（Cookie: id&#x3D;“1234”）将其传回给服务器。</p>
-<p>（4）服务器可以通过id&#x3D;”1234”这个键值对来查找服务器为其访问积累的信息（购物历史、地址信息等）。</p>
+                <p>10、http安全保证，tls，如何握手</p>
+<p>HTTP协议没有任何的加密以及身份验证的机制，非常容易遭到窃听、劫持、篡改等。不安全的原因主要包含以下方面：</p>
+<ol>
+<li>通信使用明文，内容可能被窃听。</li>
+<li>不验证通信方的身份，因此有可能遭到伪装。</li>
+<li>无法验证报文的完整性，所以有可能被篡改。</li>
+<li>传统的HTTP请求过程都是明文传输的，所谓的明文指的是没有经过加密的信息，如果HTTP请求和响应被黑客拦截，并且里面含有密码等敏感数据的话，会非常危险。</li>
+</ol>
+<p><em><strong>QUIC</strong></em> 协议 (RFC 9000) 旨在提高 Web 性能并减少访问延迟，同时保持通信机密。 一种基本方法是通过将 QUIC 握手与 TLS 1.3 握手集成并将多个 QUIC 数据包合并到一个 UDP 数据报中来减少初始往返时间 (RTT)。</p>
+<p>总的来说，QUIC 相比于 HTTP&#x2F;2.0 来说，具有下面这些优势：</p>
+<ul>
+<li>使用 UDP 协议，不需要三次连接进行握手，而且也会缩短 TLS 建立连接的时间。</li>
+<li>解决了队头阻塞问题</li>
+<li>实现动态可插拔，在应用层实现了拥塞控制算法，可以随时切换。</li>
+<li>报文头和报文体分别进行认证和加密处理，保障安全性。</li>
+<li>连接能够平滑迁移</li>
+</ul>
+<p>连接平滑迁移指的是，你的手机或者移动设备在 4G 信号下和 WiFi 等网络情况下切换，不会断线重连，用户甚至无任何感知，能够直接实现平滑的信号切换。</p>
 
                 
               </div>
@@ -316,8 +321,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>cookie总结</div>
-      <div>http://precipitation0224.github.io/2023/03/16/cookie总结/</div>
+      <div>http缺陷，tls和QUIC</div>
+      <div>http://precipitation0224.github.io/2023/03/16/tls/</div>
     </div>
     <div class="license-meta">
       
@@ -361,18 +366,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/16/tls/" title="http缺陷，tls和QUIC">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">http缺陷，tls和QUIC</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/16/C-%E4%B8%AD%E7%9A%84unicode/" title="C++中的unicode">
-                        <span class="hidden-mobile">C++中的unicode</span>
+                      <a href="/2023/03/16/cookie%E6%80%BB%E7%BB%93/" title="cookie总结">
+                        <span class="hidden-mobile">cookie总结</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
