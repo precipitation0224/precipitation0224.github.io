@@ -20,22 +20,22 @@
   <meta name="author" content="Yummy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="2、std::string的缺陷 最大的缺点是 std::string 是「字节串」而非「字符串」  它是可变对象，任何对 string 对象的操作都会改变原对象的值而不是重新生成一个 string 对象，线程不安全； 不能很好的处理宽字节的字符； 没有足够多的好用的函数，没有format格式输出，要借助要用stdio.h头文件里的 sprintf 函数。  3、智能指针和原生指针的开销 泛型指针">
+    <meta name="description" content="7、utf8，utf16区别，c++用哪个 UTF-8(8-bit Unicode Transformation Format) UTF-8是一种变长编码，对于一个Unicode的字符被编码成1至4个字节 优点:1.向后兼容ASCII编码；2.没有字节序(大小端)的问题适合网络传输；3.存储英文和拉丁文等字符非常节省存储空间。缺点:1.变长编码不利于文本处理；2.对于CJK等文字比较浪费存储空间。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="string的缺陷和指针选择">
-<meta property="og:url" content="http://precipitation0224.github.io/2023/03/15/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/index.html">
+<meta property="og:title" content="C++中的unicode">
+<meta property="og:url" content="http://precipitation0224.github.io/2023/03/16/C-%E4%B8%AD%E7%9A%84unicode/index.html">
 <meta property="og:site_name" content="yummy home">
-<meta property="og:description" content="2、std::string的缺陷 最大的缺点是 std::string 是「字节串」而非「字符串」  它是可变对象，任何对 string 对象的操作都会改变原对象的值而不是重新生成一个 string 对象，线程不安全； 不能很好的处理宽字节的字符； 没有足够多的好用的函数，没有format格式输出，要借助要用stdio.h头文件里的 sprintf 函数。  3、智能指针和原生指针的开销 泛型指针">
+<meta property="og:description" content="7、utf8，utf16区别，c++用哪个 UTF-8(8-bit Unicode Transformation Format) UTF-8是一种变长编码，对于一个Unicode的字符被编码成1至4个字节 优点:1.向后兼容ASCII编码；2.没有字节序(大小端)的问题适合网络传输；3.存储英文和拉丁文等字符非常节省存储空间。缺点:1.变长编码不利于文本处理；2.对于CJK等文字比较浪费存储空间。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-15T13:07:29.000Z">
-<meta property="article:modified_time" content="2023-03-15T05:08:01.595Z">
+<meta property="article:published_time" content="2023-03-15T18:50:57.000Z">
+<meta property="article:modified_time" content="2023-03-15T10:51:38.295Z">
 <meta property="article:author" content="Yummy">
 <meta property="article:tag" content="interview">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>string的缺陷和指针选择 - yummy home</title>
+  <title>C++中的unicode - yummy home</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="string的缺陷和指针选择"></span>
+            <span id="subtitle" data-typed-text="C++中的unicode"></span>
           
         </div>
 
@@ -213,7 +213,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-15 13:07" pubdate>
+        <time datetime="2023-03-15 18:50" pubdate>
           March 15, 2023 pm
         </time>
       </span>
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k words
+          1k words
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          11 mins
+          9 mins
         
       </span>
     
@@ -274,33 +274,20 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">string的缺陷和指针选择</h1>
+            <h1 style="display: none">C++中的unicode</h1>
             
             
               <div class="markdown-body">
                 
-                <p>2、std::string的缺陷</p>
-<p>最大的缺点是 std::string 是「字节串」而非「字符串」</p>
-<ol>
-<li>它是可变对象，任何对 string 对象的操作都会改变原对象的值而不是重新生成一个 string 对象，线程不安全；</li>
-<li>不能很好的处理宽字节的字符；</li>
-<li>没有足够多的好用的函数，没有format格式输出，要借助要用stdio.h头文件里的 sprintf 函数。</li>
-</ol>
-<p>3、智能指针和原生指针的开销</p>
-<p><strong>泛型指针：</strong></p>
-<p>泛型指针有多种含义。1) 指void*指针，可以指向任意数据类型，因此具有“泛型”含义。2) 指具有指针特性的泛型数据结构，包含泛型的迭代器、智能指针等。 广义的迭代器是一种不透明指针，能够实现遍历访问操作。通常所说的迭代器是指狭义的迭代器，即基于C++的STL中基于泛型的iterator_traits实现的类的实例。总体来说，泛型指针和迭代器是两个不同的概念，其中的交集则是通常提到的迭代器类。</p>
-<p><strong>原生指针：</strong></p>
-<p>原生指针就是普通指针， 定义类似：类型 <em>变量名（int <em>p）;相反的若是一个类重载了‘</em>’和‘-&gt;’的运算符，能够像指针同样用‘</em>’和‘-&gt;’操做，就不是原生的，如iterator等。说“原生”是指“最简朴最基本的那一种”。因为现在很多东西都抽象化理论化了，所以“以前的那种最简朴最基本的指针”只是一个抽象概念（比如iterator）的表现形式之一。</p>
-<p>c++的原生指针又可以分为普通指针，成员指针，函数指针。</p>
-<p><strong>智能指针：</strong></p>
-<p>智能指针是c++2.0的新特性之一，其最大的特点在于其结合了指针和对象构造析构的优点RAII，使得其在其生存期结束时可以及时释放其所管理的资源（动态内存分配得到的资源）。由于 C++ 语言没有自动内存回收机制，程序员每次得自己处理内存相关问题，但用智能指针便可以有效缓解这类问题。 一般是把指针封装到一个称之为智能指针类中，这个类中另外还封装了一个使用计数器，对指针的复制等操作将导致该计数器的值加1，对指针的delete操作则会减1，值为0时，指针为NULL。下面是智能指针的选择。</p>
-<p>（1）如果程序要使用多个指向同一个对象的指针，应选择 shared_ptr。这样的情况包括三种：</p>
-<ol>
-<li>有一个指针数组，并使用一些辅助指针来标示特定的元素，如最大的元素和最小的元素；</li>
-<li>两个对象包含都指向第三个对象的指针；</li>
-<li>STL 容器包含指针。很多 STL 算法都支持复制和赋值操作，这些操作可用于 shared_ptr，但不能用于 unique_ptr（编译器发出 warning）和 auto_ptr（行为不确定）。如果你的编译器没有提供 shared_ptr，可使用 Boost 库提供的 shared_ptr。</li>
-</ol>
-<p>（2）如果程序不需要多个指向同一个对象的指针，则可使用 unique_ptr。如果函数使用 new 分配内存，并返还指向该内存的指针，将其返回类型声明为 unique_ptr 是不错的选择。这样，所有权转让给接受返回值的 unique_ptr，而该智能指针将负责调用 delete。</p>
+                <p>7、utf8，utf16区别，c++用哪个</p>
+<p><strong>UTF-8(8-bit Unicode Transformation Format)</strong></p>
+<p>UTF-8是一种变长编码，对于一个Unicode的字符被编码成1至4个字节</p>
+<p>优点:<br>1.向后兼容ASCII编码；<br>2.没有字节序(大小端)的问题适合网络传输；<br>3.存储英文和拉丁文等字符非常节省存储空间。<br>缺点:<br>1.变长编码不利于文本处理；<br>2.对于CJK等文字比较浪费存储空间。</p>
+<p><strong>UTF-16(16-bit Unicode Transformation Format)</strong></p>
+<p>UTF-16也是一种变长编码，对于一个Unicode字符被编码成1至2个码元，每个码元为16位</p>
+<p>优点:<br>1.绝大部分的文字都可以用两个字节编码，对于CJK文字是比较节省空间的；<br>2.文本处理比UTF-8方便得多。<br>缺点:<br>1.存储和传输需要考虑字节序的问题；<br>2.不兼容ASCII。</p>
+<p><strong>USL（Unicode String Literals）</strong>是C++11对Unicode提供的语言级别的支持。在C++11之前C++中有个<strong>wchar_t</strong>的类型用于存储宽字符（Wide-Character）。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> __UTFCONVERT_H__</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> __UTFCONVERT_H__</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br> <br> <br><span class="hljs-comment">// 从UTF16编码字符串构建，需要带BOM标记</span><br><span class="hljs-function">std::string <span class="hljs-title">utf16_to_utf8</span><span class="hljs-params">(<span class="hljs-type">const</span> std::u16string&amp; u16str)</span></span>;<br> <br><span class="hljs-comment">// 从UTF16 LE编码的字符串创建</span><br><span class="hljs-function">std::string <span class="hljs-title">utf16le_to_utf8</span><span class="hljs-params">(<span class="hljs-type">const</span> std::u16string&amp; u16str)</span></span>;<br> <br><span class="hljs-comment">// 从UTF16BE编码字符串创建</span><br><span class="hljs-function">std::string <span class="hljs-title">utf16be_to_utf8</span><span class="hljs-params">(<span class="hljs-type">const</span> std::u16string&amp; u16str)</span></span>;<br> <br><span class="hljs-comment">// 获取转换为UTF-16 LE编码的字符串</span><br><span class="hljs-function">std::u16string <span class="hljs-title">utf8_to_utf16le</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; u8str, <span class="hljs-type">bool</span> addbom = <span class="hljs-literal">false</span>, <span class="hljs-type">bool</span>* ok = <span class="hljs-literal">NULL</span>)</span></span>;<br> <br><span class="hljs-comment">// 获取转换为UTF-16 BE的字符串</span><br><span class="hljs-function">std::u16string <span class="hljs-title">utf8_to_utf16be</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; u8str, <span class="hljs-type">bool</span> addbom = <span class="hljs-literal">false</span>, <span class="hljs-type">bool</span>* ok = <span class="hljs-literal">NULL</span>)</span></span>;<br> <br><span class="hljs-meta">#<span class="hljs-keyword">endif</span> <span class="hljs-comment">//! __UTFCONVERT_H__</span></span><br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -325,8 +312,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>string的缺陷和指针选择</div>
-      <div>http://precipitation0224.github.io/2023/03/15/string的缺陷和指针选择/</div>
+      <div>C++中的unicode</div>
+      <div>http://precipitation0224.github.io/2023/03/16/C-中的unicode/</div>
     </div>
     <div class="license-meta">
       
@@ -370,9 +357,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/16/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/" title="浮点数和MD5,Base64">
+                      <a href="/2023/03/16/cookie%E6%80%BB%E7%BB%93/" title="cookie总结">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">浮点数和MD5,Base64</span>
+                        <span class="hidden-mobile">cookie总结</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -380,8 +367,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/15/%E4%B8%A4%E9%81%93%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" title="两道基础算法">
-                        <span class="hidden-mobile">两道基础算法</span>
+                      <a href="/2023/03/16/1-0-2-3%E4%BC%98%E5%8C%96/" title="http 1.0/2/3优化">
+                        <span class="hidden-mobile">http 1.0/2/3优化</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

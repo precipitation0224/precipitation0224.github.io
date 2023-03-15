@@ -4,7 +4,64 @@
   
   
   <entry>
-    <title>浮点数和MD5,Bae64</title>
+    <title>cookie总结</title>
+    <link href="/2023/03/16/cookie%E6%80%BB%E7%BB%93/"/>
+    <url>/2023/03/16/cookie%E6%80%BB%E7%BB%93/</url>
+    
+    <content type="html"><![CDATA[<p>8、cookie</p><p><strong>cookie</strong>是当前识别用户，实现持久化会话的最好方式。简单点说就是服务器知道正在和哪个客户端通信，以及保持与已识别出的客户端通信。Cookie的基本思想就是让浏览器积累一组服务器特有的信息，每次访问服务器时都将这些信息提供给它。同时可以对连接另一端的用户有更多的了解，并且能在用户浏览页面时对其进行跟踪。</p><p><strong>cookie</strong>可以分为以下两类：</p><p>（1）会话cookie。临时cookie，记录了用户访问站点时的设置和偏好。用户退出浏览器时，会话cookie就被删除了。</p><p>（2）持久cookie。持久cookie的生存时间更长一些；它们存储在硬盘上，浏览器退出，计算机重启时它们仍然存在。通常会用持久cookie维护某个用户会周期性访问的站点的配置文件或登录名。</p><p>唯一区别就是它们的过期时间。如果设置了Discard参数或没有设置Expires或没有设置Max-Age参数则说明这个cookie就是一个会话cookie。</p><p><strong>存储</strong>——浏览器负责存储cookie信息。不同的浏览器会以不同的方式来存储cookie。有的浏览器用cookis.txt存储。有的浏览器存储在高速缓存目录下独立的文本文件中。</p><p><strong>cookie</strong>存在安全隐患。第三方Web站点使用持久cookie来跟踪用户就是对cookie一种最大的滥用。将这种做法与IP地址和Referer首部信息结合在一起，这些营销公司就可以构建起相当精确的用户档案和浏览模式信息。</p><p><strong>cookie工作原理</strong></p><p>（1）用户首次访问Web站点时，Web服务器对用户一无所知。</p><p>（2）Web服务器通过Set-Cookie首部将cookie存放到浏览器中的cookie数据库中。cookie中包含了N个键值对，例如Cookie: id&#x3D;“1234”。cookie中可以包含任意信息，但它们通常都只包含一个服务器为了进行跟踪而产生的独特的识别码。</p><p>（3）将来用户再次访问同一站点时，浏览器会从cookie数据库中挑中那个服务器设置的cookie，并在cookie请求首部中（Cookie: id&#x3D;“1234”）将其传回给服务器。</p><p>（4）服务器可以通过id&#x3D;”1234”这个键值对来查找服务器为其访问积累的信息（购物历史、地址信息等）。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>interview</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>C++中的unicode</title>
+    <link href="/2023/03/16/C-%E4%B8%AD%E7%9A%84unicode/"/>
+    <url>/2023/03/16/C-%E4%B8%AD%E7%9A%84unicode/</url>
+    
+    <content type="html"><![CDATA[<p>7、utf8，utf16区别，c++用哪个</p><p><strong>UTF-8(8-bit Unicode Transformation Format)</strong></p><p>UTF-8是一种变长编码，对于一个Unicode的字符被编码成1至4个字节</p><p>优点:<br>1.向后兼容ASCII编码；<br>2.没有字节序(大小端)的问题适合网络传输；<br>3.存储英文和拉丁文等字符非常节省存储空间。<br>缺点:<br>1.变长编码不利于文本处理；<br>2.对于CJK等文字比较浪费存储空间。</p><p><strong>UTF-16(16-bit Unicode Transformation Format)</strong></p><p>UTF-16也是一种变长编码，对于一个Unicode字符被编码成1至2个码元，每个码元为16位</p><p>优点:<br>1.绝大部分的文字都可以用两个字节编码，对于CJK文字是比较节省空间的；<br>2.文本处理比UTF-8方便得多。<br>缺点:<br>1.存储和传输需要考虑字节序的问题；<br>2.不兼容ASCII。</p><p><strong>USL（Unicode String Literals）</strong>是C++11对Unicode提供的语言级别的支持。在C++11之前C++中有个<strong>wchar_t</strong>的类型用于存储宽字符（Wide-Character）。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> __UTFCONVERT_H__</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> __UTFCONVERT_H__</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br> <br> <br><span class="hljs-comment">// 从UTF16编码字符串构建，需要带BOM标记</span><br><span class="hljs-function">std::string <span class="hljs-title">utf16_to_utf8</span><span class="hljs-params">(<span class="hljs-type">const</span> std::u16string&amp; u16str)</span></span>;<br> <br><span class="hljs-comment">// 从UTF16 LE编码的字符串创建</span><br><span class="hljs-function">std::string <span class="hljs-title">utf16le_to_utf8</span><span class="hljs-params">(<span class="hljs-type">const</span> std::u16string&amp; u16str)</span></span>;<br> <br><span class="hljs-comment">// 从UTF16BE编码字符串创建</span><br><span class="hljs-function">std::string <span class="hljs-title">utf16be_to_utf8</span><span class="hljs-params">(<span class="hljs-type">const</span> std::u16string&amp; u16str)</span></span>;<br> <br><span class="hljs-comment">// 获取转换为UTF-16 LE编码的字符串</span><br><span class="hljs-function">std::u16string <span class="hljs-title">utf8_to_utf16le</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; u8str, <span class="hljs-type">bool</span> addbom = <span class="hljs-literal">false</span>, <span class="hljs-type">bool</span>* ok = <span class="hljs-literal">NULL</span>)</span></span>;<br> <br><span class="hljs-comment">// 获取转换为UTF-16 BE的字符串</span><br><span class="hljs-function">std::u16string <span class="hljs-title">utf8_to_utf16be</span><span class="hljs-params">(<span class="hljs-type">const</span> std::string&amp; u8str, <span class="hljs-type">bool</span> addbom = <span class="hljs-literal">false</span>, <span class="hljs-type">bool</span>* ok = <span class="hljs-literal">NULL</span>)</span></span>;<br> <br><span class="hljs-meta">#<span class="hljs-keyword">endif</span> <span class="hljs-comment">//! __UTFCONVERT_H__</span></span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>interview</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>http 1.0/2/3优化</title>
+    <link href="/2023/03/16/1-0-2-3%E4%BC%98%E5%8C%96/"/>
+    <url>/2023/03/16/1-0-2-3%E4%BC%98%E5%8C%96/</url>
+    
+    <content type="html"><![CDATA[<p>6、http1.0&#x2F;1 2 3优化</p><p><em><strong>HTTP1.0</strong></em></p><p>1.0的HTTP版本，是一种无状态，无连接的应用层协议。 HTTP1.0规定浏览器和服务器保持短暂的链接。</p><p>浏览器每次请求都需要与服务器建立一个TCP连接，服务器处理完成以后立即断开TCP连接（无连接），服务器不跟踪也每个客户单，也不记录过去的请求（无状态）。</p><p>这种无状态性可以借助<strong>cookie&#x2F;session</strong>机制来做身份认证和状态记录。</p><p>无法复用连接</p><p>每次发送请求，都需要进行一次TCP连接，而TCP的连接释放过程又是比较费事的。这种无连接的特性会使得网络的利用率变低。</p><p>队头阻塞（head of line blocking）</p><p>由于HTTP1.0规定下一个请求必须在前一个请求响应到达之前才能发送，假设前一个请求响应一直不到达，那么下一个请求就不发送，后面的请求就阻塞了。</p><p><em><strong>HTTP 1.1</strong></em></p><ul><li>长连接，流水线，使用connection:keep-alive使用长连接</li><li>请求管道化</li><li>增加缓存处理（新的字段如cache-control）</li><li>增加Host字段，支持断点传输等</li><li>由于长连接会给服务器造成压力</li></ul><p><em><strong>HTTP 2.0</strong></em></p><ul><li>二进制分帧</li><li>头部压缩，双方各自维护一个header的索引表，使得不需要直接发送值，通过发送key缩减头部大小</li><li>多路复用（或连接共享），使用多个stream，每个stream又分帧传输，使得一个tcp连接能够处理多个http请求</li><li>服务器推送（Sever push）</li></ul><p><em><strong>HTTP 3.0</strong></em></p><ul><li>基于google的QUIC协议，而quic协议是使用udp实现的</li><li>减少了tcp三次握手时间，以及tls握手时间</li><li>解决了http 2.0中前一个stream丢包导致后一个stream被阻塞的问题</li><li>优化了重传策略，重传包和原包的编号不同，降低后续重传计算的消耗</li><li>连接迁移，不再用tcp四元组确定一个连接，而是用一个64位随机数来确定这个连接</li><li>更合适的流量控制</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>interview</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>浮点数和MD5,Base64</title>
     <link href="/2023/03/16/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/"/>
     <url>/2023/03/16/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/</url>
     
@@ -61,7 +118,7 @@
   
   
   <entry>
-    <title>cpp11知识总结</title>
+    <title>C++11知识总结</title>
     <link href="/2023/03/15/cpp11%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"/>
     <url>/2023/03/15/cpp11%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</url>
     
