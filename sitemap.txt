@@ -1,7 +1,10 @@
+http://precipitation0224.github.io/2023/03/18/reactor/
+http://precipitation0224.github.io/2023/03/18/mysqleff/
+http://precipitation0224.github.io/2023/03/18/muduo/
+http://precipitation0224.github.io/2023/03/11/cookie%E6%80%BB%E7%BB%93/
 http://precipitation0224.github.io/2023/03/16/sql/
 http://precipitation0224.github.io/2023/03/16/virtualpointer/
 http://precipitation0224.github.io/2023/03/16/tls/
-http://precipitation0224.github.io/2023/03/16/cookie%E6%80%BB%E7%BB%93/
 http://precipitation0224.github.io/2023/03/15/cpp11%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/
 http://precipitation0224.github.io/2023/03/16/1-0-2-3%E4%BC%98%E5%8C%96/
 http://precipitation0224.github.io/2023/03/16/C-%E4%B8%AD%E7%9A%84unicode/
@@ -19,3 +22,5 @@ http://precipitation0224.github.io/
 http://precipitation0224.github.io/tags/interview/
 http://precipitation0224.github.io/tags/my-notes/
 http://precipitation0224.github.io/tags/my-os/
+http://precipitation0224.github.io/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/
+http://precipitation0224.github.io/tags/mysql/

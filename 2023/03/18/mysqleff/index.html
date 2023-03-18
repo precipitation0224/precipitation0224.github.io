@@ -20,22 +20,22 @@
   <meta name="author" content="Yummy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="11、避免sql注入 SQL 注入（SQL Injection），是 Web 开发中最常见的一种安全漏洞。 可以用它来从数据库获取敏感信息、利用数据库的特性执行添加用户、导出文件等一系列恶意操作，甚至有可能获取数据库乃至系统用户最高权限。  严格限制 Web 应用的数据库的操作权限，给连接数据库的用户提供满足需要的最低权限，最大限度的减少注入攻击对数据库的危害 校验参数的数据格式是否合法（可以使用">
+    <meta name="description" content="MySQL数据库三个关键性能指标 TPS Transactions Per Second(每秒传输的事物处理个数)，即服务器每秒处理的事务数。 TPS包括一条消息入和一条消息出，加上一次用户数据库访问。(业务TPS &#x3D; CAPS × 每个呼叫平均TPS) TPS是软件测试结果的测量单位。一个事务是指一个客户机向服务器发送请求然后服务器做出反应的过程。客户机在发送请求时开始计时，收到服务器">
 <meta property="og:type" content="article">
-<meta property="og:title" content="预防sql注入">
-<meta property="og:url" content="http://precipitation0224.github.io/2023/03/16/sql/index.html">
+<meta property="og:title" content="MySQL数据库三个关键性能指标">
+<meta property="og:url" content="http://precipitation0224.github.io/2023/03/18/mysqleff/index.html">
 <meta property="og:site_name" content="yummy home">
-<meta property="og:description" content="11、避免sql注入 SQL 注入（SQL Injection），是 Web 开发中最常见的一种安全漏洞。 可以用它来从数据库获取敏感信息、利用数据库的特性执行添加用户、导出文件等一系列恶意操作，甚至有可能获取数据库乃至系统用户最高权限。  严格限制 Web 应用的数据库的操作权限，给连接数据库的用户提供满足需要的最低权限，最大限度的减少注入攻击对数据库的危害 校验参数的数据格式是否合法（可以使用">
+<meta property="og:description" content="MySQL数据库三个关键性能指标 TPS Transactions Per Second(每秒传输的事物处理个数)，即服务器每秒处理的事务数。 TPS包括一条消息入和一条消息出，加上一次用户数据库访问。(业务TPS &#x3D; CAPS × 每个呼叫平均TPS) TPS是软件测试结果的测量单位。一个事务是指一个客户机向服务器发送请求然后服务器做出反应的过程。客户机在发送请求时开始计时，收到服务器">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-16T10:35:06.000Z">
-<meta property="article:modified_time" content="2023-03-16T02:36:09.936Z">
+<meta property="article:published_time" content="2023-03-18T11:00:41.000Z">
+<meta property="article:modified_time" content="2023-03-18T05:04:16.889Z">
 <meta property="article:author" content="Yummy">
-<meta property="article:tag" content="interview">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>预防sql注入 - yummy home</title>
+  <title>MySQL数据库三个关键性能指标 - yummy home</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="预防sql注入"></span>
+            <span id="subtitle" data-typed-text="MySQL数据库三个关键性能指标"></span>
           
         </div>
 
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-16 10:35" pubdate>
-          March 16, 2023 am
+        <time datetime="2023-03-18 11:00" pubdate>
+          March 18, 2023 am
         </time>
       </span>
     
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          309 words
+          673 words
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          3 mins
+          6 mins
         
       </span>
     
@@ -274,22 +274,22 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">预防sql注入</h1>
+            <h1 style="display: none">MySQL数据库三个关键性能指标</h1>
             
             
               <div class="markdown-body">
                 
-                <p>11、避免sql注入</p>
-<p><em><strong>SQL 注入（SQL Injection）</strong></em>，是 Web 开发中最常见的一种安全漏洞。</p>
-<p>可以用它来从数据库获取敏感信息、利用数据库的特性执行添加用户、导出文件等一系列恶意操作，甚至有可能获取数据库乃至系统用户最高权限。</p>
-<ol>
-<li>严格限制 Web 应用的数据库的操作权限，给连接数据库的用户提供满足需要的最低权限，最大限度的减少注入攻击对数据库的危害</li>
-<li>校验参数的数据格式是否合法（可以使用正则或特殊字符的判断）</li>
-<li>对进入数据库的特殊字符进行转义处理，或编码转换</li>
-<li>预编译 SQL（Java 中使用 PreparedStatement），参数化查询方式，避免 SQL 拼接</li>
-<li>发布前，利用工具进行 SQL 注入检测</li>
-<li>报错信息不要包含 SQL 信息输出到 Web 页面</li>
-</ol>
+                <p>MySQL数据库三个关键性能指标</p>
+<p><em><strong>TPS</strong></em></p>
+<p>Transactions Per Second(每秒传输的事物处理个数)，即服务器每秒处理的事务数。</p>
+<p>TPS包括一条消息入和一条消息出，加上一次用户数据库访问。(业务TPS &#x3D; CAPS × 每个呼叫平均TPS)</p>
+<p>TPS是软件测试结果的测量单位。一个事务是指一个客户机向服务器发送请求然后服务器做出反应的过程。客户机在发送请求时开始计时，收到服务器响应后结束计时，以此来计算使用的时间和完成的事务个数。</p>
+<p>一般的，评价系统性能均以每秒钟完成的技术交易的数量来衡量。系统整体处理能力取决于处理能力最低模块的TPS值。</p>
+<p><em><strong>QPS</strong></em></p>
+<p>每秒查询率QPS是对一个特定的查询服务器在规定时间内所处理流量多少的衡量标准，在因特网上，作为域名系统服务器的机器的性能经常用每秒查询率来衡量。</p>
+<p>对应fetches&#x2F;sec，即每秒的响应请求数，也即是最大吞吐能力。</p>
+<p><em><strong>IOPS</strong></em></p>
+<p>IOPS (Input&#x2F;Output Per Second)即每秒的输入输出量(或读写次数)，是衡量磁盘性能的主要指标之一。IOPS是指单位时间内系统能处理的I&#x2F;O请求数量，一般以每秒处理的I&#x2F;O请求数量为单位，I&#x2F;O请求通常为读或写数据操作请求。随机读写频繁的应用，如OLTP(Online Transaction Processing)，IOPS是关键衡量指标。另一个重要指标是数据吞吐量(Throughput)，指单位时间内可以成功传输的数据数量。对于大量顺序读写的应用，如VOD(Video On Demand)，则更关注吞吐量指标。</p>
 
                 
               </div>
@@ -302,7 +302,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/interview/">#interview</a>
+        <a href="/tags/mysql/">#mysql</a>
       
     </div>
   
@@ -314,8 +314,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>预防sql注入</div>
-      <div>http://precipitation0224.github.io/2023/03/16/sql/</div>
+      <div>MySQL数据库三个关键性能指标</div>
+      <div>http://precipitation0224.github.io/2023/03/18/mysqleff/</div>
     </div>
     <div class="license-meta">
       
@@ -327,7 +327,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 16, 2023</div>
+          <div>March 18, 2023</div>
         </div>
       
       
@@ -359,18 +359,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/18/reactor/" title="Reator网络编程模型">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Reator网络编程模型</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/16/virtualpointer/" title="虚函数动态绑定">
-                        <span class="hidden-mobile">虚函数动态绑定</span>
+                      <a href="/2023/03/18/muduo/" title="Muduo库关键代码及思想">
+                        <span class="hidden-mobile">Muduo库关键代码及思想</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
