@@ -6,7 +6,7 @@
   <link href="http://precipitation0224.github.io/atom.xml" rel="self"/>
   
   <link href="http://precipitation0224.github.io/"/>
-  <updated>2023-03-20T12:11:53.889Z</updated>
+  <updated>2023-03-20T12:20:03.407Z</updated>
   <id>http://precipitation0224.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>select原理和缺点</title>
+    <link href="http://precipitation0224.github.io/2023/03/21/slio/"/>
+    <id>http://precipitation0224.github.io/2023/03/21/slio/</id>
+    <published>2023-03-20T20:19:33.000Z</published>
+    <updated>2023-03-20T12:20:03.407Z</updated>
+    
+    <content type="html"><![CDATA[<p>select是一种IO多路复用计数，思想如下：</p><ol><li>要构造关于文件描述符的列表，将要监听的文件描述符添加到表中，列表的数据类型是fd_set，是一个整型数组，总共是1024bits，每一个bit表示一个文件描述符的事件，1代表检测，0代表不检测；</li><li>系统调用select()，监听列表中的文件描述符的事件，函数本身是阻塞的，直到文件描述符的一个或多个进行IO时，函数才返回，修改文件描述符的值，0为未检测到事件，1为检测到事件；</li><li>select()返回时，会告诉进程有多少描述符要进行IO操作，遍历列表IO。</li></ol><p>select同时也有缺点</p><ol><li>调用select就要要fd集合从用户态拷贝到内核态，开销很大；</li><li>内核要遍历所有fd；</li><li>支持的文件描述符数量太小，1024bits；</li><li>文件描述符集合不能重用，内核检测到事件就要修改，每次都要重置；</li><li>select只知道有几个fd发生事件，具体哪几个还要遍历集合才知道。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;select是一种IO多路复用计数，思想如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;要构造关于文件描述符的列表，将要监听的文件描述符添加到表中，列表的数据类型是fd_set，是一个整型数组，总共是1024bits，每一个bit表示一个文件描述符的事件，1代表检测，0代表不检测；&lt;/l</summary>
+      
+    
+    
+    
+    
+    <category term="操作系统" scheme="http://precipitation0224.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>lambda</title>
@@ -466,28 +490,6 @@
       
       
     <summary type="html">&lt;p&gt;reference link: &lt;a href=&quot;https://blog.csdn.net/fengbingchun/article/details/102990753&quot;&gt;https://blog.csdn.net/fengbingchun/article/details</summary>
-      
-    
-    
-    
-    
-    <category term="my notes" scheme="http://precipitation0224.github.io/tags/my-notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>effective-c++知识总结</title>
-    <link href="http://precipitation0224.github.io/2023/03/14/effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"/>
-    <id>http://precipitation0224.github.io/2023/03/14/effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</id>
-    <published>2023-03-14T15:04:52.000Z</published>
-    <updated>2023-03-14T07:09:02.426Z</updated>
-    
-    <content type="html"><![CDATA[<p>reference link: <a href="https://blog.csdn.net/qq_43763344/article/details/95447843">https://blog.csdn.net/qq_43763344/article/details/95447843</a></p><p><a href="https://blog.csdn.net/qq_43763344/article/details/107182731?spm=1001.2014.3001.5502">https://blog.csdn.net/qq_43763344/article/details/107182731?spm=1001.2014.3001.5502</a></p><ol><li>将C++视为包含四个部分的语言联邦，第一是C，即区块、语句、预处理器、内置数据类型、数组和指针都来自于C，第二是Object-Oriented C++，即包含类、封装、继承、多态和动态绑定等，第三是Template C++，即C++泛型编程的部分，第四是STL，即包含容器、迭代器、算法和函数对象等</li><li>尽量以const, enum, inline替换#define，即以编译器替代预处理器（宏），define无作用域，inline函数代替define定义的函数式的宏，const成员声明为static成员，以保证const成员只有一份实体，对于形式函数的宏定义，使用inline函数替换#define</li><li>const可以被施加于任何作用域内的对象、函数对象、函数返回类型、成员函数本体，non-const版本调用const版本可以避免代码重复</li><li>对象在被使用前已被初始化，初始化列表，且成员变量的顺序应和类内声明顺序一致，用local static对象替换non-local static对象以避免跨编译单元初始化次序带来的问题</li><li>编译器默认为类创建default ctor，copy ctor，copy assignment、dtor</li><li>为了避免编译器自动生成函数，可以将相应的成员函数声明为private并且不予实现，表示拒绝</li><li>具有多态性的基类应该声明一个virtual dtor，如若类的设计目的不是作为基类使用，也不是多态，则不声明为virtual dtor</li><li>析构函数不可抛出异常，只能catch异常，以此结束程序，如若客户端对抛出的异常做出反应，这个类应该提供一个普通函数执行操作，而非系统狗函数中</li><li>绝不再ctor和dtor中调用virtual函数，子类先构造基类的ctor，此时类型式基类，当基类构造完成时，构造子类时，对象的类型才会变成子类，析构先子类后基类，类似栈模型，因此再构造和析构期间不调用virtual函数，因为这类调用的虚函数不会下降到派生类中的版本，永远是基类版本</li><li>用operator&#x3D;返回一个*this的引用，重载赋值运算符应该返回一个指向自身所属类的引用</li><li>重载赋值运算符保证对象自我赋值时operator&#x3D;有良好行为，确定任何函数操作以上一个对象，多个对象是同一对象时，也是正确的</li><li>copying函数确保复制对象内的所有成员变量和所有的基类成分，不要用copying函数实现另一个copying函数，应该放在第三个函数中，由两个copying函数共同调用，资源一旦用完就要归还</li><li>为防止资源泄漏，用RAII对象，在构造函数中获得资源，析构函数中释放资源，shared_ptr和auto_ptr作为两个常被使用的RAII智能指针</li><li>复制对象，复制资源，复制RAII对象必须一并复制它管理的资源，资源的copying行为决定RAII对象的copying行为，普遍常见的RAII类的copying行为是，阻止拷贝、使用引用计数法</li><li>API往往访问原始资源，每个RAII类都应该提供一个取得资源管理的方法，对原始资源的访问可能通过显示转换或隐式转换，显示转换比较安全，隐式转换对客户比较方便</li><li>new中使用到[]，相应的delete也应使用到[]，若没有使用，则相应也不使用</li><li>以独立的语句将newd对象置入智能指针，原始指针送进shared_ptr，也可能产生内存泄漏的问题，参数压栈的顺序不一样</li><li>接口正确使用，不被误用，factory函数可以返回一个指针指向Investment继承体系动态分配的对象，即Investment *createInvestment()，强迫客户返回值存在shared_ptr上，这样就不会释放资源</li><li>设计class考虑的问题，新type创建也要想如何销毁，初始化和赋值，值传递和引用传递，如何继承，隐式显示的转换，操作符以及member函数，type的未声明接口，对效率，异常安全，资源的影响</li><li>构造拷贝的时候，参数用const类型的引用，避免构造带来的开销，对象切割问题存在于基类对象或引用中</li><li>虽然引用效率高，但不要传递一些指向其实并不存在的对象，引用必须知道它引用的是谁，对象被释放，实体失效，栈中创建，函数结束即销毁失效，堆中创建，之心delete后失效，就算用static绑定对象也不行，无锁保护，两次函数改变的是调用值，返回的是reference，调用端看到的永远是现值</li><li>成员变量封装为private</li><li>非成员函数替代成员函数，提高封装性，跨文件扩展，如STL组件</li><li>成员函数第一个指针都是this指针，无法进行类型转换，非成员函数就不存在这个问题，传递参数发现类型不同，则隐式转换</li><li>不抛出异常的swap函数，使用指向对象的指针，通过交换指针来实现数据的交换，即不使用拷贝</li><li>尽可能延后变量定义的时间，如变量带构造函数和析构函数，本身受构造函数和析构函数的成本</li><li>尽量少做转型动作，常量性移除const_cast，向下安全转型dynamic_cast，低级转型reinterpret_cast，隐式转换static_cast，存在非对象调用类函数，而是对象基类的副本去调用</li><li>类返回对象成员的引用，客户端可以随意修改，这个问题的解决办法是在成员函数前面加const限制修改就行，但依然返回的是内部对象，即空悬、虚吊的情况</li><li>异常安全是一个函数内抛出异常，要做到不泄露资源、不破坏数据，对于互斥器使用对象去管理资源，对象释放的时候自动调用析构函数，可以使用智能指针去管理资源，就不用手动delete</li><li>内联函数可以避免函数调用的开销，在函数编译期间对函数调用进行替换为函数本体，以空间换取时间的策略，提供一种策略给编译器，看代码的复杂程度和编译器环境等，指针调用要知道函数地址，虚函数和构造函数不可设置为内联</li><li>文件间编译依赖关系降到最低，即声明和定义分开实现，尽可能让头文件自己满足，实在不行就与其他文件相关联</li><li>使用public继承出is-a的关系，继承者功能的丢失，需要单独写一个类</li><li>派生类的函数与基类同名会被覆盖，域名作用符来界定</li><li>区分接口继承和实现继承，非虚函数本质是不想在子类实现不同行为，状态保持不变</li><li>策略模式值得是定义一系列的算法，在运行的时候，根据对象不同，互相替换调用，这样的变化依赖稳定，稳定依赖于抽象，对扩展开放，对修改封闭</li><li>non-virtual都是静态绑定，函数编译时就应知道调用哪个函数了，根据指针类型来决定，而不是对象化类型决定调用哪个函数</li><li>不重新定义继承而来的缺省参数值，继承参数需要给出指指定</li><li>通过复合模型构造出has -a，复合有很多含义，如内嵌、分层、聚合，即运用于泛型编程中</li><li>private继承关系表明基类和子类没有任何观念上的表示，子类只想用基类良好的特性，private在软件层面上没有实际意义</li><li>多继承关系复杂，菱形继承的歧义性和数据冗余性，指定类来调用哪个函数，数据冗余用虚继承的方法，让子类继承它的虚方法，但会增加大小，速度初始化以及复杂度的成本</li><li>显示接口，实例和所属type，隐式接口用于泛型编程，在编译期间进行推导，接口本身具有多态性，代码复用性高，class和template都支持接口和多态，class接口是显示的，多态是通过虚函数发生在运行期，template接口是隐式的，多态是通过template具现化和函数重载解析发生在编译期</li><li>class和typename本质没区别，但typename定义一个类型的别名，标识嵌套从属类型，避免编译器识别为静态变量，但typename不可以出现在基类列或者成员初值列中内作为基类修饰符</li><li>模板特化，指定typename的类型，编译器可以识别，如果是全特化，那么无参数变化，即typename所有参数都被指定，模板中定义的函数，在模板派生类中是访问不到的，需要加this-&gt;指向基类成员</li><li>避免template的膨胀，建立一个带数值参数的函数，基类只对矩阵元素类型参数化，不对矩阵尺寸参数化，通过定义一个指针指向内存地址来解决基类查看派生类数据的问题</li><li>用成员函数模板接受所有兼容类型，指针继承关系下的隐式转换，引进模板就带来新的问题，类内部声明一个泛化的拷贝构造或者赋值操作符，同时声明正常的拷贝构造和赋值操作符，即内部有个返回智能指针对象原始指针的副本</li></ol><p><img src="https://cdn.nlark.com/yuque/0/2023/png/21906909/1677154916388-a84a97b9-25c5-43d8-8cbb-ac3a2ebf9c7e.png" alt="img"></p><ol><li>做类型转换时，为模板定义非成员函数，编译器要对T做类型推导，对基类构造函数做友元解释，对象被声明则具现化，作为过程一部分，下一步就是有元的声明</li><li>模板萃取技术，对不同的类型有不同的操作，针对一部分类型进行特化，特化的类型和没有特化的类型执行不同的逻辑程序、</li><li>元编程可以将工作由运行期迁移到编译期，以此更早侦测错误和获得更高的执行效率</li><li>new-handler一种程序，即当new出的内存不够需求或无法分配足够内存时，一个错误处理的程序，默认的处理方式是抛出异常</li><li>替换编译器默认的new operator和delete operator，差别对待不同需求，在分配内存之前搞懂软件如何使用内存</li><li>new-handler同样也应能处理0byte的申请</li><li>构造器要由指针指向之前申请的资源，避免内存泄漏</li><li>把warning当作error处理 </li><li>C++标准库，STL、lostreams、locales组成，TRI中添加了智能指针，hash-based容器，正则表达式</li><li>Boost社群，同时提供了TRI组件实现</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;reference link: &lt;a href=&quot;https://blog.csdn.net/qq_43763344/article/details/95447843&quot;&gt;https://blog.csdn.net/qq_43763344/article/details/95</summary>
       
     
     

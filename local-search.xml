@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>select原理和缺点</title>
+    <link href="/2023/03/21/slio/"/>
+    <url>/2023/03/21/slio/</url>
+    
+    <content type="html"><![CDATA[<p>select是一种IO多路复用计数，思想如下：</p><ol><li>要构造关于文件描述符的列表，将要监听的文件描述符添加到表中，列表的数据类型是fd_set，是一个整型数组，总共是1024bits，每一个bit表示一个文件描述符的事件，1代表检测，0代表不检测；</li><li>系统调用select()，监听列表中的文件描述符的事件，函数本身是阻塞的，直到文件描述符的一个或多个进行IO时，函数才返回，修改文件描述符的值，0为未检测到事件，1为检测到事件；</li><li>select()返回时，会告诉进程有多少描述符要进行IO操作，遍历列表IO。</li></ol><p>select同时也有缺点</p><ol><li>调用select就要要fd集合从用户态拷贝到内核态，开销很大；</li><li>内核要遍历所有fd；</li><li>支持的文件描述符数量太小，1024bits；</li><li>文件描述符集合不能重用，内核检测到事件就要修改，每次都要重置；</li><li>select只知道有几个fd发生事件，具体哪几个还要遍历集合才知道。</li></ol>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>操作系统</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>lambda</title>
     <link href="/2023/03/21/lambda/"/>
     <url>/2023/03/21/lambda/</url>
