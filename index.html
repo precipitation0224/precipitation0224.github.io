@@ -229,6 +229,126 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/03/21/lambda/" target="_self">
+          lambda
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/21/lambda/" target="_self">
+        <div>
+          C++11的Lambda特性 lambda 匿名函数很简单，可以套用如下的语法格式：[外部变量访问方式说明符] (参数) mutable noexcept&#x2F;throw() -&gt; 返回值类型         {           函数体;         }; 其中各部分的含义分别为： a. [外部变量方位方式说明符]     [ ] 方括号用于向编译器表明当前是一个 lambda
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-20 20:11" pubdate>
+              2023-03-20
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C-11/">#C++11</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/21/staticlib/" target="_self">
+          静态库和动态库
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/21/staticlib/" target="_self">
+        <div>
+          静态库需要有库文件和头文件，编译程序要通过”-l libname”参数编译； linux是.a文件，windows是.lib文件 制作流程，先通过gcc生成.o文件，再通过ar(参数选项rcs)将.o文件打包生成.a文件。 动态库在运行程序之前还需要配置动态库的加载路径 linux是.so文件，windows是.dll文件 通过gcc生成.o文件(参数选项fpic)，再通过gcc生成.so文件(参
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-20 20:08" pubdate>
+              2023-03-20
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/21/mutex/" target="_self">
+          互斥锁和自旋锁
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/21/mutex/" target="_self">
+        <div>
+          互斥锁也是互斥量(Mutex)，作为保护临界区的特殊变量，两种状态locked和unlocked； 每个互斥锁内部有一个线程等待队列，用来保存互斥锁的线程，unlocked线程可得到锁，locked就阻塞到等待mutex的队列中。 自旋锁类似于互斥锁，不通过休眠阻塞进程，而是在获取锁之前一直处于忙则等待的状态，可以用于锁被持有时间短，线程无需额外调度的情况；自旋锁最多被一个进程所持有，若第二个线程
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-20 20:07" pubdate>
+              2023-03-20
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/03/18/mysqleff/" target="_self">
           MySQL数据库三个关键性能指标
         </a>
@@ -503,131 +623,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/16/1-0-2-3%E4%BC%98%E5%8C%96/" target="_self">
-          http 1.0/2/3优化
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/16/1-0-2-3%E4%BC%98%E5%8C%96/" target="_self">
-        <div>
-          6、http1.0&#x2F;1 2 3优化 HTTP1.0 1.0的HTTP版本，是一种无状态，无连接的应用层协议。 HTTP1.0规定浏览器和服务器保持短暂的链接。 浏览器每次请求都需要与服务器建立一个TCP连接，服务器处理完成以后立即断开TCP连接（无连接），服务器不跟踪也每个客户单，也不记录过去的请求（无状态）。 这种无状态性可以借助cookie&#x2F;session机制来做身份认证和
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 18:43" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/interview/">#interview</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/16/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/" target="_self">
-          浮点数和MD5,Base64
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/16/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/" target="_self">
-        <div>
-          4、浮点数的存储方式  符号位：‘+’存储为0，‘-’存储为1  将数字转化成二进制数  将二进制数规范化为 1.xxxxxxxx*2^n  将n转化为指数（+127） 尾数xxxx后面补零   5、介绍MD5、Base64 MD5即Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 18:32" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/interview/">#interview</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/15/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/" target="_self">
-          string的缺陷和指针选择
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/15/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/" target="_self">
-        <div>
-          2、std::string的缺陷 最大的缺点是 std::string 是「字节串」而非「字符串」  它是可变对象，任何对 string 对象的操作都会改变原对象的值而不是重新生成一个 string 对象，线程不安全； 不能很好的处理宽字节的字符； 没有足够多的好用的函数，没有format格式输出，要借助要用stdio.h头文件里的 sprintf 函数。  3、智能指针和原生指针的开销 泛型指针
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 13:07" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/interview/">#interview</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
