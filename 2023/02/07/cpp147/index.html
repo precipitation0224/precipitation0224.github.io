@@ -20,22 +20,22 @@
   <meta name="author" content="Yummy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="多视图聚类是指利用多个视图或特征描述同一组样本，在不同视图或特征空间中聚类样本。联邦学习是一种分布式机器学习框架，可以实现在数据分散的情况下进行模型训练。 在联邦学习中，多个设备或数据源共同训练模型，每个设备或数据源负责一部分数据，并通过模型的迭代来学习全局模型，从而避免了数据集中的隐私泄露问题。 在以联邦学习为背景的多视图聚类中，可以采用以下几种思路：  基于模型的方法：在联邦学习框架下，利用各">
+    <meta name="description" content="相关代码操作 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950&#x2F;* auto *&#x2F;auto i &#x3D; 42; &#x2F;&#x2F; 编译器自动推导 i 的类型为 intauto d &#x3D; 3.14; &#x2F;&#x2F; 编译器自动推导 d 的类型为 double&#x2F;* lambda *&#x2F;auto ad">
 <meta property="og:type" content="article">
-<meta property="og:title" content="联邦学习下的多视图聚类">
-<meta property="og:url" content="http://precipitation0224.github.io/2023/03/01/fedmvc/index.html">
+<meta property="og:title" content="C++14和C++17新特性">
+<meta property="og:url" content="http://precipitation0224.github.io/2023/02/07/cpp147/index.html">
 <meta property="og:site_name" content="yummy home">
-<meta property="og:description" content="多视图聚类是指利用多个视图或特征描述同一组样本，在不同视图或特征空间中聚类样本。联邦学习是一种分布式机器学习框架，可以实现在数据分散的情况下进行模型训练。 在联邦学习中，多个设备或数据源共同训练模型，每个设备或数据源负责一部分数据，并通过模型的迭代来学习全局模型，从而避免了数据集中的隐私泄露问题。 在以联邦学习为背景的多视图聚类中，可以采用以下几种思路：  基于模型的方法：在联邦学习框架下，利用各">
+<meta property="og:description" content="相关代码操作 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950&#x2F;* auto *&#x2F;auto i &#x3D; 42; &#x2F;&#x2F; 编译器自动推导 i 的类型为 intauto d &#x3D; 3.14; &#x2F;&#x2F; 编译器自动推导 d 的类型为 double&#x2F;* lambda *&#x2F;auto ad">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-02-28T19:54:02.000Z">
-<meta property="article:modified_time" content="2023-03-22T08:55:38.709Z">
+<meta property="article:published_time" content="2023-02-06T22:46:45.000Z">
+<meta property="article:modified_time" content="2023-03-22T14:47:39.404Z">
 <meta property="article:author" content="Yummy">
-<meta property="article:tag" content="科研">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>联邦学习下的多视图聚类 - yummy home</title>
+  <title>C++14和C++17新特性 - yummy home</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="联邦学习下的多视图聚类"></span>
+            <span id="subtitle" data-typed-text="C++14和C++17新特性"></span>
           
         </div>
 
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-28 19:54" pubdate>
-          February 28, 2023 pm
+        <time datetime="2023-02-06 22:46" pubdate>
+          February 6, 2023 pm
         </time>
       </span>
     
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          612 words
+          1.8k words
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          6 mins
+          16 mins
         
       </span>
     
@@ -274,21 +274,14 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">联邦学习下的多视图聚类</h1>
+            <h1 style="display: none">C++14和C++17新特性</h1>
             
             
               <div class="markdown-body">
                 
-                <p>多视图聚类是指利用多个视图或特征描述同一组样本，在不同视图或特征空间中聚类样本。联邦学习是一种分布式机器学习框架，可以实现在数据分散的情况下进行模型训练。</p>
-<p>在联邦学习中，多个设备或数据源共同训练模型，每个设备或数据源负责一部分数据，并通过模型的迭代来学习全局模型，从而避免了数据集中的隐私泄露问题。</p>
-<p>在以联邦学习为背景的多视图聚类中，可以采用以下几种思路：</p>
-<ol>
-<li>基于<strong>模型</strong>的方法：在联邦学习框架下，利用各设备或数据源训练出的模型，对不同视图的数据进行预测，将预测结果作为新的特征，然后进行聚类。这种方法需要每个设备或数据源都具有相同的模型架构和参数设置。</li>
-<li>基于<strong>特征</strong>的方法：在联邦学习框架下，将各设备或数据源的特征向量作为不同视图，在不同视图之间进行特征选择和特征融合，得到新的特征向量，然后进行聚类。</li>
-<li>基于<strong>信息传递</strong>的方法：在联邦学习框架下，将各设备或数据源的聚类结果进行信息传递，利用传递的聚类结果得到新的特征向量，然后进行聚类。这种方法可以利用不同设备或数据源之间的信息交流和知识共享，提高聚类效果。</li>
-<li>基于<strong>深度学习</strong>的方法：在联邦学习框架下，利用深度学习模型对不同视图的数据进行特征提取和特征融合，得到新的特征向量，然后进行聚类。这种方法需要在联邦学习框架下训练深度学习模型，并利用模型进行特征提取和融合。</li>
-</ol>
-<p>总之，基于联邦学习的多视图聚类需要充分利用各设备或数据源之间的信息交流和知识共享，结合不同视图之间的特征和模型，实现更精确和高效的聚类。</p>
+                <p><strong>相关代码操作</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/* auto */</span><br><span class="hljs-keyword">auto</span> i = <span class="hljs-number">42</span>; <span class="hljs-comment">// 编译器自动推导 i 的类型为 int</span><br><span class="hljs-keyword">auto</span> d = <span class="hljs-number">3.14</span>; <span class="hljs-comment">// 编译器自动推导 d 的类型为 double</span><br><span class="hljs-comment">/* lambda */</span><br><span class="hljs-keyword">auto</span> add = [](<span class="hljs-keyword">auto</span> x, <span class="hljs-keyword">auto</span> y) &#123; <span class="hljs-keyword">return</span> x + y; &#125;; <span class="hljs-comment">// 使用泛型 lambda</span><br><span class="hljs-type">int</span> sum = <span class="hljs-built_in">add</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>); <span class="hljs-comment">// sum = 3</span><br><span class="hljs-type">double</span> product = <span class="hljs-built_in">add</span>(<span class="hljs-number">2.5</span>, <span class="hljs-number">3.0</span>); <span class="hljs-comment">// product = 5.5</span><br><span class="hljs-comment">/* std::male_unique */</span><br>std::unique_ptr&lt;<span class="hljs-type">int</span>&gt; ptr = std::<span class="hljs-built_in">make_unique</span>&lt;<span class="hljs-type">int</span>&gt;(<span class="hljs-number">42</span>);<br><span class="hljs-comment">/* std::exchange */</span><br>std::atomic&lt;<span class="hljs-type">int</span>&gt; a&#123;<span class="hljs-number">0</span>&#125;;<br><span class="hljs-type">int</span> b = std::<span class="hljs-built_in">exchange</span>(a, <span class="hljs-number">1</span>); <span class="hljs-comment">// 将 a 的值原子地设为 1，并返回 a 原来的值</span><br><span class="hljs-comment">/* std::quoted */</span><br>std::cout &lt;&lt; std::<span class="hljs-built_in">quoted</span>(<span class="hljs-string">&quot;Hello, world!\n&quot;</span>); <span class="hljs-comment">// 输出 &quot;Hello, world!\n&quot;</span><br><span class="hljs-comment">/* if constexpr */</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">print</span><span class="hljs-params">(T t)</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">if</span> <span class="hljs-title">constexpr</span> <span class="hljs-params">(std::is_integral_v&lt;T&gt;)</span> </span>&#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;The integer is &quot;</span> &lt;&lt; t &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; <span class="hljs-string">&quot;The non-integer is &quot;</span> &lt;&lt; t &lt;&lt; std::endl;<br>    &#125;<br>&#125;<br><span class="hljs-built_in">print</span>(<span class="hljs-number">42</span>); <span class="hljs-comment">// 输出 &quot;The integer is 42&quot;</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;hello&quot;</span>); <span class="hljs-comment">// 输出 &quot;The non-integer is hello&quot;</span><br><span class="hljs-comment">/* 结构化绑定 */</span><br>std::pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">double</span>&gt; p&#123;<span class="hljs-number">42</span>, <span class="hljs-number">3.14</span>&#125;;<br><span class="hljs-keyword">auto</span> [i, d] = p; <span class="hljs-comment">// 将 p 的两个成员变量分别绑定到 i 和 d</span><br>std::cout &lt;&lt; i &lt;&lt; <span class="hljs-string">&quot;, &quot;</span> &lt;&lt; d &lt;&lt; std::endl; <span class="hljs-comment">// 输出 &quot;42, 3.14&quot;</span><br><span class="hljs-comment">/* std::variant */</span><br>std::variant&lt;<span class="hljs-type">int</span>, <span class="hljs-type">double</span>, std::string&gt; v; <span class="hljs-comment">// 定义一个可以存储 int、double、std::string 类型的 std::variant</span><br>v = <span class="hljs-number">42</span>; <span class="hljs-comment">// 存储一个 int 类型的值</span><br><span class="hljs-type">int</span> i = std::<span class="hljs-built_in">get</span>&lt;<span class="hljs-type">int</span>&gt;(v); <span class="hljs-comment">// 从 std::variant 中获取 int 类型的值</span><br><span class="hljs-comment">/* std::optional */</span><br>std::optional&lt;<span class="hljs-type">int</span>&gt; opt; <span class="hljs-comment">// 定义一个可能不存在的 int 类型的值</span><br><span class="hljs-keyword">if</span> (opt) &#123; <span class="hljs-comment">// 判断是否存在值</span><br>    <span class="hljs-type">int</span> i = *opt; <span class="hljs-comment">// 获取值</span><br>&#125;<br><span class="hljs-comment">/* std::filesystem */</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;filesystem&gt;</span></span><br><span class="hljs-keyword">namespace</span> fs = std::filesystem;<br><br>fs::<span class="hljs-built_in">create_directory</span>(<span class="hljs-string">&quot;mydir&quot;</span>); <span class="hljs-comment">// 创建一个名为 &quot;mydir&quot; 的目录</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">auto</span>&amp; p : fs::<span class="hljs-built_in">directory_iterator</span>(<span class="hljs-string">&quot;mydir&quot;</span>)) &#123; <span class="hljs-comment">// 遍历目录中的文件和目录</span><br>    <span class="hljs-keyword">if</span> (fs::<span class="hljs-built_in">is_directory</span>(p)) &#123;<br>        std::cout &lt;&lt; p.<span class="hljs-built_in">path</span>() &lt;&lt; <span class="hljs-string">&quot; is a directory&quot;</span> &lt;&lt; std::endl;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        std::cout &lt;&lt; p.<span class="hljs-built_in">path</span>() &lt;&lt; <span class="hljs-string">&quot; is a file&quot;</span> &lt;&lt; std::endl;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -301,7 +294,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%A7%91%E7%A0%94/">#科研</a>
+        <a href="/tags/C/">#C++</a>
       
     </div>
   
@@ -313,8 +306,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>联邦学习下的多视图聚类</div>
-      <div>http://precipitation0224.github.io/2023/03/01/fedmvc/</div>
+      <div>C++14和C++17新特性</div>
+      <div>http://precipitation0224.github.io/2023/02/07/cpp147/</div>
     </div>
     <div class="license-meta">
       
@@ -326,7 +319,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>February 28, 2023</div>
+          <div>February 6, 2023</div>
         </div>
       
       
@@ -358,9 +351,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/11/cookie%E6%80%BB%E7%BB%93/" title="cookie总结">
+                      <a href="/2023/03/01/fedmvc/" title="联邦学习下的多视图聚类">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">cookie总结</span>
+                        <span class="hidden-mobile">联邦学习下的多视图聚类</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -368,8 +361,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/02/07/cpp147/" title="C++14和C++17新特性">
-                        <span class="hidden-mobile">C++14和C++17新特性</span>
+                      <a href="/2023/02/07/jishiben/" title="一个基于 SQLite 的记事本项目的示例">
+                        <span class="hidden-mobile">一个基于 SQLite 的记事本项目的示例</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
