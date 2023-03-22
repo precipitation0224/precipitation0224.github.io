@@ -6,7 +6,7 @@
   <link href="http://precipitation0224.github.io/atom.xml" rel="self"/>
   
   <link href="http://precipitation0224.github.io/"/>
-  <updated>2023-03-20T12:20:03.407Z</updated>
+  <updated>2023-03-22T09:03:22.528Z</updated>
   <id>http://precipitation0224.github.io/</id>
   
   <author>
@@ -15,6 +15,55 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>WebServer压力测试</title>
+    <link href="http://precipitation0224.github.io/2023/03/23/webbench/"/>
+    <id>http://precipitation0224.github.io/2023/03/23/webbench/</id>
+    <published>2023-03-22T16:56:33.000Z</published>
+    <updated>2023-03-22T09:03:22.528Z</updated>
+    
+    <content type="html"><![CDATA[<p>短连接测试结果</p><p><img src="/../picture/duanlianjie.png"></p><p>长连接测试结果</p><p><img src="/../picture/changlianjie.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;短连接测试结果&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/../picture/duanlianjie.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;长连接测试结果&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/../picture/changlianjie.png&quot;&gt;&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="WebServer项目" scheme="http://precipitation0224.github.io/tags/WebServer%E9%A1%B9%E7%9B%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>接雨水两侧动规问题</title>
+    <link href="http://precipitation0224.github.io/2023/03/21/jieyushui/"/>
+    <id>http://precipitation0224.github.io/2023/03/21/jieyushui/</id>
+    <published>2023-03-20T20:30:02.000Z</published>
+    <updated>2023-03-20T12:40:02.492Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/../picture/jieyushui.png"></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">trap</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; height)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = height.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">left</span><span class="hljs-params">(n, <span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">right</span><span class="hljs-params">(n, <span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>; i&lt;n; ++i)<br>            left[i] = <span class="hljs-built_in">max</span>(left[i<span class="hljs-number">-1</span>], height[i<span class="hljs-number">-1</span>]);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=n<span class="hljs-number">-2</span>; i&gt;=<span class="hljs-number">0</span>; --i)<br>            right[i] = <span class="hljs-built_in">max</span>(right[i+<span class="hljs-number">1</span>], height[i+<span class="hljs-number">1</span>]);<br>        <span class="hljs-type">int</span> water = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;n; ++i) &#123;<br>            <span class="hljs-type">int</span> level = <span class="hljs-built_in">min</span>(left[i], right[i]);<br>            water += <span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, level-height[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> water;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure><p>关键在于表示从左和从右的高度，以及用最小的高度乘上间距即是容积.</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/../picture/jieyushui.png&quot;&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br</summary>
+      
+    
+    
+    
+    
+    <category term="算法" scheme="http://precipitation0224.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>select原理和缺点</title>
@@ -446,50 +495,6 @@
     <summary type="html">&lt;p&gt;&lt;strong&gt;第一章：概述&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;1、制定协议来进行终端交流，IP、ICMP、TCP，自上向下：应用层、传输层、网络层、数据链路层、硬件层&lt;/p&gt;
 &lt;p&gt;2、域名系统，分布式数据库，host name转ip addr，学会rfc10几个协议即可，</summary>
-      
-    
-    
-    
-    
-    <category term="my notes" scheme="http://precipitation0224.github.io/tags/my-notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>STL设计知识总结</title>
-    <link href="http://precipitation0224.github.io/2023/03/14/STL%E8%AE%BE%E8%AE%A1%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"/>
-    <id>http://precipitation0224.github.io/2023/03/14/STL%E8%AE%BE%E8%AE%A1%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</id>
-    <published>2023-03-14T15:06:54.000Z</published>
-    <updated>2023-03-14T07:10:20.006Z</updated>
-    
-    <content type="html"><![CDATA[<p>reference link: <a href="https://blog.csdn.net/fengbingchun/article/details/103223914">https://blog.csdn.net/fengbingchun/article/details/103223914</a></p><ol><li>慎重选择容器类型，序列容器，关联容器，非STL容器，对STL进行分类，连续内存容器(vector、string、deque)和基于节点的容器(list、forward_list)，容器内部的引用计数技术，rope基于引用计数，本身是用可持久化平衡树实现的重型string<img src="https://cdn.nlark.com/yuque/0/2023/png/21906909/1677981449440-89bff10a-e505-4057-bc6d-49ae3aad5afa.png" alt="img"></li><li>STL本身是泛化，不写独立于容器类型的代码，数组泛化为以其包含对象类型为参数的容器，函数泛化为以其使用的迭代器类型为参数的算法，将容器隐藏到一个类中，以减少通过类接口与容器相关的信息</li><li>确保容器中的对象拷贝正确高效，对象是其拷贝在容器中，取出对象也是对象的拷贝，存在继承关系时，拷贝会导致剥离，防止子对象特有信息丢失就是使容器包含指针</li><li>调用empty检测size()是否为0</li><li>区间成员函数优先于与之对应的单元素成员函数，用两个迭代器确定成员操作所执行的区间，推荐assign和insert，清楚表达意图，表现更高效率</li><li>视情况使用命名迭代器对象</li><li>容器中包含new指针，在析构前delete掉指针，为避免资源泄漏，必须用引用计数计数形式的智能指针对象代替指针</li><li>切勿创建包含auto_ptr的容器对象，创建后即转移对象的所有权，包含智能指针没问题</li><li>慎用选择删除元素的方法，对于vector、string或deque这样的容器，erase-remove是删除特定值元素的最好办法，list对应list::remove，关联map这样的容器使用erase，判别式加if，遍历容器元素，返回值更新迭代器，关联容器则后缀递增</li><li>分配子的约定和限制</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;reference link: &lt;a href=&quot;https://blog.csdn.net/fengbingchun/article/details/103223914&quot;&gt;https://blog.csdn.net/fengbingchun/article/details</summary>
-      
-    
-    
-    
-    
-    <category term="my notes" scheme="http://precipitation0224.github.io/tags/my-notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>more-effective-c++知识总结</title>
-    <link href="http://precipitation0224.github.io/2023/03/14/more-effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/"/>
-    <id>http://precipitation0224.github.io/2023/03/14/more-effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/</id>
-    <published>2023-03-14T15:06:32.000Z</published>
-    <updated>2023-03-14T07:09:55.322Z</updated>
-    
-    <content type="html"><![CDATA[<p>reference link: <a href="https://blog.csdn.net/fengbingchun/article/details/102990753">https://blog.csdn.net/fengbingchun/article/details/102990753</a></p><ol><li>指针和引用的区别，任何情况下都不能使用指向空值的引用，引用必须初始化</li><li>尽量使用C++风格的类型转换，static_cast、const_cast、dynamic_cast、reinterpret_cast，注意的是dynamic_cast是继承关系向下的类型转换</li><li>不要对数组使用多态，只要不从一个具体类派生出另一个具体类就好</li><li>避免无用的构造缺省函数，数组的raw memory分配可以避免内存的浪费，构造函数初始化对象，行为特性或数字相仿的对象被初始化为空值或不确定的值也是合理的，也有空容器，需要空间来容纳指针，实例化模板，模板的类型参数应该提供一个缺省构造函数</li><li>谨慎定义类型转换函数，有两种函数允许编译器进行隐式类型的转换，单参数构造函数和隐式类型转换运算符，构造函数使用explicit声明，编译器会拒绝为了隐式类型转换而调用构造函数</li><li>自增自减的前缀和后缀形式，处理用户定义的类型时，尽可能地使用前缀increment，只因效率高</li><li>不要重载&amp;&amp;，||和，操作符，解释是C++使用布尔表达式短路求值法，前部分判定后半部分不判了，分为全局重载和类内重载，函数参数地计算顺序不能被控制</li><li>理解不同含义的new和delete，即new operator和operator new的区别，作为内置的操作符，含义不能改变，功能分两部分，第一是分配足够的内存以容纳所需类型的对象，第二是调用构造函数初始化内存中的对象，operator new函数的返回值是void*，返回一个未初始化的指针，未初始化的内存，new用于堆上建立一个对象，分配内存然后定制operator new，再获得指针的内存里建立一个对象使用的是placement new，避免在内存中使用delete操作符</li><li>使用析构函数防止资源泄漏，不只是用于指针上，还可以用在其他资源的分配和释放上，资源应该被封装在一个对象里，智能指针就是基于此</li><li>在构造函数中防止资源泄漏，只有一个对象的构造函数完全运行完毕，对象才会被构造，构造函数try catch捕获所有的异常，用unique_ptr对象替代指针成员变量，就可以防止构造函数在异常时发生资源泄漏</li><li>禁止异常信息传递到析构函数外，第一是在异常传递的堆栈stack-unwinding过程，被terminate调用，第二是确保析构函数能完成任务</li><li>理解一个抛出一个异常与传递一个参数或调用一个虚函数之间的差异，程序的控制权最终还会返回到函数的调用处，异常的抛出不会返回到出现异常的地方，抛出的对象应该被复制，catch进行异常匹配有两种类型转换，第一是继承类和基类之间的转换，第二是允许类型指针转变成无类型指针，const void*捕获任意指针异常</li><li>通过引用捕获异常，有四个标准的额异常都不是指向对象的指针，bad_alloc，bad_cast，bad_typeid和bad_exception，分别对应的是不可分配，不可引用，不可操作空指针，unexception异常</li><li>审慎使用异常规格，函数抛出不在异常考虑的范围这样的异常，std::unexcepted调用std::terminate，然后再调用abort，从而避免了std::terminate</li><li>了解异常处理的系统开销，避免使用无用的try块</li><li>牢记80-20准则，即2成代码使用了8成的程序资源，2成代码耗用了8成的运行时间，2成代码使用了8成的内存，2成代码执行8成的磁盘访问，8成维护投入到2成代码上</li><li>考虑使用过lazy evaluation</li><li>分期摊还期望的计算，设计一个数据结构解决频繁运行的计算块，前面的lazy evaluation就是以此提高程序效率</li><li>理解临时对象的来源，未命名的临时对象在两种条件下产生，进行隐式类型转换和函数返回对象时使得函数调用成功</li><li>协助完成返回值优化，有些函数必须返回对象，这是它们的运行方法，C++允许编译器优化不出现的临时对象</li><li>通过重载避免隐式类型转换，重载运算符必须带有一个用户定义类型的参数，没有必要大量重载，除非效率上有相应的提升</li><li>考虑用运算符的赋值形式op&#x3D;来代替其单独形式op，确保operator的赋值形式与一个operator的单独形式存在正常的关系，后者+根据前者+&#x3D;来实现</li><li>考虑变更程序库，不同程序库在效率、可扩展性、移植性、类型安全和其它一些领域上蕴含着不同的设计理念</li><li>理解虚函数、多继承、虚基类和RTTI所需的代码，虚拟函数必须与调用函数的对象的动态类型一致，编译器使用vtbl和vptr，必须为包含虚函数的类留出vtbl空间，看不见的数据称为vptr，被编译器加在对象里，只有编译器知道，虚函数不能内联，内联的含义是指在编译期间用被调用的函数体来代替函数调用的指令，虚函数的虚体现在在运行时才知道调用的是哪一个函数，RTTI(运行时类型识别)能够帮助找到对象和类的有关信息，存储在type_info这个对象里，通过typeid操作符访问一个类的type_info对象</li><li>将构造函数和非成员函数虚拟化，虚拟构造函数返回一个指针，指向调用函数的对象的新拷贝，被派生类重定义的虚拟函数不用必须与基类的虚函数具有一样的返回类型</li><li>限制某个类所能产生的对象数量，阻止建立某个类的对象，方法是将该类的构造函数声明在类的private域中</li><li>要求或禁止在堆中产生对象，禁止用于调用new，利用new操作符总是调用operator new函数这点来达到目的，可声明为private</li><li>灵巧smart指针，使用到模板，应用领域有资源管理和重复代码任务的自动化，auto_ptr已在C++11抛弃，改用unique_ptr替代</li><li>引用计数，即允许多个有相同值的对象共享这个值的实现，两个动机，第一是简化跟踪堆中的对象的过程，一旦对象被new，就要记录对象的拥有者，所有者负责对对象进行delete，通过传递指针型参数将一个对象的所有权传递到另一个对象中，引用计数免除跟踪对象的所有权，第二是基于对象有相同的值，存储多次是无聊的，所以考虑让所有对象共享这个值的实现，节省内存</li><li>代理类，可以通过代理类实现二维数组，区分operator[]进行的操作是读还是写，proxy类可以完成三个行为，第一是多维数组，第二是左值右值的区分，第三是隐式类型转换的限制，缺点是proxy本身作为一个临时对象，必须被构造和析构</li><li>让函数根据一个以上的对象来决定怎么虚拟</li><li>在未来时态下开发程序，需要考虑到代码的可复用性、可维护性、健壮性以及环境移植性</li><li>将非尾端类设计为抽象类</li><li>如何在同一程序中混合使用C++和C，函数重载是C++的特性，extern C看作是声明这个函数是C写的一样进行调用，静态初始化，静态类对象和定义在全局的、命名空间中的文件体中的类对象构造函数通常在main被执行前被调用，动态内存分配建立在堆上，在同一程序下混合两者，有以下的指导原则：一是确保C++和C编译器产生兼容的obj文件，二是函数声明为extern C，三是只要可能就C++写main，四是勇敢delete释放new分配的内存，用free释放malloc分配的内存，五是将语言传递的东西限制在C编译的数据结构范围内</li><li>让自己习惯使用标准C++语言</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;reference link: &lt;a href=&quot;https://blog.csdn.net/fengbingchun/article/details/102990753&quot;&gt;https://blog.csdn.net/fengbingchun/article/details</summary>
       
     
     

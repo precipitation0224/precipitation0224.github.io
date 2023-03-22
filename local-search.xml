@@ -4,6 +4,44 @@
   
   
   <entry>
+    <title>WebServer压力测试</title>
+    <link href="/2023/03/23/webbench/"/>
+    <url>/2023/03/23/webbench/</url>
+    
+    <content type="html"><![CDATA[<p>短连接测试结果</p><p><img src="/../picture/duanlianjie.png"></p><p>长连接测试结果</p><p><img src="/../picture/changlianjie.png"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>WebServer项目</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>接雨水两侧动规问题</title>
+    <link href="/2023/03/21/jieyushui/"/>
+    <url>/2023/03/21/jieyushui/</url>
+    
+    <content type="html"><![CDATA[<p><img src="/../picture/jieyushui.png"></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">trap</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; height)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n = height.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">left</span><span class="hljs-params">(n, <span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">right</span><span class="hljs-params">(n, <span class="hljs-number">0</span>)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>; i&lt;n; ++i)<br>            left[i] = <span class="hljs-built_in">max</span>(left[i<span class="hljs-number">-1</span>], height[i<span class="hljs-number">-1</span>]);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=n<span class="hljs-number">-2</span>; i&gt;=<span class="hljs-number">0</span>; --i)<br>            right[i] = <span class="hljs-built_in">max</span>(right[i+<span class="hljs-number">1</span>], height[i+<span class="hljs-number">1</span>]);<br>        <span class="hljs-type">int</span> water = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>; i&lt;n; ++i) &#123;<br>            <span class="hljs-type">int</span> level = <span class="hljs-built_in">min</span>(left[i], right[i]);<br>            water += <span class="hljs-built_in">max</span>(<span class="hljs-number">0</span>, level-height[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> water;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure><p>关键在于表示从左和从右的高度，以及用最小的高度乘上间距即是容积.</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>select原理和缺点</title>
     <link href="/2023/03/21/slio/"/>
     <url>/2023/03/21/slio/</url>
@@ -433,6 +471,63 @@
     <tags>
       
       <tag>interview</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>联邦学习下的多视图聚类</title>
+    <link href="/2023/03/01/fedmvc/"/>
+    <url>/2023/03/01/fedmvc/</url>
+    
+    <content type="html"><![CDATA[<p>多视图聚类是指利用多个视图或特征描述同一组样本，在不同视图或特征空间中聚类样本。联邦学习是一种分布式机器学习框架，可以实现在数据分散的情况下进行模型训练。</p><p>在联邦学习中，多个设备或数据源共同训练模型，每个设备或数据源负责一部分数据，并通过模型的迭代来学习全局模型，从而避免了数据集中的隐私泄露问题。</p><p>在以联邦学习为背景的多视图聚类中，可以采用以下几种思路：</p><ol><li>基于<strong>模型</strong>的方法：在联邦学习框架下，利用各设备或数据源训练出的模型，对不同视图的数据进行预测，将预测结果作为新的特征，然后进行聚类。这种方法需要每个设备或数据源都具有相同的模型架构和参数设置。</li><li>基于<strong>特征</strong>的方法：在联邦学习框架下，将各设备或数据源的特征向量作为不同视图，在不同视图之间进行特征选择和特征融合，得到新的特征向量，然后进行聚类。</li><li>基于<strong>信息传递</strong>的方法：在联邦学习框架下，将各设备或数据源的聚类结果进行信息传递，利用传递的聚类结果得到新的特征向量，然后进行聚类。这种方法可以利用不同设备或数据源之间的信息交流和知识共享，提高聚类效果。</li><li>基于<strong>深度学习</strong>的方法：在联邦学习框架下，利用深度学习模型对不同视图的数据进行特征提取和特征融合，得到新的特征向量，然后进行聚类。这种方法需要在联邦学习框架下训练深度学习模型，并利用模型进行特征提取和融合。</li></ol><p>总之，基于联邦学习的多视图聚类需要充分利用各设备或数据源之间的信息交流和知识共享，结合不同视图之间的特征和模型，实现更精确和高效的聚类。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>科研</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>WebServer连接维护</title>
+    <link href="/2023/02/03/webserver-conn/"/>
+    <url>/2023/02/03/webserver-conn/</url>
+    
+    <content type="html"><![CDATA[<ul><li><strong>建立连接的过程</strong><br>连接的建立比较简单，server端通过socket()，bind()，listen()，并使用epoll ET模式监听listenfd的读请求，当TCP连接完成3次握手后，会触发listenfd的读事件，应用程序调用accept()，会检查已完成的连接队列，如果队列里有连接，就返回这个连接，出错或连接为空时返回-1。此时，已经可以进行正常的读写操作了。 当然，因为是ET模式，accept()要一直循环到就绪连接为空。</li><li><strong>分析</strong><br>之所以说建立连接的过程比较简单，是因为数据的通信已经由操作系统帮我们完成了，这里的通信是指3次握手的过程，这个过程不需要应用程序参与，当应用程序感知到连接时，此时该连接已经完成了3次握手的过程，accept就好了。另一个原因是一般情况下，连接的建立都是client发起的，server端被动建立连接就好了，也不会出现同时建立的情况。</li><li><strong>限制</strong><br>假设server只监听一个端口，一个连接就是一个四元组(原ip，原port，对端ip, 对端port)，那么理论上可以建立2^48个连接，可是，fd可没有这么多(操作系统限制、用户进程限制)。当连接满了，如果空等而不连接，那么就绪队列也满了后，会导致新连接无法建立。这里的做法我参考了muduo，准备一个空的文件描述符，accept()后直接close()，这样对端不会收到RST，至少可以知道服务器正在运行。</li></ul><p>通常server和client都可以主动发Fin来关闭连接</p><ul><li>对于client(非Keep-Alive)，发送完请求后就可以shutdown()写端，然后收到server发来的应答，最后close掉连接。也可以不shutdown()写，等读完直接close。对于Keep-Alive的情况，就要看client的心情了，收到消息后可以断，也可以不断，server应该保证不主动断开。</li><li>对于server端，毫无疑问应该谨慎处理以上所有情况。具体说来:</li><li>出现各种关于连接的错误时，可以直接close()掉</li><li>短连接超时的请求，可以close()，也可以不关</li><li>长连接对方长时间没有请求(如果没有保活机制)，可以close()，也可以不关</li><li>client发出Fin，server会收到0字节，通常不能判断client是close了还是shutdown，这时server应当把消息发完，然后才可以close()，如果对方调用的是close，会收到RST，server能感知到，就可以立即close了</li><li>短连接正常结束，server可以close，也可以不close，大多数的实现是不close的(对HTTP1.1而言)</li></ul><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">// server端的socket,bind和listen</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;Server.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;arpa/inet.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;netinet/in.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/socket.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;functional&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;Util.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;base/Logging.h&quot;</span></span><br><br>Server::<span class="hljs-built_in">Server</span>(EventLoop *loop, <span class="hljs-type">int</span> threadNum, <span class="hljs-type">int</span> port)<br>    : <span class="hljs-built_in">loop_</span>(loop),<br>      <span class="hljs-built_in">threadNum_</span>(threadNum),<br>      <span class="hljs-built_in">eventLoopThreadPool_</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">EventLoopThreadPool</span>(loop_, threadNum)),<br>      <span class="hljs-built_in">started_</span>(<span class="hljs-literal">false</span>),<br>      <span class="hljs-built_in">acceptChannel_</span>(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Channel</span>(loop_)),<br>      <span class="hljs-built_in">port_</span>(port),<br>      <span class="hljs-built_in">listenFd_</span>(<span class="hljs-built_in">socket_bind_listen</span>(port_)) &#123;<br>  acceptChannel_-&gt;<span class="hljs-built_in">setFd</span>(listenFd_);<br>  <span class="hljs-built_in">handle_for_sigpipe</span>();<br>  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">setSocketNonBlocking</span>(listenFd_) &lt; <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-built_in">perror</span>(<span class="hljs-string">&quot;set socket non block failed&quot;</span>);<br>    <span class="hljs-built_in">abort</span>();<br>  &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Server::start</span><span class="hljs-params">()</span> </span>&#123;<br>  eventLoopThreadPool_-&gt;<span class="hljs-built_in">start</span>();<br>  <span class="hljs-comment">// acceptChannel_-&gt;setEvents(EPOLLIN | EPOLLET | EPOLLONESHOT);</span><br>  acceptChannel_-&gt;<span class="hljs-built_in">setEvents</span>(EPOLLIN | EPOLLET);<br>  acceptChannel_-&gt;<span class="hljs-built_in">setReadHandler</span>(<span class="hljs-built_in">bind</span>(&amp;Server::handNewConn, <span class="hljs-keyword">this</span>));<br>  acceptChannel_-&gt;<span class="hljs-built_in">setConnHandler</span>(<span class="hljs-built_in">bind</span>(&amp;Server::handThisConn, <span class="hljs-keyword">this</span>));<br>  loop_-&gt;<span class="hljs-built_in">addToPoller</span>(acceptChannel_, <span class="hljs-number">0</span>);<br>  started_ = <span class="hljs-literal">true</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">Server::handNewConn</span><span class="hljs-params">()</span> </span>&#123;<br>  <span class="hljs-keyword">struct</span> <span class="hljs-title class_">sockaddr_in</span> client_addr;<br>  <span class="hljs-built_in">memset</span>(&amp;client_addr, <span class="hljs-number">0</span>, <span class="hljs-built_in">sizeof</span>(<span class="hljs-keyword">struct</span> sockaddr_in));<br>  <span class="hljs-type">socklen_t</span> client_addr_len = <span class="hljs-built_in">sizeof</span>(client_addr);<br>  <span class="hljs-type">int</span> accept_fd = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">while</span> ((accept_fd = <span class="hljs-built_in">accept</span>(listenFd_, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;client_addr,<br>                             &amp;client_addr_len)) &gt; <span class="hljs-number">0</span>) &#123;<br>    EventLoop *loop = eventLoopThreadPool_-&gt;<span class="hljs-built_in">getNextLoop</span>();<br>    LOG &lt;&lt; <span class="hljs-string">&quot;New connection from &quot;</span> &lt;&lt; <span class="hljs-built_in">inet_ntoa</span>(client_addr.sin_addr) &lt;&lt; <span class="hljs-string">&quot;:&quot;</span><br>        &lt;&lt; <span class="hljs-built_in">ntohs</span>(client_addr.sin_port);<br>    <span class="hljs-comment">// cout &lt;&lt; &quot;new connection&quot; &lt;&lt; endl;</span><br>    <span class="hljs-comment">// cout &lt;&lt; inet_ntoa(client_addr.sin_addr) &lt;&lt; endl;</span><br>    <span class="hljs-comment">// cout &lt;&lt; ntohs(client_addr.sin_port) &lt;&lt; endl;</span><br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">    // TCP的保活机制默认是关闭的</span><br><span class="hljs-comment">    int optval = 0;</span><br><span class="hljs-comment">    socklen_t len_optval = 4;</span><br><span class="hljs-comment">    getsockopt(accept_fd, SOL_SOCKET,  SO_KEEPALIVE, &amp;optval, &amp;len_optval);</span><br><span class="hljs-comment">    cout &lt;&lt; &quot;optval ==&quot; &lt;&lt; optval &lt;&lt; endl;</span><br><span class="hljs-comment">    */</span><br>    <span class="hljs-comment">// 限制服务器的最大并发连接数</span><br>    <span class="hljs-keyword">if</span> (accept_fd &gt;= MAXFDS) &#123;<br>      <span class="hljs-built_in">close</span>(accept_fd);<br>      <span class="hljs-keyword">continue</span>;<br>    &#125;<br>    <span class="hljs-comment">// 设为非阻塞模式</span><br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">setSocketNonBlocking</span>(accept_fd) &lt; <span class="hljs-number">0</span>) &#123;<br>      LOG &lt;&lt; <span class="hljs-string">&quot;Set non block failed!&quot;</span>;<br>      <span class="hljs-comment">// perror(&quot;Set non block failed!&quot;);</span><br>      <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-built_in">setSocketNodelay</span>(accept_fd);<br>    <span class="hljs-comment">// setSocketNoLinger(accept_fd);</span><br><br>    <span class="hljs-function">shared_ptr&lt;HttpData&gt; <span class="hljs-title">req_info</span><span class="hljs-params">(<span class="hljs-keyword">new</span> HttpData(loop, accept_fd))</span></span>;<br>    req_info-&gt;<span class="hljs-built_in">getChannel</span>()-&gt;<span class="hljs-built_in">setHolder</span>(req_info);<br>    loop-&gt;<span class="hljs-built_in">queueInLoop</span>(std::<span class="hljs-built_in">bind</span>(&amp;HttpData::newEvent, req_info));<br>  &#125;<br>  acceptChannel_-&gt;<span class="hljs-built_in">setEvents</span>(EPOLLIN | EPOLLET);<br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>WebServer项目</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>C++中四种类型转换</title>
+    <link href="/2022/01/11/cppcast/"/>
+    <url>/2022/01/11/cppcast/</url>
+    
+    <content type="html"><![CDATA[<p>C++中四种类型转换分别为<strong>const_cast、static_cast、dynamic_cast、reinterpret_cast</strong>，四种转换功能分别如下：</p><ol><li>const_cast 将const变量转为非const</li><li>static_cast最常用，可以用于各种隐式转换，比如非const转const，static_cast可以用于类向上转换，但向下转换能成功但是不安全。</li><li>dynamic_cast只能用于含有虚函数的类转换，用于类向上和向下转换<strong>向上转换：</strong>指子类向基类转换。    <strong>向下转换：</strong>指基类向子类转换。这两种转换，子类包含父类，当父类转换成子类时可能出现非法内存访问的问题。dynamic_cast通过判断变量运行时类型和要转换的类型是否相同来判断是否能够进行向下转换。dynamic_cast可以做类之间上下转换，转换的时候会进行类型检查，类型相等成功转换，类型不等转换失败。运用RTTI技术，RTTI是”Runtime Type Information”的缩写，意思是运行时类型信息，它提供了运行时确定对象类型的方法。在c++层面主要体现在dynamic_cast和typeid，vs中虚函数表的-1位置存放了指向type_info的指针，对于存在虚函数的类型，dynamic_cast和typeid都会去查询type_info。</li><li>reinterpret_cast可以做任何类型的转换，不过不对转换结果保证，容易出问题。</li></ol><p><strong>注意：</strong>为什么不用C的强制转换：C的强制转换表面上看起来功能强大什么都能转，但是转换不够明确，不能进行错误检查，容易出错。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
       
     </tags>
     
