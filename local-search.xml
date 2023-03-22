@@ -518,8 +518,8 @@
   
   <entry>
     <title>C++中四种类型转换</title>
-    <link href="/2022/01/11/cppcast/"/>
-    <url>/2022/01/11/cppcast/</url>
+    <link href="/2023/01/11/cppcast/"/>
+    <url>/2023/01/11/cppcast/</url>
     
     <content type="html"><![CDATA[<p>C++中四种类型转换分别为<strong>const_cast、static_cast、dynamic_cast、reinterpret_cast</strong>，四种转换功能分别如下：</p><ol><li>const_cast 将const变量转为非const</li><li>static_cast最常用，可以用于各种隐式转换，比如非const转const，static_cast可以用于类向上转换，但向下转换能成功但是不安全。</li><li>dynamic_cast只能用于含有虚函数的类转换，用于类向上和向下转换<strong>向上转换：</strong>指子类向基类转换。    <strong>向下转换：</strong>指基类向子类转换。这两种转换，子类包含父类，当父类转换成子类时可能出现非法内存访问的问题。dynamic_cast通过判断变量运行时类型和要转换的类型是否相同来判断是否能够进行向下转换。dynamic_cast可以做类之间上下转换，转换的时候会进行类型检查，类型相等成功转换，类型不等转换失败。运用RTTI技术，RTTI是”Runtime Type Information”的缩写，意思是运行时类型信息，它提供了运行时确定对象类型的方法。在c++层面主要体现在dynamic_cast和typeid，vs中虚函数表的-1位置存放了指向type_info的指针，对于存在虚函数的类型，dynamic_cast和typeid都会去查询type_info。</li><li>reinterpret_cast可以做任何类型的转换，不过不对转换结果保证，容易出问题。</li></ol><p><strong>注意：</strong>为什么不用C的强制转换：C的强制转换表面上看起来功能强大什么都能转，但是转换不够明确，不能进行错误检查，容易出错。</p>]]></content>
     
