@@ -1,0 +1,668 @@
+
+
+<!DOCTYPE html>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.js"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<html lang="en" data-default-color-scheme=auto>
+<script type="text/javascript" src="\js\FunnyTitle.js"></script>
+<!-- 雪花特效 -->
+<script type="text/javascript" src="\js\snow.js"></script>
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Yummy">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="reference link: https:&#x2F;&#x2F;blog.csdn.net&#x2F;fengbingchun&#x2F;article&#x2F;details&#x2F;102990753  指针和引用的区别，任何情况下都不能使用指向空值的引用，引用必须初始化 尽量使用C++风格的类型转换，static_cast、const_cast、dynamic_cast、reinterpret_cast，注意的是dynamic_cast是继承">
+<meta property="og:type" content="article">
+<meta property="og:title" content="more-effective-c++知识总结">
+<meta property="og:url" content="http://precipitation0224.github.io/2023/02/16/more-effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="yummy home">
+<meta property="og:description" content="reference link: https:&#x2F;&#x2F;blog.csdn.net&#x2F;fengbingchun&#x2F;article&#x2F;details&#x2F;102990753  指针和引用的区别，任何情况下都不能使用指向空值的引用，引用必须初始化 尽量使用C++风格的类型转换，static_cast、const_cast、dynamic_cast、reinterpret_cast，注意的是dynamic_cast是继承">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-02-16T15:06:32.000Z">
+<meta property="article:modified_time" content="2023-03-23T12:06:45.059Z">
+<meta property="article:author" content="Yummy">
+<meta property="article:tag" content="my notes">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>more-effective-c++知识总结 - yummy home</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"precipitation0224.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="yummy home" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Bloy to yummy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="more-effective-c++知识总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-16 15:06" pubdate>
+          February 16, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">more-effective-c++知识总结</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>reference link: <a target="_blank" rel="noopener" href="https://blog.csdn.net/fengbingchun/article/details/102990753">https://blog.csdn.net/fengbingchun/article/details/102990753</a></p>
+<ol>
+<li>指针和引用的区别，任何情况下都不能使用指向空值的引用，引用必须初始化</li>
+<li>尽量使用C++风格的类型转换，static_cast、const_cast、dynamic_cast、reinterpret_cast，注意的是dynamic_cast是继承关系向下的类型转换</li>
+<li>不要对数组使用多态，只要不从一个具体类派生出另一个具体类就好</li>
+<li>避免无用的构造缺省函数，数组的raw memory分配可以避免内存的浪费，构造函数初始化对象，行为特性或数字相仿的对象被初始化为空值或不确定的值也是合理的，也有空容器，需要空间来容纳指针，实例化模板，模板的类型参数应该提供一个缺省构造函数</li>
+<li>谨慎定义类型转换函数，有两种函数允许编译器进行隐式类型的转换，单参数构造函数和隐式类型转换运算符，构造函数使用explicit声明，编译器会拒绝为了隐式类型转换而调用构造函数</li>
+<li>自增自减的前缀和后缀形式，处理用户定义的类型时，尽可能地使用前缀increment，只因效率高</li>
+<li>不要重载&amp;&amp;，||和，操作符，解释是C++使用布尔表达式短路求值法，前部分判定后半部分不判了，分为全局重载和类内重载，函数参数地计算顺序不能被控制</li>
+<li>理解不同含义的new和delete，即new operator和operator new的区别，作为内置的操作符，含义不能改变，功能分两部分，第一是分配足够的内存以容纳所需类型的对象，第二是调用构造函数初始化内存中的对象，operator new函数的返回值是void*，返回一个未初始化的指针，未初始化的内存，new用于堆上建立一个对象，分配内存然后定制operator new，再获得指针的内存里建立一个对象使用的是placement new，避免在内存中使用delete操作符</li>
+<li>使用析构函数防止资源泄漏，不只是用于指针上，还可以用在其他资源的分配和释放上，资源应该被封装在一个对象里，智能指针就是基于此</li>
+<li>在构造函数中防止资源泄漏，只有一个对象的构造函数完全运行完毕，对象才会被构造，构造函数try catch捕获所有的异常，用unique_ptr对象替代指针成员变量，就可以防止构造函数在异常时发生资源泄漏</li>
+<li>禁止异常信息传递到析构函数外，第一是在异常传递的堆栈stack-unwinding过程，被terminate调用，第二是确保析构函数能完成任务</li>
+<li>理解一个抛出一个异常与传递一个参数或调用一个虚函数之间的差异，程序的控制权最终还会返回到函数的调用处，异常的抛出不会返回到出现异常的地方，抛出的对象应该被复制，catch进行异常匹配有两种类型转换，第一是继承类和基类之间的转换，第二是允许类型指针转变成无类型指针，const void*捕获任意指针异常</li>
+<li>通过引用捕获异常，有四个标准的额异常都不是指向对象的指针，bad_alloc，bad_cast，bad_typeid和bad_exception，分别对应的是不可分配，不可引用，不可操作空指针，unexception异常</li>
+<li>审慎使用异常规格，函数抛出不在异常考虑的范围这样的异常，std::unexcepted调用std::terminate，然后再调用abort，从而避免了std::terminate</li>
+<li>了解异常处理的系统开销，避免使用无用的try块</li>
+<li>牢记80-20准则，即2成代码使用了8成的程序资源，2成代码耗用了8成的运行时间，2成代码使用了8成的内存，2成代码执行8成的磁盘访问，8成维护投入到2成代码上</li>
+<li>考虑使用过lazy evaluation</li>
+<li>分期摊还期望的计算，设计一个数据结构解决频繁运行的计算块，前面的lazy evaluation就是以此提高程序效率</li>
+<li>理解临时对象的来源，未命名的临时对象在两种条件下产生，进行隐式类型转换和函数返回对象时使得函数调用成功</li>
+<li>协助完成返回值优化，有些函数必须返回对象，这是它们的运行方法，C++允许编译器优化不出现的临时对象</li>
+<li>通过重载避免隐式类型转换，重载运算符必须带有一个用户定义类型的参数，没有必要大量重载，除非效率上有相应的提升</li>
+<li>考虑用运算符的赋值形式op&#x3D;来代替其单独形式op，确保operator的赋值形式与一个operator的单独形式存在正常的关系，后者+根据前者+&#x3D;来实现</li>
+<li>考虑变更程序库，不同程序库在效率、可扩展性、移植性、类型安全和其它一些领域上蕴含着不同的设计理念</li>
+<li>理解虚函数、多继承、虚基类和RTTI所需的代码，虚拟函数必须与调用函数的对象的动态类型一致，编译器使用vtbl和vptr，必须为包含虚函数的类留出vtbl空间，看不见的数据称为vptr，被编译器加在对象里，只有编译器知道，虚函数不能内联，内联的含义是指在编译期间用被调用的函数体来代替函数调用的指令，虚函数的虚体现在在运行时才知道调用的是哪一个函数，RTTI(运行时类型识别)能够帮助找到对象和类的有关信息，存储在type_info这个对象里，通过typeid操作符访问一个类的type_info对象</li>
+<li>将构造函数和非成员函数虚拟化，虚拟构造函数返回一个指针，指向调用函数的对象的新拷贝，被派生类重定义的虚拟函数不用必须与基类的虚函数具有一样的返回类型</li>
+<li>限制某个类所能产生的对象数量，阻止建立某个类的对象，方法是将该类的构造函数声明在类的private域中</li>
+<li>要求或禁止在堆中产生对象，禁止用于调用new，利用new操作符总是调用operator new函数这点来达到目的，可声明为private</li>
+<li>灵巧smart指针，使用到模板，应用领域有资源管理和重复代码任务的自动化，auto_ptr已在C++11抛弃，改用unique_ptr替代</li>
+<li>引用计数，即允许多个有相同值的对象共享这个值的实现，两个动机，第一是简化跟踪堆中的对象的过程，一旦对象被new，就要记录对象的拥有者，所有者负责对对象进行delete，通过传递指针型参数将一个对象的所有权传递到另一个对象中，引用计数免除跟踪对象的所有权，第二是基于对象有相同的值，存储多次是无聊的，所以考虑让所有对象共享这个值的实现，节省内存</li>
+<li>代理类，可以通过代理类实现二维数组，区分operator[]进行的操作是读还是写，proxy类可以完成三个行为，第一是多维数组，第二是左值右值的区分，第三是隐式类型转换的限制，缺点是proxy本身作为一个临时对象，必须被构造和析构</li>
+<li>让函数根据一个以上的对象来决定怎么虚拟</li>
+<li>在未来时态下开发程序，需要考虑到代码的可复用性、可维护性、健壮性以及环境移植性</li>
+<li>将非尾端类设计为抽象类</li>
+<li>如何在同一程序中混合使用C++和C，函数重载是C++的特性，extern C看作是声明这个函数是C写的一样进行调用，静态初始化，静态类对象和定义在全局的、命名空间中的文件体中的类对象构造函数通常在main被执行前被调用，动态内存分配建立在堆上，在同一程序下混合两者，有以下的指导原则：一是确保C++和C编译器产生兼容的obj文件，二是函数声明为extern C，三是只要可能就C++写main，四是勇敢delete释放new分配的内存，用free释放malloc分配的内存，五是将语言传递的东西限制在C编译的数据结构范围内</li>
+<li>让自己习惯使用标准C++语言</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/my-notes/">#my notes</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>more-effective-c++知识总结</div>
+      <div>http://precipitation0224.github.io/2023/02/16/more-effective-c-知识总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>Yummy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>February 16, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/18/reactor/" title="Reator网络编程模型">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Reator网络编程模型</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/16/tcp34/" title="TCP三握四挥">
+                        <span class="hidden-mobile">TCP三握四挥</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

@@ -229,15 +229,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/03/23/webbench/" target="_self">
-          WebServer压力测试
+        <a href="/2023/04/07/C-%E4%B8%AD%E7%9A%84unicode/" target="_self">
+          C++中的unicode
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/23/webbench/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/07/C-%E4%B8%AD%E7%9A%84unicode/" target="_self">
         <div>
-          短连接测试结果  长连接测试结果
+          7、utf8，utf16区别，c++用哪个 UTF-8(8-bit Unicode Transformation Format) UTF-8是一种变长编码，对于一个Unicode的字符被编码成1至4个字节 优点:1.向后兼容ASCII编码；2.没有字节序(大小端)的问题适合网络传输；3.存储英文和拉丁文等字符非常节省存储空间。缺点:1.变长编码不利于文本处理；2.对于CJK等文字比较浪费存储空间。
         </div>
       </a>
 
@@ -245,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-22 16:56" pubdate>
-              2023-03-22
+            <time datetime="2023-04-06 18:50" pubdate>
+              2023-04-06
             </time>
           </div>
         
@@ -255,7 +255,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/WebServer%E9%A1%B9%E7%9B%AE/">#WebServer项目</a>
+              <a href="/tags/C/">#C++</a>
             
           </div>
         
@@ -269,15 +269,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/03/21/jieyushui/" target="_self">
-          接雨水两侧动规问题
+        <a href="/2023/03/11/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/" target="_self">
+          浮点数和MD5,Base64
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/21/jieyushui/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/11/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/" target="_self">
         <div>
-          123456789101112131415161718class Solution &#123;public:    int trap(vector&lt;int&gt;&amp; height) &#123;        int n = height.size();        vector&lt;int&gt; left(n, 0);        vector&lt;int&gt; r
+          4、浮点数的存储方式  符号位：‘+’存储为0，‘-’存储为1  将数字转化成二进制数  将二进制数规范化为 1.xxxxxxxx*2^n  将n转化为指数（+127） 尾数xxxx后面补零   5、介绍MD5、Base64 MD5即Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语
         </div>
       </a>
 
@@ -285,328 +285,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 20:30" pubdate>
-              2023-03-20
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/21/slio/" target="_self">
-          select原理和缺点
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/21/slio/" target="_self">
-        <div>
-          select是一种IO多路复用计数，思想如下：  要构造关于文件描述符的列表，将要监听的文件描述符添加到表中，列表的数据类型是fd_set，是一个整型数组，总共是1024bits，每一个bit表示一个文件描述符的事件，1代表检测，0代表不检测； 系统调用select()，监听列表中的文件描述符的事件，函数本身是阻塞的，直到文件描述符的一个或多个进行IO时，函数才返回，修改文件描述符的值，0为未检测
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 20:19" pubdate>
-              2023-03-20
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/21/lambda/" target="_self">
-          lambda
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/21/lambda/" target="_self">
-        <div>
-          C++11的Lambda特性 lambda 匿名函数很简单，可以套用如下的语法格式：[外部变量访问方式说明符] (参数) mutable noexcept&#x2F;throw() -&gt; 返回值类型         {           函数体;         }; 其中各部分的含义分别为： a. [外部变量方位方式说明符]     [ ] 方括号用于向编译器表明当前是一个 lambda
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 20:11" pubdate>
-              2023-03-20
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/C-11/">#C++11</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/21/staticlib/" target="_self">
-          静态库和动态库
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/21/staticlib/" target="_self">
-        <div>
-          静态库需要有库文件和头文件，编译程序要通过”-l libname”参数编译； linux是.a文件，windows是.lib文件 制作流程，先通过gcc生成.o文件，再通过ar(参数选项rcs)将.o文件打包生成.a文件。 动态库在运行程序之前还需要配置动态库的加载路径 linux是.so文件，windows是.dll文件 通过gcc生成.o文件(参数选项fpic)，再通过gcc生成.so文件(参
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 20:08" pubdate>
-              2023-03-20
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/21/mutex/" target="_self">
-          互斥锁和自旋锁
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/21/mutex/" target="_self">
-        <div>
-          互斥锁也是互斥量(Mutex)，作为保护临界区的特殊变量，两种状态locked和unlocked； 每个互斥锁内部有一个线程等待队列，用来保存互斥锁的线程，unlocked线程可得到锁，locked就阻塞到等待mutex的队列中。 自旋锁类似于互斥锁，不通过休眠阻塞进程，而是在获取锁之前一直处于忙则等待的状态，可以用于锁被持有时间短，线程无需额外调度的情况；自旋锁最多被一个进程所持有，若第二个线程
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-20 20:07" pubdate>
-              2023-03-20
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/18/mysqleff/" target="_self">
-          MySQL数据库三个关键性能指标
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/18/mysqleff/" target="_self">
-        <div>
-          MySQL数据库三个关键性能指标 TPS Transactions Per Second(每秒传输的事物处理个数)，即服务器每秒处理的事务数。 TPS包括一条消息入和一条消息出，加上一次用户数据库访问。(业务TPS &#x3D; CAPS × 每个呼叫平均TPS) TPS是软件测试结果的测量单位。一个事务是指一个客户机向服务器发送请求然后服务器做出反应的过程。客户机在发送请求时开始计时，收到服务器
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 11:00" pubdate>
-              2023-03-18
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/mysql/">#mysql</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/18/muduo/" target="_self">
-          Muduo库关键代码及思想
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/18/muduo/" target="_self">
-        <div>
-          Muduo库关键代码及思想 Muduo库是基于Reactor模式实现的TCP网络编程库。Muduo库有三个核心组件支撑一个reactor实现 [持续] 的 [监听] 一组fd，并根据每个fd上发生的事件 [调用] 相应的处理函数。这三个组件分别是Channel类、Poller&#x2F;EpollPoller类以及EventLoop类。 Channel类其实相当于一个文件描述符的保姆 在TCP网络
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 11:00" pubdate>
-              2023-03-18
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/18/reactor/" target="_self">
-          Reator网络编程模型
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/18/reactor/" target="_self">
-        <div>
-          Reator网络编程模型 首先介绍下Reactor这一网络编程模型，I&#x2F;O多路复用可以用作并发事件驱动(event-driven)程序的基础，即整个事件驱动模型是一个状态机，包含了状态(state), 输入事件(input-event), 状态转移(transition), 状态转移即状态到输入事件的一组映射。通过I&#x2F;O多路复用的技术检测事件的发生，并根据具体的事件(通常为读写
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-18 10:59" pubdate>
-              2023-03-18
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/16/sql/" target="_self">
-          预防sql注入
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/16/sql/" target="_self">
-        <div>
-          11、避免sql注入 SQL 注入（SQL Injection），是 Web 开发中最常见的一种安全漏洞。 可以用它来从数据库获取敏感信息、利用数据库的特性执行添加用户、导出文件等一系列恶意操作，甚至有可能获取数据库乃至系统用户最高权限。  严格限制 Web 应用的数据库的操作权限，给连接数据库的用户提供满足需要的最低权限，最大限度的减少注入攻击对数据库的危害 校验参数的数据格式是否合法（可以使用
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-16 10:35" pubdate>
-              2023-03-16
+            <time datetime="2023-03-10 18:32" pubdate>
+              2023-03-10
             </time>
           </div>
         
@@ -623,11 +303,331 @@
     </article>
   </div>
 
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/08/virtualpointer/" target="_self">
+          虚函数动态绑定
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/08/virtualpointer/" target="_self">
+        <div>
+          14、虚函数如何实现动态转发，每个类都有虚函数表吗 虚函数是在某基类中声明为virtual并在一个或多个派生类中被重新定义的成员函数。是实现动态多态的一种方法。 函数是通过虚函数表来实现的。每一个含有虚函数的类，都会有一个虚函数表用来存放虚函数的地址，同时类会有一个虚表指针去指向虚函数表的首地址,对象的首地址就存放着虚表指针。 虚函数表：要讲清楚动态绑定的流程，首先需要了解清楚类里面虚函数表的定义
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-07 20:01" pubdate>
+              2023-03-07
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/interview/">#interview</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/07/tls/" target="_self">
+          http缺陷，tls和QUIC
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/07/tls/" target="_self">
+        <div>
+          10、http安全保证，tls，如何握手 HTTP协议没有任何的加密以及身份验证的机制，非常容易遭到窃听、劫持、篡改等。不安全的原因主要包含以下方面：  通信使用明文，内容可能被窃听。 不验证通信方的身份，因此有可能遭到伪装。 无法验证报文的完整性，所以有可能被篡改。 传统的HTTP请求过程都是明文传输的，所谓的明文指的是没有经过加密的信息，如果HTTP请求和响应被黑客拦截，并且里面含有密码等敏感
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-06 19:53" pubdate>
+              2023-03-06
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/interview/">#interview</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/05/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/" target="_self">
+          string的缺陷和指针选择
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/05/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/" target="_self">
+        <div>
+          2、std::string的缺陷 最大的缺点是 std::string 是「字节串」而非「字符串」  它是可变对象，任何对 string 对象的操作都会改变原对象的值而不是重新生成一个 string 对象，线程不安全； 不能很好的处理宽字节的字符； 没有足够多的好用的函数，没有format格式输出，要借助要用stdio.h头文件里的 sprintf 函数。  3、智能指针和原生指针的开销 泛型指针
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-05 13:07" pubdate>
+              2023-03-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/interview/">#interview</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/04/staticlib/" target="_self">
+          静态库和动态库
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/04/staticlib/" target="_self">
+        <div>
+          静态库需要有库文件和头文件，编译程序要通过”-l libname”参数编译； linux是.a文件，windows是.lib文件 制作流程，先通过gcc生成.o文件，再通过ar(参数选项rcs)将.o文件打包生成.a文件。 动态库在运行程序之前还需要配置动态库的加载路径 linux是.so文件，windows是.dll文件 通过gcc生成.o文件(参数选项fpic)，再通过gcc生成.so文件(参
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-03 20:08" pubdate>
+              2023-03-03
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/02/sql/" target="_self">
+          预防sql注入
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/02/sql/" target="_self">
+        <div>
+          11、避免sql注入 SQL 注入（SQL Injection），是 Web 开发中最常见的一种安全漏洞。 可以用它来从数据库获取敏感信息、利用数据库的特性执行添加用户、导出文件等一系列恶意操作，甚至有可能获取数据库乃至系统用户最高权限。  严格限制 Web 应用的数据库的操作权限，给连接数据库的用户提供满足需要的最低权限，最大限度的减少注入攻击对数据库的危害 校验参数的数据格式是否合法（可以使用
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-02 10:35" pubdate>
+              2023-03-02
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/interview/">#interview</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/02/slio/" target="_self">
+          select原理和缺点
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/02/slio/" target="_self">
+        <div>
+          select是一种IO多路复用计数，思想如下：  要构造关于文件描述符的列表，将要监听的文件描述符添加到表中，列表的数据类型是fd_set，是一个整型数组，总共是1024bits，每一个bit表示一个文件描述符的事件，1代表检测，0代表不检测； 系统调用select()，监听列表中的文件描述符的事件，函数本身是阻塞的，直到文件描述符的一个或多个进行IO时，函数才返回，修改文件描述符的值，0为未检测
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-01 20:19" pubdate>
+              2023-03-01
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/27/fedmvc/" target="_self">
+          联邦学习下的多视图聚类
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/27/fedmvc/" target="_self">
+        <div>
+          多视图聚类是指利用多个视图或特征描述同一组样本，在不同视图或特征空间中聚类样本。联邦学习是一种分布式机器学习框架，可以实现在数据分散的情况下进行模型训练。 在联邦学习中，多个设备或数据源共同训练模型，每个设备或数据源负责一部分数据，并通过模型的迭代来学习全局模型，从而避免了数据集中的隐私泄露问题。 在以联邦学习为背景的多视图聚类中，可以采用以下几种思路：  基于模型的方法：在联邦学习框架下，利用各
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-26 19:54" pubdate>
+              2023-02-26
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%A7%91%E7%A0%94/">#科研</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/23/mysqleff/" target="_self">
+          MySQL数据库三个关键性能指标
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/23/mysqleff/" target="_self">
+        <div>
+          MySQL数据库三个关键性能指标 TPS Transactions Per Second(每秒传输的事物处理个数)，即服务器每秒处理的事务数。 TPS包括一条消息入和一条消息出，加上一次用户数据库访问。(业务TPS &#x3D; CAPS × 每个呼叫平均TPS) TPS是软件测试结果的测量单位。一个事务是指一个客户机向服务器发送请求然后服务器做出反应的过程。客户机在发送请求时开始计时，收到服务器
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-23 11:00" pubdate>
+              2023-02-23
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/mysql/">#mysql</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 

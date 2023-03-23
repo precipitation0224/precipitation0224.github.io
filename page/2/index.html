@@ -229,373 +229,13 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/03/16/virtualpointer/" target="_self">
-          虚函数动态绑定
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/16/virtualpointer/" target="_self">
-        <div>
-          14、虚函数如何实现动态转发，每个类都有虚函数表吗 虚函数是在某基类中声明为virtual并在一个或多个派生类中被重新定义的成员函数。是实现动态多态的一种方法。 函数是通过虚函数表来实现的。每一个含有虚函数的类，都会有一个虚函数表用来存放虚函数的地址，同时类会有一个虚表指针去指向虚函数表的首地址,对象的首地址就存放着虚表指针。 虚函数表：要讲清楚动态绑定的流程，首先需要了解清楚类里面虚函数表的定义
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 20:01" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/interview/">#interview</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/16/tls/" target="_self">
-          http缺陷，tls和QUIC
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/16/tls/" target="_self">
-        <div>
-          10、http安全保证，tls，如何握手 HTTP协议没有任何的加密以及身份验证的机制，非常容易遭到窃听、劫持、篡改等。不安全的原因主要包含以下方面：  通信使用明文，内容可能被窃听。 不验证通信方的身份，因此有可能遭到伪装。 无法验证报文的完整性，所以有可能被篡改。 传统的HTTP请求过程都是明文传输的，所谓的明文指的是没有经过加密的信息，如果HTTP请求和响应被黑客拦截，并且里面含有密码等敏感
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 19:53" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/interview/">#interview</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/16/C-%E4%B8%AD%E7%9A%84unicode/" target="_self">
-          C++中的unicode
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/16/C-%E4%B8%AD%E7%9A%84unicode/" target="_self">
-        <div>
-          7、utf8，utf16区别，c++用哪个 UTF-8(8-bit Unicode Transformation Format) UTF-8是一种变长编码，对于一个Unicode的字符被编码成1至4个字节 优点:1.向后兼容ASCII编码；2.没有字节序(大小端)的问题适合网络传输；3.存储英文和拉丁文等字符非常节省存储空间。缺点:1.变长编码不利于文本处理；2.对于CJK等文字比较浪费存储空间。
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 18:50" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/interview/">#interview</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/16/1-0-2-3%E4%BC%98%E5%8C%96/" target="_self">
-          http 1.0/2/3优化
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/16/1-0-2-3%E4%BC%98%E5%8C%96/" target="_self">
-        <div>
-          6、http1.0&#x2F;1 2 3优化 HTTP1.0 1.0的HTTP版本，是一种无状态，无连接的应用层协议。 HTTP1.0规定浏览器和服务器保持短暂的链接。 浏览器每次请求都需要与服务器建立一个TCP连接，服务器处理完成以后立即断开TCP连接（无连接），服务器不跟踪也每个客户单，也不记录过去的请求（无状态）。 这种无状态性可以借助cookie&#x2F;session机制来做身份认证和
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 18:43" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/interview/">#interview</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/16/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/" target="_self">
-          浮点数和MD5,Base64
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/16/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/" target="_self">
-        <div>
-          4、浮点数的存储方式  符号位：‘+’存储为0，‘-’存储为1  将数字转化成二进制数  将二进制数规范化为 1.xxxxxxxx*2^n  将n转化为指数（+127） 尾数xxxx后面补零   5、介绍MD5、Base64 MD5即Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 18:32" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/interview/">#interview</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/15/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/" target="_self">
-          string的缺陷和指针选择
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/15/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/" target="_self">
-        <div>
-          2、std::string的缺陷 最大的缺点是 std::string 是「字节串」而非「字符串」  它是可变对象，任何对 string 对象的操作都会改变原对象的值而不是重新生成一个 string 对象，线程不安全； 不能很好的处理宽字节的字符； 没有足够多的好用的函数，没有format格式输出，要借助要用stdio.h头文件里的 sprintf 函数。  3、智能指针和原生指针的开销 泛型指针
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 13:07" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/interview/">#interview</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/15/%E4%B8%A4%E9%81%93%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" target="_self">
-          两道基础算法
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/15/%E4%B8%A4%E9%81%93%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" target="_self">
-        <div>
-          16、Q1：整数与ip地址的转换；Q2：小q第一天挖11币，第二天比前一天少一个币，以此类推，但休息一天又可以挖到11币,问第n天能挖多少币 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 10:59" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/interview/">#interview</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/15/cpp11%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_self">
-          C++11知识总结
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/15/cpp11%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_self">
-        <div>
-          1、c++11的一些特性 类型推导——C++11引入了auto和decltype关键字，使用他们可以在编译期就推导出变量或者表达式的类型，方便开发者编码也简化了代码。 其中有两个关键字：  auto：让编译器在编译器就推导出变量的类型，可以通过&#x3D;右边的类型推导出变量的类型。  1auto a = 2; // boost::typeindex::type_id_with_cur&lt;de
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-15 10:29" pubdate>
-              2023-03-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/interview/">#interview</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/15/thoughts/" target="_self">
-          thoughts
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/15/thoughts/" target="_self">
-        <div>
-          修bug真的是好烦！
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-14 20:20" pubdate>
-              2023-03-14
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/my-os/">#my os</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/14/Tcpip%E5%8D%B7%E4%B8%80%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_self">
+        <a href="/2023/02/19/Tcpip%E5%8D%B7%E4%B8%80%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_self">
           Tcpip卷一协议知识总结
         </a>
       </h1>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/14/Tcpip%E5%8D%B7%E4%B8%80%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/19/Tcpip%E5%8D%B7%E4%B8%80%E5%8D%8F%E8%AE%AE%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_self">
         <div>
           第一章：概述 1、制定协议来进行终端交流，IP、ICMP、TCP，自上向下：应用层、传输层、网络层、数据链路层、硬件层 2、域名系统，分布式数据库，host name转ip addr，学会rfc10几个协议即可，port用于tcp和udp的逻辑号码 第二章：数据链路层 1、ARP：ip地址转mac地址，以太网（网卡）协议，最大传输单元MTU，IP数据报过大则分片，环回接口（loopback）即本地
         </div>
@@ -605,8 +245,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-14 15:07" pubdate>
-              2023-03-14
+            <time datetime="2023-02-19 15:07" pubdate>
+              2023-02-19
             </time>
           </div>
         
@@ -623,11 +263,371 @@
     </article>
   </div>
 
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/18/reactor/" target="_self">
+          Reator网络编程模型
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/18/reactor/" target="_self">
+        <div>
+          Reator网络编程模型 首先介绍下Reactor这一网络编程模型，I&#x2F;O多路复用可以用作并发事件驱动(event-driven)程序的基础，即整个事件驱动模型是一个状态机，包含了状态(state), 输入事件(input-event), 状态转移(transition), 状态转移即状态到输入事件的一组映射。通过I&#x2F;O多路复用的技术检测事件的发生，并根据具体的事件(通常为读写
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-18 10:59" pubdate>
+              2023-02-18
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/16/more-effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_self">
+          more-effective-c++知识总结
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/16/more-effective-c-%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_self">
+        <div>
+          reference link: https://blog.csdn.net/fengbingchun/article/details/102990753  指针和引用的区别，任何情况下都不能使用指向空值的引用，引用必须初始化 尽量使用C++风格的类型转换，static_cast、const_cast、dynamic_cast、reinterpret_cast，注意的是dynamic_cast是继承
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-16 15:06" pubdate>
+              2023-02-16
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/my-notes/">#my notes</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/16/tcp34/" target="_self">
+          TCP三握四挥
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/16/tcp34/" target="_self">
+        <div>
+          TCP 是一种面向连接的可靠传输协议，使用三次握手建立连接可以保证连接的可靠性和安全性。 具体来说，三次握手的流程如下：  客户端向服务器发送一个 SYN 报文，其中包含一个随机的初始序号。 服务器收到 SYN 报文后，向客户端回复一个 SYN+ACK 报文，其中确认客户端的初始序号，并发送一个随机的初始序号。 客户端收到 SYN+ACK 报文后，向服务器回复一个 ACK 报文，其中确认服务器的初
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-15 19:52" pubdate>
+              2023-02-15
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/14/xuanran/" target="_self">
+          浏览器输入地址后到渲染出数据的流程
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/14/xuanran/" target="_self">
+        <div>
+          在浏览器输入地址后，通常经过以下流程来渲染出数据：  DNS 解析：浏览器首先会将输入的域名解析为对应的 IP 地址，以便与服务器建立连接。如果 DNS 缓存中已经存在对应的 IP 地址，则可以直接跳过此步骤。 建立连接：浏览器通过 TCP&#x2F;IP 协议与服务器建立连接，建立连接过程中包括 TCP 的三次握手。 发送请求：浏览器向服务器发送 HTTP 请求，请求包括请求方法、请求头、请求体
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-13 19:54" pubdate>
+              2023-02-13
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/14/1-0-2-3%E4%BC%98%E5%8C%96/" target="_self">
+          http 1.0/2/3优化
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/14/1-0-2-3%E4%BC%98%E5%8C%96/" target="_self">
+        <div>
+          6、http1.0&#x2F;1 2 3优化 HTTP1.0 1.0的HTTP版本，是一种无状态，无连接的应用层协议。 HTTP1.0规定浏览器和服务器保持短暂的链接。 浏览器每次请求都需要与服务器建立一个TCP连接，服务器处理完成以后立即断开TCP连接（无连接），服务器不跟踪也每个客户单，也不记录过去的请求（无状态）。 这种无状态性可以借助cookie&#x2F;session机制来做身份认证和
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-13 18:43" pubdate>
+              2023-02-13
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/12/tongbuyibu/" target="_self">
+          异步写入和同步写入
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/12/tongbuyibu/" target="_self">
+        <div>
+          同步写入是指当写入操作发生时，程序会一直等待直到写入完成，并且只有在写入完成后才会继续执行后续的代码。 异步写入是指当写入操作发生时，程序会立即返回并继续执行后续的代码，而不需要等待写入操作完成。这种方式可以提高程序的响应速度和吞吐量，但是也存在一定的风险，例如可能会导致数据丢失等问题。 当数据库在写入数据时宕机了，需要采取一些措施来处理这种情况。具体的解决方案可能因具体情况而异，但以下是一些常见
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-11 19:51" pubdate>
+              2023-02-11
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/interview/">#interview</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/11/mutex/" target="_self">
+          互斥锁和自旋锁
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/11/mutex/" target="_self">
+        <div>
+          互斥锁也是互斥量(Mutex)，作为保护临界区的特殊变量，两种状态locked和unlocked； 每个互斥锁内部有一个线程等待队列，用来保存互斥锁的线程，unlocked线程可得到锁，locked就阻塞到等待mutex的队列中。 自旋锁类似于互斥锁，不通过休眠阻塞进程，而是在获取锁之前一直处于忙则等待的状态，可以用于锁被持有时间短，线程无需额外调度的情况；自旋锁最多被一个进程所持有，若第二个线程
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-10 20:07" pubdate>
+              2023-02-10
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/11/cookie%E6%80%BB%E7%BB%93/" target="_self">
+          cookie总结
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/11/cookie%E6%80%BB%E7%BB%93/" target="_self">
+        <div>
+          8、cookie cookie是当前识别用户，实现持久化会话的最好方式。简单点说就是服务器知道正在和哪个客户端通信，以及保持与已识别出的客户端通信。Cookie的基本思想就是让浏览器积累一组服务器特有的信息，每次访问服务器时都将这些信息提供给它。同时可以对连接另一端的用户有更多的了解，并且能在用户浏览页面时对其进行跟踪。 cookie可以分为以下两类： （1）会话cookie。临时cookie，记
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-10 18:59" pubdate>
+              2023-02-10
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/09/jieyushui/" target="_self">
+          接雨水两侧动规问题
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/09/jieyushui/" target="_self">
+        <div>
+          123456789101112131415161718class Solution &#123;public:    int trap(vector&lt;int&gt;&amp; height) &#123;        int n = height.size();        vector&lt;int&gt; left(n, 0);        vector&lt;int&gt; r
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-08 20:30" pubdate>
+              2023-02-08
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
