@@ -229,6 +229,86 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/02/08/reactor/" target="_self">
+          Reator网络编程模型
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/08/reactor/" target="_self">
+        <div>
+          Reator网络编程模型 首先介绍下Reactor这一网络编程模型，I&#x2F;O多路复用可以用作并发事件驱动(event-driven)程序的基础，即整个事件驱动模型是一个状态机，包含了状态(state), 输入事件(input-event), 状态转移(transition), 状态转移即状态到输入事件的一组映射。通过I&#x2F;O多路复用的技术检测事件的发生，并根据具体的事件(通常为读写
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-08 10:59" pubdate>
+              2023-02-08
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/07/muduo/" target="_self">
+          Muduo库关键代码及思想
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/07/muduo/" target="_self">
+        <div>
+          Muduo库关键代码及思想 Muduo库是基于Reactor模式实现的TCP网络编程库。Muduo库有三个核心组件支撑一个reactor实现 [持续] 的 [监听] 一组fd，并根据每个fd上发生的事件 [调用] 相应的处理函数。这三个组件分别是Channel类、Poller&#x2F;EpollPoller类以及EventLoop类。 Channel类其实相当于一个文件描述符的保姆 在TCP网络
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-07 11:00" pubdate>
+              2023-02-07
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/02/07/cpp147/" target="_self">
           C++14和C++17新特性
         </a>
@@ -536,86 +616,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/my-notes/">#my notes</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/01/30/sqlitexcx/" target="_self">
-          SQLite和小程序交互
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/30/sqlitexcx/" target="_self">
-        <div>
-          SQLite是一种轻量级的关系型数据库管理系统，支持在本地存储和管理数据。通过在微信小程序中使用小程序提供的wx.request() API与后台服务器进行交互，可以将数据存储到SQLite数据库中。小程序提供了wx.openDatabase() API，可以在小程序中创建和操作SQLite数据库。可以使用小程序提供的API来获取用户输入的文本信息，将其存储到SQLite数据库中，并在需要时从数据
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-29 20:18" pubdate>
-              2023-01-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/SQLite%E9%A1%B9%E7%9B%AE/">#SQLite项目</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/01/28/cpp11%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_self">
-          C++11知识总结
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/28/cpp11%E7%9F%A5%E8%AF%86%E6%80%BB%E7%BB%93/" target="_self">
-        <div>
-          1、c++11的一些特性 类型推导——C++11引入了auto和decltype关键字，使用他们可以在编译期就推导出变量或者表达式的类型，方便开发者编码也简化了代码。 其中有两个关键字：  auto：让编译器在编译器就推导出变量的类型，可以通过&#x3D;右边的类型推导出变量的类型。  1auto a = 2; // boost::typeindex::type_id_with_cur&lt;de
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-28 10:29" pubdate>
-              2023-01-28
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/C/">#C++</a>
             
           </div>
         
