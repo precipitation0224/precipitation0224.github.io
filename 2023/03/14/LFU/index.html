@@ -20,19 +20,22 @@
   <meta name="author" content="Yummy">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
-<meta property="og:title" content="LRU">
-<meta property="og:url" content="http://precipitation0224.github.io/2023/03/24/LRU/index.html">
+    <meta name="description" content="LFU缓存 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253class LFUCache &amp;#123;public:    LFUCache(int capacity): capacity(capacity), min_freq(0) &amp;#123; &amp;#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LFU">
+<meta property="og:url" content="http://precipitation0224.github.io/2023/03/14/LFU/index.html">
 <meta property="og:site_name" content="yummy home">
+<meta property="og:description" content="LFU缓存 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253class LFUCache &amp;#123;public:    LFUCache(int capacity): capacity(capacity), min_freq(0) &amp;#123; &amp;#">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-23T22:48:03.000Z">
-<meta property="article:modified_time" content="2023-03-23T14:48:03.184Z">
+<meta property="article:published_time" content="2023-03-13T22:48:08.000Z">
+<meta property="article:modified_time" content="2023-03-24T05:26:32.119Z">
 <meta property="article:author" content="Yummy">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>LRU - yummy home</title>
+  <title>LFU - yummy home</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="LRU"></span>
+            <span id="subtitle" data-typed-text="LFU"></span>
           
         </div>
 
@@ -210,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-23 22:48" pubdate>
-          March 23, 2023 pm
+        <time datetime="2023-03-13 22:48" pubdate>
+          March 13, 2023 pm
         </time>
       </span>
     
@@ -222,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 words
+          1.4k words
         
       </span>
     
@@ -233,7 +236,7 @@
         
         
         
-          1 mins
+          12 mins
         
       </span>
     
@@ -271,12 +274,14 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">LRU</h1>
+            <h1 style="display: none">LFU</h1>
             
             
               <div class="markdown-body">
                 
-                
+                <p>LFU缓存</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">LFUCache</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">LFUCache</span>(<span class="hljs-type">int</span> capacity): <span class="hljs-built_in">capacity</span>(capacity), <span class="hljs-built_in">min_freq</span>(<span class="hljs-number">0</span>) &#123; &#125;<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-type">int</span> key)</span> </span>&#123;<br>        <span class="hljs-comment">// 如果键 key 存在于缓存中，则获取键的值，否则返回 -1 </span><br>        <span class="hljs-keyword">if</span> (key_st.<span class="hljs-built_in">count</span>(key) == <span class="hljs-number">0</span>) &#123; <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; &#125;<br>        <span class="hljs-keyword">auto</span> it = key_st[key];<br>        <span class="hljs-type">int</span> freq = std::<span class="hljs-built_in">get</span>&lt;<span class="hljs-number">2</span>&gt;(*it);<br><br>        <span class="hljs-keyword">auto</span> &amp;&amp;lst = freq_st[freq];<br>        <span class="hljs-keyword">auto</span> &amp;&amp;other = freq_st[freq + <span class="hljs-number">1</span>];<br>        other.<span class="hljs-built_in">splice</span>(other.<span class="hljs-built_in">begin</span>(), lst, it);<br><br>        std::<span class="hljs-built_in">get</span>&lt;<span class="hljs-number">2</span>&gt;(*it)++; <span class="hljs-comment">// 更新键值的使用频率</span><br>        <span class="hljs-keyword">if</span> (lst.<span class="hljs-built_in">empty</span>()) &#123;<br>            freq_st.<span class="hljs-built_in">erase</span>(freq);<br>            <span class="hljs-keyword">if</span> (min_freq == freq) &#123;<br>                min_freq++;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> std::<span class="hljs-built_in">get</span>&lt;<span class="hljs-number">1</span>&gt;(*it);<br>    &#125; <br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">put</span><span class="hljs-params">(<span class="hljs-type">int</span> key, <span class="hljs-type">int</span> value)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (capacity == <span class="hljs-number">0</span>) &#123; <span class="hljs-comment">// 测试用例含 capacity == 0</span><br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">get</span>(key) != <span class="hljs-number">-1</span>) &#123;<br>            <span class="hljs-comment">// 如果键 key 已存在，则变更其值，并更新该 key 对应的 freq</span><br>            std::<span class="hljs-built_in">get</span>&lt;<span class="hljs-number">1</span>&gt;(*key_st[key]) = value;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">// 如果键不存在，请插入键值对</span><br>        <span class="hljs-keyword">if</span> (key_st.<span class="hljs-built_in">size</span>() == capacity) &#123;<br>            <span class="hljs-comment">// 当缓存达到其容量 capacity 时，则应该在插入新项之前，移除最不经常使用的项</span><br>            <span class="hljs-comment">// 当两个或更多个键具有相同使用频率时，应该去除 最近最久未使用 的键。</span><br>            <span class="hljs-keyword">auto</span> &amp;&amp;lst = freq_st[min_freq];<br>            key_st.<span class="hljs-built_in">erase</span>(std::<span class="hljs-built_in">get</span>&lt;<span class="hljs-number">0</span>&gt;(lst.<span class="hljs-built_in">back</span>()));<br>            lst.<span class="hljs-built_in">pop_back</span>();<br>            <span class="hljs-keyword">if</span> (lst.<span class="hljs-built_in">empty</span>()) &#123;<br>                freq_st.<span class="hljs-built_in">erase</span>(min_freq);<br>            &#125;<br>        &#125;<br>        min_freq = <span class="hljs-number">1</span>; <span class="hljs-comment">// 这是可以肯定的</span><br>        freq_st[<span class="hljs-number">1</span>].<span class="hljs-built_in">emplace_front</span>(key, value, <span class="hljs-number">1</span>);<br>        key_st[key] = freq_st[<span class="hljs-number">1</span>].<span class="hljs-built_in">begin</span>();<br>    &#125;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-type">int</span> capacity;<br>    <span class="hljs-type">int</span> min_freq; <span class="hljs-comment">// 用于跟踪使用最少的频率</span><br>    <span class="hljs-keyword">typedef</span> tuple&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; Tuple; <span class="hljs-comment">// &lt;key, value, freq&gt;</span><br>    unordered_map&lt;<span class="hljs-type">int</span>, list&lt;Tuple&gt;&gt; freq_st; <span class="hljs-comment">// 相同使用频率的键值对放入在同一个链表中</span><br>    unordered_map&lt;<span class="hljs-type">int</span>, list&lt;Tuple&gt;::iterator&gt; key_st;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
                 
               </div>
             
@@ -284,6 +289,13 @@
             <div>
               <div class="post-metas my-3">
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
+      
+    </div>
   
 </div>
 
@@ -293,8 +305,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>LRU</div>
-      <div>http://precipitation0224.github.io/2023/03/24/LRU/</div>
+      <div>LFU</div>
+      <div>http://precipitation0224.github.io/2023/03/14/LFU/</div>
     </div>
     <div class="license-meta">
       
@@ -306,7 +318,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 23, 2023</div>
+          <div>March 13, 2023</div>
         </div>
       
       
@@ -338,18 +350,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/24/LFU/" title="LFU">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LFU</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/11/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/" title="浮点数和MD5,Base64">
-                        <span class="hidden-mobile">浮点数和MD5,Base64</span>
+                      <a href="/2023/03/14/LRU/" title="LRU">
+                        <span class="hidden-mobile">LRU</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
