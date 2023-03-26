@@ -6,7 +6,7 @@
   <link href="http://precipitation0224.github.io/atom.xml" rel="self"/>
   
   <link href="http://precipitation0224.github.io/"/>
-  <updated>2023-03-26T13:48:54.930Z</updated>
+  <updated>2023-03-26T14:12:32.892Z</updated>
   <id>http://precipitation0224.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Golang中Goroutine和Channel的Demo</title>
+    <link href="http://precipitation0224.github.io/2023/03/27/grountinechan/"/>
+    <id>http://precipitation0224.github.io/2023/03/27/grountinechan/</id>
+    <published>2023-03-26T22:08:51.000Z</published>
+    <updated>2023-03-26T14:12:32.892Z</updated>
+    
+    <content type="html"><![CDATA[<p>Golang中Goroutine和Channel的实例</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br><span class="hljs-string">&quot;fmt&quot;</span><br><span class="hljs-string">&quot;time&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">worker</span><span class="hljs-params">(id <span class="hljs-type">int</span>, jobs &lt;-<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, results <span class="hljs-keyword">chan</span>&lt;- <span class="hljs-type">int</span>)</span></span> &#123;<br><span class="hljs-keyword">for</span> j := <span class="hljs-keyword">range</span> jobs &#123;<br>fmt.Printf(<span class="hljs-string">&quot;worker %d processing job %d\n&quot;</span>, id, j)<br>time.Sleep(time.Second)<br>results &lt;- j * <span class="hljs-number">2</span><br>&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><span class="hljs-keyword">const</span> numJobs = <span class="hljs-number">5</span><br>jobs := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, numJobs)<br>results := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-type">int</span>, numJobs)<br><br><span class="hljs-keyword">for</span> w := <span class="hljs-number">1</span>; w &lt;= <span class="hljs-number">3</span>; w++ &#123;<br><span class="hljs-keyword">go</span> worker(w, jobs, results)<br>&#125;<br><br><span class="hljs-keyword">for</span> j := <span class="hljs-number">1</span>; j &lt;= numJobs; j++ &#123;<br>jobs &lt;- j<br>&#125;<br><span class="hljs-built_in">close</span>(jobs)<br><br><span class="hljs-keyword">for</span> a := <span class="hljs-number">1</span>; a &lt;= numJobs; a++ &#123;<br>fmt.Printf(<span class="hljs-string">&quot;result %d\n&quot;</span>, &lt;-results)<br>&#125;<br>&#125;<br></code></pre></td></tr></table></figure><p><strong>程序结果：</strong></p><p><img src="/../picture/gorountinechan"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Golang中Goroutine和Channel的实例&lt;/p&gt;
+&lt;figure class=&quot;highlight go&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span clas</summary>
+      
+    
+    
+    
+    
+    <category term="golang" scheme="http://precipitation0224.github.io/tags/golang/"/>
+    
+  </entry>
   
   <entry>
     <title>GMP——golang的调度器</title>
@@ -478,29 +501,6 @@
     
     
     <category term="操作系统" scheme="http://precipitation0224.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>cookie总结</title>
-    <link href="http://precipitation0224.github.io/2023/02/11/cookie%E6%80%BB%E7%BB%93/"/>
-    <id>http://precipitation0224.github.io/2023/02/11/cookie%E6%80%BB%E7%BB%93/</id>
-    <published>2023-02-10T18:59:45.000Z</published>
-    <updated>2023-03-23T12:04:07.205Z</updated>
-    
-    <content type="html"><![CDATA[<p>8、cookie</p><p><strong>cookie</strong>是当前识别用户，实现持久化会话的最好方式。简单点说就是服务器知道正在和哪个客户端通信，以及保持与已识别出的客户端通信。Cookie的基本思想就是让浏览器积累一组服务器特有的信息，每次访问服务器时都将这些信息提供给它。同时可以对连接另一端的用户有更多的了解，并且能在用户浏览页面时对其进行跟踪。</p><p><strong>cookie</strong>可以分为以下两类：</p><p>（1）会话cookie。临时cookie，记录了用户访问站点时的设置和偏好。用户退出浏览器时，会话cookie就被删除了。</p><p>（2）持久cookie。持久cookie的生存时间更长一些；它们存储在硬盘上，浏览器退出，计算机重启时它们仍然存在。通常会用持久cookie维护某个用户会周期性访问的站点的配置文件或登录名。</p><p>唯一区别就是它们的过期时间。如果设置了Discard参数或没有设置Expires或没有设置Max-Age参数则说明这个cookie就是一个会话cookie。</p><p><strong>存储</strong>——浏览器负责存储cookie信息。不同的浏览器会以不同的方式来存储cookie。有的浏览器用cookis.txt存储。有的浏览器存储在高速缓存目录下独立的文本文件中。</p><p><strong>cookie</strong>存在安全隐患。第三方Web站点使用持久cookie来跟踪用户就是对cookie一种最大的滥用。将这种做法与IP地址和Referer首部信息结合在一起，这些营销公司就可以构建起相当精确的用户档案和浏览模式信息。</p><p><strong>cookie工作原理</strong></p><p>（1）用户首次访问Web站点时，Web服务器对用户一无所知。</p><p>（2）Web服务器通过Set-Cookie首部将cookie存放到浏览器中的cookie数据库中。cookie中包含了N个键值对，例如Cookie: id&#x3D;“1234”。cookie中可以包含任意信息，但它们通常都只包含一个服务器为了进行跟踪而产生的独特的识别码。</p><p>（3）将来用户再次访问同一站点时，浏览器会从cookie数据库中挑中那个服务器设置的cookie，并在cookie请求首部中（Cookie: id&#x3D;“1234”）将其传回给服务器。</p><p>（4）服务器可以通过id&#x3D;”1234”这个键值对来查找服务器为其访问积累的信息（购物历史、地址信息等）。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;8、cookie&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;cookie&lt;/strong&gt;是当前识别用户，实现持久化会话的最好方式。简单点说就是服务器知道正在和哪个客户端通信，以及保持与已识别出的客户端通信。Cookie的基本思想就是让浏览器积累一组服务器特有的信息，每次访问服务器时都</summary>
-      
-    
-    
-    
-    
-    <category term="计算机网络" scheme="http://precipitation0224.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
