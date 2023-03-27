@@ -6,7 +6,7 @@
   <link href="http://precipitation0224.github.io/atom.xml" rel="self"/>
   
   <link href="http://precipitation0224.github.io/"/>
-  <updated>2023-03-26T14:19:49.496Z</updated>
+  <updated>2023-03-27T01:56:03.085Z</updated>
   <id>http://precipitation0224.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GMP-Goroutine的调度器</title>
+    <link href="http://precipitation0224.github.io/2023/03/27/gmp/"/>
+    <id>http://precipitation0224.github.io/2023/03/27/gmp/</id>
+    <published>2023-03-27T09:50:46.000Z</published>
+    <updated>2023-03-27T01:56:03.085Z</updated>
+    
+    <content type="html"><![CDATA[<p>GMP指的是Goroutine Multiprocessing。</p><p>Goroutine是Go语言的一种轻量级线程，可以在单个进程中同时运行多个Goroutine，并且Goroutine之间可以相互通信和同步。GMP则是指在多核CPU上利用Goroutine 实现多进程并发的技术，也被称为”<strong><u>Go并发编程</u></strong>“。</p><p>GMP技术充分利用了现代多核处理器的特点，通过将任务分配到多个Goroutine上实现并行计算，从而提高了程序的性能和吞吐量。在GMP中，每个Goroutine都是一个轻量级的进程，它们之间可以共享内存，通过Channel进行通信和同步，而无需显式的加锁或解锁。</p><p>在Go语言中，使用GMP技术可以方便地实现高并发的网络编程、多任务计算、并行处理等应用场景。同时，Go语言标准库提供了丰富的Goroutine和Channel相关的API，进一步简化了GMP技术的使用。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;fmt&quot;</span><br>    <span class="hljs-string">&quot;sync&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">calculate</span><span class="hljs-params">(num <span class="hljs-type">int</span>, wg *sync.WaitGroup)</span></span> &#123;<br>    <span class="hljs-keyword">defer</span> wg.Done() <span class="hljs-comment">// 告知wait group当前goroutine已完成计算</span><br>    sum := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; num; i++ &#123;<br>        sum += i<br>    &#125;<br>    fmt.Printf(<span class="hljs-string">&quot;Goroutine %d: sum(%d) = %d\n&quot;</span>, num, num, sum)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-comment">// 使用wait group等待所有goroutine完成计算</span><br>    <span class="hljs-keyword">var</span> wg sync.WaitGroup<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; i++ &#123;<br>        wg.Add(<span class="hljs-number">1</span>) <span class="hljs-comment">// 告知wait group有一个新的goroutine正在运行</span><br>        <span class="hljs-keyword">go</span> calculate(i+<span class="hljs-number">1</span>, &amp;wg)<br>    &#125;<br>    wg.Wait() <span class="hljs-comment">// 等待所有goroutine完成计算</span><br>    fmt.Println(<span class="hljs-string">&quot;All goroutines completed!&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure><p><img src="/../picture/gmp.png"></p><p>在上面的示例代码中，我们定义了一个<strong>calculate</strong>函数，该函数会计算从0到给定数值之间的所有整数的和，并打印出计算结果。然后，我们在<strong>main</strong>函数中使用循环启动了4个<em>Goroutine</em>，每个<em>Goroutine</em>都会调用<strong>calculate</strong>函数进行计算。为了确保所有<em>Goroutine</em>都完成了计算，我们使用了<strong>sync.WaitGroup</strong>来等待它们的完成。</p><p>总结GMP的思路：</p><p>将任务分配到多个<em>Goroutine</em>上，然后使用<em>WaitGroup</em>等待它们的完成。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;GMP指的是Goroutine Multiprocessing。&lt;/p&gt;
+&lt;p&gt;Goroutine是Go语言的一种轻量级线程，可以在单个进程中同时运行多个Goroutine，并且Goroutine之间可以相互通信和同步。GMP则是指在多核CPU上利用Goroutine 实现</summary>
+      
+    
+    
+    
+    
+    <category term="golang" scheme="http://precipitation0224.github.io/tags/golang/"/>
+    
+  </entry>
   
   <entry>
     <title>Golang中Goroutine和Channel的Demo</title>
@@ -476,30 +499,6 @@
     
     
     <category term="interview" scheme="http://precipitation0224.github.io/tags/interview/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>互斥锁和自旋锁</title>
-    <link href="http://precipitation0224.github.io/2023/02/11/mutex/"/>
-    <id>http://precipitation0224.github.io/2023/02/11/mutex/</id>
-    <published>2023-02-10T20:07:34.000Z</published>
-    <updated>2023-03-23T12:07:13.249Z</updated>
-    
-    <content type="html"><![CDATA[<p>互斥锁也是互斥量(Mutex)，作为保护临界区的特殊变量，两种状态locked和unlocked；</p><p>每个互斥锁内部有一个线程等待队列，用来保存互斥锁的线程，unlocked线程可得到锁，locked就阻塞到等待mutex的队列中。</p><p>自旋锁类似于互斥锁，不通过休眠阻塞进程，而是在获取锁之前一直处于忙则等待的状态，可以用于锁被持有时间短，线程无需额外调度的情况；自旋锁最多被一个进程所持有，若第二个线程申请，则会处于忙循环-旋转-等待锁重新可用。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;互斥锁也是互斥量(Mutex)，作为保护临界区的特殊变量，两种状态locked和unlocked；&lt;/p&gt;
-&lt;p&gt;每个互斥锁内部有一个线程等待队列，用来保存互斥锁的线程，unlocked线程可得到锁，locked就阻塞到等待mutex的队列中。&lt;/p&gt;
-&lt;p&gt;自旋锁类似于互</summary>
-      
-    
-    
-    
-    
-    <category term="操作系统" scheme="http://precipitation0224.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
   </entry>
   

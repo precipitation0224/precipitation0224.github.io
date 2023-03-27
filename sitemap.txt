@@ -1,3 +1,4 @@
+http://precipitation0224.github.io/2023/03/27/gmp/
 http://precipitation0224.github.io/2023/03/27/goroutine/
 http://precipitation0224.github.io/2023/03/27/grountinechan/
 http://precipitation0224.github.io/2023/03/14/LFU/
