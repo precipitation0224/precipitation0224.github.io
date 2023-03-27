@@ -229,6 +229,46 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/03/04/staticlib/" target="_self">
+          静态库和动态库
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/04/staticlib/" target="_self">
+        <div>
+          静态库需要有库文件和头文件，编译程序要通过”-l libname”参数编译； linux是.a文件，windows是.lib文件 制作流程，先通过gcc生成.o文件，再通过ar(参数选项rcs)将.o文件打包生成.a文件。 动态库在运行程序之前还需要配置动态库的加载路径 linux是.so文件，windows是.dll文件 通过gcc生成.o文件(参数选项fpic)，再通过gcc生成.so文件(参
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-03 20:08" pubdate>
+              2023-03-03
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/03/02/sql/" target="_self">
           预防sql注入
         </a>
@@ -576,46 +616,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/02/12/tongbuyibu/" target="_self">
-          异步写入和同步写入
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/12/tongbuyibu/" target="_self">
-        <div>
-          同步写入是指当写入操作发生时，程序会一直等待直到写入完成，并且只有在写入完成后才会继续执行后续的代码。 异步写入是指当写入操作发生时，程序会立即返回并继续执行后续的代码，而不需要等待写入操作完成。这种方式可以提高程序的响应速度和吞吐量，但是也存在一定的风险，例如可能会导致数据丢失等问题。 当数据库在写入数据时宕机了，需要采取一些措施来处理这种情况。具体的解决方案可能因具体情况而异，但以下是一些常见
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-11 19:51" pubdate>
-              2023-02-11
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/interview/">#interview</a>
             
           </div>
         
