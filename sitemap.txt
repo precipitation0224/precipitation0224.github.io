@@ -1,5 +1,5 @@
+http://precipitation0224.github.io/2023/03/27/goroutine/
 http://precipitation0224.github.io/2023/03/27/grountinechan/
-http://precipitation0224.github.io/2023/03/27/gmp/
 http://precipitation0224.github.io/2023/03/14/LFU/
 http://precipitation0224.github.io/2023/03/14/LRU/
 http://precipitation0224.github.io/2023/02/06/C-%E4%B8%AD%E7%9A%84unicode/
