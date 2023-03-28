@@ -389,6 +389,46 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/01/31/boostnet/" target="_self">
+          Boost网络编程
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/31/boostnet/" target="_self">
+        <div>
+          Boost 库是一个开源的 C++ 库，其中包含了许多有用的组件和工具，包括网络编程组件。下面列出 Boost 库中的几个核心的网络编程组件：  Boost.Asio：Boost.Asio 是 Boost 库中最重要的网络编程组件，它是一个跨平台的异步 I&#x2F;O 库，提供了网络编程所需的各种功能，如 TCP 和 UDP 协议、异步 I&#x2F;O 操作、定时器、信号等等。Boost.As
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-30 20:09" pubdate>
+              2023-01-30
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/WebServer/">#WebServer</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/01/30/sqlitexcx/" target="_self">
           SQLite和小程序交互
         </a>
@@ -416,6 +456,46 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/SQLite%E9%A1%B9%E7%9B%AE/">#SQLite项目</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/01/29/httpserver/" target="_self">
+          HttpServer
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/29/httpserver/" target="_self">
+        <div>
+          设计一个C++ web服务器，一般需要以下步骤：  选择合适的网络库：可以选择传统的socket编程，也可以使用一些网络库，如Boost.Asio、libuv等，它们能够方便地处理网络通信和并发请求。 实现HTTP协议解析：C++ Web服务器需要能够处理HTTP请求和响应，因此需要解析HTTP协议。一种比较流行的实现方法是使用正则表达式或有限状态机。 实现路由：路由是将请求与相应的处理程序相匹配
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-28 20:03" pubdate>
+              2023-01-28
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/WebServer%E9%A1%B9%E7%9B%AE/">#WebServer项目</a>
             
           </div>
         
@@ -536,86 +616,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/WebServer%E9%A1%B9%E7%9B%AE/">#WebServer项目</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/01/22/dtor/" target="_self">
-          析构函数
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/22/dtor/" target="_self">
-        <div>
-          C++中的析构函数通常被设计为虚函数，主要是为了解决基类指针指向派生类对象时可能会发生的内存泄漏问题。  当基类指针指向一个派生类对象并调用 delete 操作符来释放内存时，如果基类的析构函数不是虚函数，那么只会调用基类的析构函数，而不会调用派生类的析构函数。这样就会导致派生类对象的资源没有被释放，从而产生内存泄漏。 如果基类的析构函数是虚函数，那么在调用 delete 操作符释放内存时，会先调
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-21 20:22" pubdate>
-              2023-01-21
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/C/">#C++</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/01/21/lambda/" target="_self">
-          lambda
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/21/lambda/" target="_self">
-        <div>
-          C++11的Lambda特性 lambda 匿名函数很简单，可以套用如下的语法格式：[外部变量访问方式说明符] (参数) mutable noexcept&#x2F;throw() -&gt; 返回值类型         {           函数体;         }; 其中各部分的含义分别为： a. [外部变量方位方式说明符]     [ ] 方括号用于向编译器表明当前是一个 lambda
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-01-20 20:11" pubdate>
-              2023-01-20
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/C-11/">#C++11</a>
             
           </div>
         
