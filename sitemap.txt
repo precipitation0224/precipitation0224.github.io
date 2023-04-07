@@ -1,3 +1,5 @@
+http://precipitation0224.github.io/2023/03/12/iteratoraccess/
+http://precipitation0224.github.io/2023/03/10/vectorexpand/
 http://precipitation0224.github.io/2023/03/28/gogc/
 http://precipitation0224.github.io/2023/01/26/call/
 http://precipitation0224.github.io/2023/01/29/httpserver/

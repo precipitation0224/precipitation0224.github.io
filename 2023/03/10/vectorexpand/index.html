@@ -20,22 +20,22 @@
   <meta name="author" content="Yummy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="14、虚函数如何实现动态转发，每个类都有虚函数表吗 虚函数是在某基类中声明为virtual并在一个或多个派生类中被重新定义的成员函数。是实现动态多态的一种方法。 函数是通过虚函数表来实现的。每一个含有虚函数的类，都会有一个虚函数表用来存放虚函数的地址，同时类会有一个虚表指针去指向虚函数表的首地址,对象的首地址就存放着虚表指针。 虚函数表：要讲清楚动态绑定的流程，首先需要了解清楚类里面虚函数表的定义">
+    <meta name="description" content="vector中的动态扩容 12345678910111213141516171819202122232425262728293031323334353637383940414243444546&#x2F;* push_back() *&#x2F;template &lt;class T, class Alloc&gt;void vector&lt;T, Alloc&gt;::push_back(const value">
 <meta property="og:type" content="article">
-<meta property="og:title" content="虚函数动态绑定">
-<meta property="og:url" content="http://precipitation0224.github.io/2023/03/08/virtualpointer/index.html">
+<meta property="og:title" content="vector动态扩容机制">
+<meta property="og:url" content="http://precipitation0224.github.io/2023/03/10/vectorexpand/index.html">
 <meta property="og:site_name" content="yummy home">
-<meta property="og:description" content="14、虚函数如何实现动态转发，每个类都有虚函数表吗 虚函数是在某基类中声明为virtual并在一个或多个派生类中被重新定义的成员函数。是实现动态多态的一种方法。 函数是通过虚函数表来实现的。每一个含有虚函数的类，都会有一个虚函数表用来存放虚函数的地址，同时类会有一个虚表指针去指向虚函数表的首地址,对象的首地址就存放着虚表指针。 虚函数表：要讲清楚动态绑定的流程，首先需要了解清楚类里面虚函数表的定义">
+<meta property="og:description" content="vector中的动态扩容 12345678910111213141516171819202122232425262728293031323334353637383940414243444546&#x2F;* push_back() *&#x2F;template &lt;class T, class Alloc&gt;void vector&lt;T, Alloc&gt;::push_back(const value">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-03-07T20:01:55.000Z">
-<meta property="article:modified_time" content="2023-03-23T12:10:10.008Z">
+<meta property="article:published_time" content="2023-03-09T21:30:57.000Z">
+<meta property="article:modified_time" content="2023-04-07T13:34:47.302Z">
 <meta property="article:author" content="Yummy">
-<meta property="article:tag" content="interview">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>虚函数动态绑定 - yummy home</title>
+  <title>vector动态扩容机制 - yummy home</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="虚函数动态绑定"></span>
+            <span id="subtitle" data-typed-text="vector动态扩容机制"></span>
           
         </div>
 
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-07 20:01" pubdate>
-          March 7, 2023 pm
+        <time datetime="2023-03-09 21:30" pubdate>
+          March 9, 2023 pm
         </time>
       </span>
     
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k words
+          2.9k words
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          20 mins
+          24 mins
         
       </span>
     
@@ -274,30 +274,26 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">虚函数动态绑定</h1>
+            <h1 style="display: none">vector动态扩容机制</h1>
             
             
               <div class="markdown-body">
                 
-                <p>14、虚函数如何实现动态转发，每个类都有虚函数表吗</p>
-<p>虚函数是在某基类中声明为<em><strong>virtual</strong></em>并在一个或多个派生类中被重新定义的成员函数。是实现动态多态的一种方法。</p>
-<p>函数是通过<strong>虚函数表</strong>来实现的。每一个含有虚函数的类，都会有一个虚函数表用来存放虚函数的地址，同时类会有一个<strong>虚表指针</strong>去指向虚函数表的首地址,<strong>对象的首地址就存放着虚表指针</strong>。</p>
-<p><strong>虚函数表：</strong>要讲清楚动态绑定的流程，首先需要了解清楚类里面虚函数表的定义，虚函数表是记录虚函数入口地址的一串数组（实际是一个函数指针数组），它只存在于定义了虚函数的类里面，这里给出一个例子来展示类中虚函数表的存在：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>&#123;<br>    <span class="hljs-comment">//空类的大小为1</span><br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>&#123;<br>    <span class="hljs-type">int</span> m; <span class="hljs-comment">//大小为4，成员变量会占用类空间</span><br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span>&#123;<br>    <span class="hljs-type">int</span> m;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">//大小为4，非虚函数不会占用类空间</span><br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">D</span>&#123;<br>    <span class="hljs-type">int</span> m;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">//大小为16，定义虚函数会增加类的大小，但是这个增加不是虚函数带来了的，而是指向虚函数表的指针所占的空间</span><br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">E</span>&#123;<br>    <span class="hljs-type">int</span> m;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//大小为16，从这儿可以看到，类里面的多个虚函数都维护在一个虚函数表里面，只有一个指向虚函数表的指针</span><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">g</span><span class="hljs-params">()</span></span>;<br>&#125;;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    cout&lt;&lt;<span class="hljs-built_in">sizeof</span>(A)&lt;&lt;endl;<br>    cout&lt;&lt;<span class="hljs-built_in">sizeof</span>(B)&lt;&lt;endl;<br>    cout&lt;&lt;<span class="hljs-built_in">sizeof</span>(C)&lt;&lt;endl;<br>    cout&lt;&lt;<span class="hljs-built_in">sizeof</span>(D)&lt;&lt;endl;<br>    cout&lt;&lt;<span class="hljs-built_in">sizeof</span>(E)&lt;&lt;endl;<br>    <span class="hljs-comment">//cout&lt;&lt;sizeof(B)&lt;&lt;endl;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br><span class="hljs-comment">//实际上，虚函数不占用类对象的存储空间，</span><br><span class="hljs-comment">//所以含有一个以上的虚函数的类对象大小与仅含一个虚函数大小相同</span><br><span class="hljs-comment">//同时，针对每个类，只维护一个【虚函数表（函数指针数组数组）】</span><br><span class="hljs-comment">//用于存放该类中虚函数的地址，每个【含一个及以上虚函数的对象都会含有一个指向该类虚函数表的指针】。</span><br></code></pre></td></tr></table></figure>
+                <p>vector中的动态扩容</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/* push_back() */</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">Alloc</span>&gt;<br><span class="hljs-type">void</span> vector&lt;T, Alloc&gt;::<span class="hljs-built_in">push_back</span>(<span class="hljs-type">const</span> value_type&amp; val)<br>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish != <span class="hljs-keyword">this</span>-&gt;_M_impl._M_end_of_storage) &#123; <span class="hljs-comment">// 如果还有剩余空间，直接插入元素</span><br>        _Alloc_traits::<span class="hljs-built_in">construct</span>(<span class="hljs-keyword">this</span>-&gt;_M_impl, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish, val);<br>        ++<span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish;<br>    &#125;<br>    <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// 否则需要重新分配空间</span><br>        _M_insert_aux(<span class="hljs-built_in">end</span>(), val);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">Alloc</span>&gt;<br><span class="hljs-type">void</span> vector&lt;T, Alloc&gt;::_M_insert_aux(iterator position, <span class="hljs-type">const</span> T&amp; x)<br>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish != <span class="hljs-keyword">this</span>-&gt;_M_impl._M_end_of_storage) &#123; <span class="hljs-comment">// 如果还有剩余空间，直接插入元素</span><br>        _Alloc_traits::<span class="hljs-built_in">construct</span>(<span class="hljs-keyword">this</span>-&gt;_M_impl, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish, *(<span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish - <span class="hljs-number">1</span>));<br>        ++<span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish;<br>        T x_copy = x;<br>        std::<span class="hljs-built_in">copy_backward</span>(position, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish - <span class="hljs-number">2</span>, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish - <span class="hljs-number">1</span>);<br>        *position = x_copy;<br>    &#125;<br>    <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// 否则需要扩容</span><br>        <span class="hljs-type">const</span> size_type old_size = <span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">const</span> size_type new_size = old_size != <span class="hljs-number">0</span> ? <span class="hljs-number">2</span> * old_size : <span class="hljs-number">1</span>;<br>        iterator new_start = _M_allocate(new_size);<br>        iterator new_finish = new_start;<br>        <span class="hljs-keyword">try</span> &#123;<br>            new_finish = std::__uninitialized_copy_a(<span class="hljs-keyword">this</span>-&gt;_M_impl._M_start, position, new_start, _M_get_Tp_allocator());<br>            _Alloc_traits::<span class="hljs-built_in">construct</span>(_M_get_Tp_allocator(), new_finish, x);<br>            ++new_finish;<br>            new_finish = std::__uninitialized_copy_a(position, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish, new_finish, _M_get_Tp_allocator());<br>        &#125;<br>        <span class="hljs-built_in">catch</span> (...) &#123;<br>            _M_destroy(new_start, new_finish);<br>            _M_deallocate(new_start, new_size);<br>            <span class="hljs-keyword">throw</span>;<br>        &#125;<br>        _M_destroy(<span class="hljs-built_in">begin</span>(), <span class="hljs-built_in">end</span>());<br>        _M_deallocate(<span class="hljs-keyword">this</span>-&gt;_M_impl._M_start, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_end_of_storage - <span class="hljs-keyword">this</span>-&gt;_M_impl._M_start);<br>        <span class="hljs-keyword">this</span>-&gt;_M_impl._M_start = new_start;<br>        <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish = new_finish;<br>        <span class="hljs-keyword">this</span>-&gt;_M_impl._M_end_of_storage = new_start + new_size;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p><strong>动态绑定虚函数工作原理：</strong> 前面提到，每一个类会为所有虚函数数维护一个虚函数表，并且有一个指针指向这个表的首地址，这个虚函数表记录着所有的虚函数的入口地址。那么在动态绑定时，编译器是如何给基类指针返回一个正确的函数入口地址，这里给出一个例子：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>&#123;<br>        <span class="hljs-keyword">protected</span>:<br>        <span class="hljs-type">int</span> a1;<br>        <span class="hljs-type">int</span> a2;<br>        <span class="hljs-keyword">public</span>:<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;A::display()&quot;</span>&lt;&lt;endl;&#125;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">clone</span><span class="hljs-params">()</span></span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;A::clone()&quot;</span>&lt;&lt;endl;&#125;<br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>: <span class="hljs-keyword">public</span> A&#123;<br>        <span class="hljs-keyword">protected</span>:<br>        <span class="hljs-type">int</span> b;<br>        <span class="hljs-keyword">public</span>:<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;B::display()&quot;</span>&lt;&lt;endl;&#125; <span class="hljs-function"><span class="hljs-keyword">override</span></span><br><span class="hljs-function">        <span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;B::init()&quot;</span>&lt;&lt;endl;&#125;<br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span>: <span class="hljs-keyword">public</span> B&#123;<br>        <span class="hljs-keyword">protected</span>:<br>        <span class="hljs-type">int</span> c;<br>        <span class="hljs-keyword">public</span>:<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;C::display()&quot;</span>&lt;&lt;endl;&#125; <span class="hljs-function"><span class="hljs-keyword">override</span></span><br><span class="hljs-function">        <span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">execute</span><span class="hljs-params">()</span></span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;C::execute()&quot;</span>&lt;&lt;endl;&#125; <br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span>&#123;cout&lt;&lt;<span class="hljs-string">&quot;C::init()&quot;</span>&lt;&lt;endl;&#125; <span class="hljs-keyword">override</span><br></code></pre></td></tr></table></figure>
-
-<p>这里给出A,B,C三个类的内存情况，如下图。可以得出这么几个结论：</p>
 <ol>
-<li>类的内存占用由成员变量和指向虚函数表的指针组成，同时派生类的成员变量是会把基类的成员变量都继承的</li>
-<li>同名虚函数在基类和派生类中的虚函数表中，索引是一致的，如下图，A,B,C的display的索引都是0</li>
-<li>派生类中，一旦对基类中的虚函数进行了覆盖，那么派生类的虚函数表中响应函数的入口地址会被替换成覆盖后的函数的地址。</li>
-<li>一旦有新的虚函数定义，会加入到当前虚函数表的末端。</li>
+<li>vector的底层实现使用了动态数组，即在内存中分配一段连续的空间来存储元素。</li>
+<li>当vector的元素数量达到其容量时，需要进行扩容。vector的扩容是通过重新分配一段更大的内存空间，并将原有的元素拷贝到新空间来实现的。</li>
+<li>为了避免频繁的扩容操作，vector采用了倍增策略来确定新的容量大小。即在扩容时，将原有容量乘以一个系数，通常为2，来计算新的容量大小。</li>
+<li>在实现中，vector使用了allocator来管理内存分配，以保证分配的内存块是对齐的并遵循C++的类型安全规则。</li>
 </ol>
-<p>虚表是属于类的，而不是属于某个具体的对象，一个类只需要一个虚表即可。同一个类的所有对象都使用同一个虚表。</p>
-<p>为了指定对象的虚表，对象内部包含一个虚表的指针，来指向自己所使用的虚表。为了让每个包含虚表的类的对象都拥有一个虚表指针，编译器在类中添加了一个指针，*__vptr，用来指向虚表。这样，当类的对象在创建时便拥有了这个指针，且这个指针的值会自动被设置为指向类的虚表。</p>
-<p><em><strong>reference link</strong></em>: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/75172640">https://zhuanlan.zhihu.com/p/75172640</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/* reverse() */</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">Alloc</span>&gt;<br><span class="hljs-type">void</span> vector&lt;T, Alloc&gt;::<span class="hljs-built_in">reverse</span>() <span class="hljs-keyword">noexcept</span> &#123;<br>	<span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>-&gt;_M_ipml._M_finish-<span class="hljs-keyword">this</span>-&gt;_M_impl._M_start&gt;<span class="hljs-number">1</span>) &#123;<br>        std::_reverse(<span class="hljs-keyword">this</span>-&gt;_M_impl._M_start, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在源代码中，可以看到当vector内部存储的元素数量大于1时，才会调用std::__reverse()函数对其进行反转。下面是std::__reverse()函数的源代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/* std::_reverse() */</span><br><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> _BidirectionalIterator&gt;<br><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> __reverse(_BidirectionalIterator __first, _BidirectionalIterator __last)<br>&#123;<br>    <span class="hljs-comment">// 反转区间[first, last)中的元素</span><br>    <span class="hljs-comment">// 首尾两个迭代器分别指向区间的首尾</span><br>    <span class="hljs-keyword">while</span> (__first != __last &amp;&amp; __first != --__last) &#123;<br>        <span class="hljs-comment">// 将首尾两个元素进行交换</span><br>        std::<span class="hljs-built_in">iter_swap</span>(__first, __last);<br>        <span class="hljs-comment">// 将迭代器向前和向后移动</span><br>        ++__first;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在std::__reverse()函数中，使用了双向迭代器，并利用std::iter_swap()函数将首尾两个元素进行交换，然后将迭代器向前和向后移动，直到迭代器相遇或者前一个迭代器等于后一个迭代器减1。通过分析以上源代码，我们可以看到STL中reverse()函数的实现采用了双向迭代器，并利用std::iter_swap()函数交换元素，这个函数是标准库中定义的交换元素的函数。</p>
 
                 
               </div>
@@ -310,7 +306,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/interview/">#interview</a>
+        <a href="/tags/C/">#C++</a>
       
     </div>
   
@@ -322,8 +318,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>虚函数动态绑定</div>
-      <div>http://precipitation0224.github.io/2023/03/08/virtualpointer/</div>
+      <div>vector动态扩容机制</div>
+      <div>http://precipitation0224.github.io/2023/03/10/vectorexpand/</div>
     </div>
     <div class="license-meta">
       
@@ -335,7 +331,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>March 7, 2023</div>
+          <div>March 9, 2023</div>
         </div>
       
       
@@ -367,9 +363,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/10/vectorexpand/" title="vector动态扩容机制">
+                      <a href="/2023/03/11/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/" title="浮点数和MD5,Base64">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">vector动态扩容机制</span>
+                        <span class="hidden-mobile">浮点数和MD5,Base64</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -377,8 +373,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/07/tls/" title="http缺陷，tls和QUIC">
-                        <span class="hidden-mobile">http缺陷，tls和QUIC</span>
+                      <a href="/2023/03/08/virtualpointer/" title="虚函数动态绑定">
+                        <span class="hidden-mobile">虚函数动态绑定</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

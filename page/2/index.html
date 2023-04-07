@@ -229,6 +229,86 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/03/07/tls/" target="_self">
+          http缺陷，tls和QUIC
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/07/tls/" target="_self">
+        <div>
+          10、http安全保证，tls，如何握手 HTTP协议没有任何的加密以及身份验证的机制，非常容易遭到窃听、劫持、篡改等。不安全的原因主要包含以下方面：  通信使用明文，内容可能被窃听。 不验证通信方的身份，因此有可能遭到伪装。 无法验证报文的完整性，所以有可能被篡改。 传统的HTTP请求过程都是明文传输的，所谓的明文指的是没有经过加密的信息，如果HTTP请求和响应被黑客拦截，并且里面含有密码等敏感
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-06 19:53" pubdate>
+              2023-03-06
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/interview/">#interview</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/05/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/" target="_self">
+          string的缺陷和指针选择
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/05/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/" target="_self">
+        <div>
+          2、std::string的缺陷 最大的缺点是 std::string 是「字节串」而非「字符串」  它是可变对象，任何对 string 对象的操作都会改变原对象的值而不是重新生成一个 string 对象，线程不安全； 不能很好的处理宽字节的字符； 没有足够多的好用的函数，没有format格式输出，要借助要用stdio.h头文件里的 sprintf 函数。  3、智能指针和原生指针的开销 泛型指针
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-05 13:07" pubdate>
+              2023-03-05
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/interview/">#interview</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/03/04/staticlib/" target="_self">
           静态库和动态库
         </a>
@@ -527,86 +607,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2023-02-15 19:52" pubdate>
               2023-02-15
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/02/14/xuanran/" target="_self">
-          浏览器输入地址后到渲染出数据的流程
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/14/xuanran/" target="_self">
-        <div>
-          在浏览器输入地址后，通常经过以下流程来渲染出数据：  DNS 解析：浏览器首先会将输入的域名解析为对应的 IP 地址，以便与服务器建立连接。如果 DNS 缓存中已经存在对应的 IP 地址，则可以直接跳过此步骤。 建立连接：浏览器通过 TCP&#x2F;IP 协议与服务器建立连接，建立连接过程中包括 TCP 的三次握手。 发送请求：浏览器向服务器发送 HTTP 请求，请求包括请求方法、请求头、请求体
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-13 19:54" pubdate>
-              2023-02-13
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/02/14/1-0-2-3%E4%BC%98%E5%8C%96/" target="_self">
-          http 1.0/2/3优化
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/14/1-0-2-3%E4%BC%98%E5%8C%96/" target="_self">
-        <div>
-          6、http1.0&#x2F;1 2 3优化 HTTP1.0 1.0的HTTP版本，是一种无状态，无连接的应用层协议。 HTTP1.0规定浏览器和服务器保持短暂的链接。 浏览器每次请求都需要与服务器建立一个TCP连接，服务器处理完成以后立即断开TCP连接（无连接），服务器不跟踪也每个客户单，也不记录过去的请求（无状态）。 这种无状态性可以借助cookie&#x2F;session机制来做身份认证和
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-02-13 18:43" pubdate>
-              2023-02-13
             </time>
           </div>
         
