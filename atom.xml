@@ -6,7 +6,7 @@
   <link href="http://precipitation0224.github.io/atom.xml" rel="self"/>
   
   <link href="http://precipitation0224.github.io/"/>
-  <updated>2023-03-28T12:43:16.535Z</updated>
+  <updated>2023-04-22T12:03:28.132Z</updated>
   <id>http://precipitation0224.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Go语言中的测试及第三方库Ginkgo使用</title>
+    <link href="http://precipitation0224.github.io/2023/04/23/gotest/"/>
+    <id>http://precipitation0224.github.io/2023/04/23/gotest/</id>
+    <published>2023-04-22T19:14:05.000Z</published>
+    <updated>2023-04-22T12:03:28.132Z</updated>
+    
+    <content type="html"><![CDATA[<p>软件测试的定义：通过模拟实际使用环境，发现并报告软件中的缺陷和错误的过程，软件测试很重要，它可以保证软件的质量和可靠性，同时减少因缺陷而造成的损失和成本。</p><p>软件测试生命周期通常包括计划、分析、设计、执行和评估阶段。分析阶段，分析需求和确定的范围；设计阶段，编写测试用例和测试脚本；执行阶段，执行测试并记录结果；评估阶段，评估测试的效果，生成测试报告。</p><p>软件测试方法包括功能测试、性能测试、安全测试、易用性测试、兼容性测试、可靠性测试等。</p><p>测试用例是一个测试计划的基本单元，用于验证软件是否符合预期行为。测试用例应包括输入、预期输出、实际输出和测试结果。</p><p>黑盒测试是在<strong>不了解内部结构的情况下</strong>对软件进行测试，白盒测试是在<strong>了解软件内部结构</strong>的情况下对软件进行测试，着重于<strong>测试代码的正确性和完整性</strong>。</p><p>单元测试是对软件中最小的可测试单元进行测试，通常是一个函数或一个模块，如go内置的testing。</p><p>这里演示一个简单的testing包测试：</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> math<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Add</span><span class="hljs-params">(a, b <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>    <span class="hljs-keyword">return</span> a + b<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Subtract</span><span class="hljs-params">(a, b <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>    <span class="hljs-keyword">return</span> a - b<br>&#125;<br><br><span class="hljs-keyword">package</span> math<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;testing&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestAdd</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>    result := Add(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)<br>    <span class="hljs-keyword">if</span> result != <span class="hljs-number">5</span> &#123;<br>        t.Errorf(<span class="hljs-string">&quot;Add(2, 3) = %d; want 5&quot;</span>, result)<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestSubtract</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>    result := Subtract(<span class="hljs-number">5</span>, <span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">if</span> result != <span class="hljs-number">3</span> &#123;<br>        t.Errorf(<span class="hljs-string">&quot;Subtract(5, 2) = %d; want 3&quot;</span>, result)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>运行<em>go test</em>有:</p><p><img src="/../picture/mathtest.png"></p><p>自动化测试是使用工具和脚本来代替手动测试过程的测试方法，包括Selenium、Appium、Robot Framework和Cypress等。</p><p>性能测试是测试软件的性能和稳定性，主要是测试系统在各种负载下的响应时间、吞吐量和并发用户数等方面，包括Apache JMeter、Gatling和Locust等。</p><p>Go语言第三方库，对Ginkgo和Gomega进行介绍。</p><p>Ginkgo：Ginkgo是一个BDD风格的测试框架，支持Go语言中的自然语言测试表述。它具有嵌套的Describe和Context块，可以描述程序的各个方面，也可以使用It函数编写具体的测试用例。</p><p>Gomega：Gomega是一个用于Go语言的断言库，可以与Ginkgo和GoConvey等测试框架配合使用。它提供了丰富的匹配器函数和简单易用的API，可以方便地编写测试代码。</p><p>下面给出一个简单的测试demo</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">/* mypackage_test.go */</span><br><span class="hljs-keyword">package</span> mypackage_test<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;mypackage&quot;</span><br>    <br>    . <span class="hljs-string">&quot;github.com/onsi/ginkgo&quot;</span><br>    . <span class="hljs-string">&quot;github.com/onsi/gomega&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> _ = Describe(<span class="hljs-string">&quot;MyPackage&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>    It(<span class="hljs-string">&quot;should return true&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">()</span></span> &#123;<br>        result := mypackage.MyFunction()<br>        Expect(result).To(Equal(<span class="hljs-literal">true</span>))<br>    &#125;)<br>&#125;)<br></code></pre></td></tr></table></figure><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">/* mypackage_suite_test.go */</span><br><span class="hljs-keyword">package</span> mypackage_test<br><br><span class="hljs-keyword">import</span> (<br>    <span class="hljs-string">&quot;testing&quot;</span><br><br>    . <span class="hljs-string">&quot;github.com/onsi/ginkgo&quot;</span><br>    . <span class="hljs-string">&quot;github.com/onsi/gomega&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">TestMyPackage</span><span class="hljs-params">(t *testing.T)</span></span> &#123;<br>    RegisterFailHandler(Fail)<br>    RunSpecs(t, <span class="hljs-string">&quot;MyPackage Suite&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure><p>后面只需在终端运行ginkgo即可，得到一下的测试输出：</p><p><img src="/../picture/ginkgotest.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;软件测试的定义：通过模拟实际使用环境，发现并报告软件中的缺陷和错误的过程，软件测试很重要，它可以保证软件的质量和可靠性，同时减少因缺陷而造成的损失和成本。&lt;/p&gt;
+&lt;p&gt;软件测试生命周期通常包括计划、分析、设计、执行和评估阶段。分析阶段，分析需求和确定的范围；设计阶段，编写</summary>
+      
+    
+    
+    
+    
+    <category term="Golang" scheme="http://precipitation0224.github.io/tags/Golang/"/>
+    
+  </entry>
   
   <entry>
     <title>golang中的GC</title>
@@ -473,32 +496,6 @@
     
     
     <category term="my notes" scheme="http://precipitation0224.github.io/tags/my-notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TCP三握四挥</title>
-    <link href="http://precipitation0224.github.io/2023/02/16/tcp34/"/>
-    <id>http://precipitation0224.github.io/2023/02/16/tcp34/</id>
-    <published>2023-02-15T19:52:12.000Z</published>
-    <updated>2023-03-23T12:00:56.089Z</updated>
-    
-    <content type="html"><![CDATA[<p>TCP 是一种面向连接的可靠传输协议，使用三次握手建立连接可以保证连接的可靠性和安全性。</p><p>具体来说，三次握手的流程如下：</p><ol><li>客户端向服务器发送一个 SYN 报文，其中包含一个随机的初始序号。</li><li>服务器收到 SYN 报文后，向客户端回复一个 SYN+ACK 报文，其中确认客户端的初始序号，并发送一个随机的初始序号。</li><li>客户端收到 SYN+ACK 报文后，向服务器回复一个 ACK 报文，其中确认服务器的初始序号。</li></ol><p>通过三次握手，可以确保双方都已经认可对方的身份，并且双方都已经准备好发送和接收数据。如果使用两次握手，由于没有第三次确认，可能会存在一些潜在的安全问题，例如可能会被攻击者伪造的 SYN 报文欺骗，从而导致连接建立失败或者连接被攻击者劫持。</p><p>至于为什么不是四次握手，是因为建立连接和关闭连接的过程是不一样的。建立连接时需要客户端和服务器都进行确认，因此需要三次握手；而关闭连接时只需要一方发送 FIN 报文，另一方回复 ACK 报文即可，因此只需要四次握手。</p><p>CP 的四次挥手是用来关闭一个 TCP 连接的过程，具体流程如下：</p><ol><li>客户端发送一个 FIN 报文，请求关闭连接。</li><li>服务器收到 FIN 报文后，向客户端回复一个 ACK 报文，确认收到关闭请求。</li><li>服务器发送一个 FIN 报文，请求关闭连接。</li><li>客户端收到 FIN 报文后，向服务器回复一个 ACK 报文，确认收到关闭请求。</li></ol><p>通过四次挥手，双方都可以安全地关闭连接并释放相应的资源。需要注意的是，关闭连接的过程是一个异步的过程，可能会出现一些延迟，因此需要双方都进行确认才能确保连接被彻底关闭。</p><p>需要注意的是，四次挥手中，客户端和服务器各发送了一次 FIN 报文，因此总共需要四次握手才能完成连接的关闭。这也是为什么四次挥手比三次握手复杂的原因。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;TCP 是一种面向连接的可靠传输协议，使用三次握手建立连接可以保证连接的可靠性和安全性。&lt;/p&gt;
-&lt;p&gt;具体来说，三次握手的流程如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;客户端向服务器发送一个 SYN 报文，其中包含一个随机的初始序号。&lt;/li&gt;
-&lt;li&gt;服务器收到 SYN 报文后</summary>
-      
-    
-    
-    
-    
-    <category term="计算机网络" scheme="http://precipitation0224.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"/>
     
   </entry>
   
