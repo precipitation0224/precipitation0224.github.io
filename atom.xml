@@ -64,6 +64,28 @@
   </entry>
   
   <entry>
+    <title>使用Selenium进行web测试</title>
+    <link href="http://precipitation0224.github.io/2023/05/15/seleniumTst/"/>
+    <id>http://precipitation0224.github.io/2023/05/15/seleniumTst/</id>
+    <published>2023-05-14T22:11:30.000Z</published>
+    <updated>2023-05-28T14:22:01.926Z</updated>
+    
+    <content type="html"><![CDATA[<p>Selenium是一个用于自动化Web应用程序测试的强大工具。它支持多种编程语言，包括Java、Python、C#等。下面是使用Selenium进行测试的一般步骤：<br>1、安装Selenium：首先，需要在测试环境中安装Selenium。具体的安装步骤可能因使用的编程语言和测试框架而有所不同。<br>2、配置测试环境：在测试项目中，需要引入Selenium库和相关依赖。具体的配置方式也因使用的编程语言和测试框架而有所不同。可以使用构建工具（如Maven或Gradle）来管理依赖项，并确保测试环境正确设置。<br>3、编写测试代码：根据测试需求，编写使用Selenium的测试代码。下面是一个使用Java和JUnit进行Selenium测试的示例：</p><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">import</span> org.junit.After;<br><span class="hljs-keyword">import</span> org.junit.Before;<br><span class="hljs-keyword">import</span> org.junit.Test;<br><span class="hljs-keyword">import</span> org.openqa.selenium.By;<br><span class="hljs-keyword">import</span> org.openqa.selenium.WebDriver;<br><span class="hljs-keyword">import</span> org.openqa.selenium.WebElement;<br><span class="hljs-keyword">import</span> org.openqa.selenium.chrome.ChromeDriver;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExampleSeleniumTest</span> &#123;<br><br>    <span class="hljs-keyword">private</span> WebDriver driver;<br><br>    <span class="hljs-meta">@Before</span><br>    <span class="hljs-keyword">public</span> void setup() &#123;<br>        <span class="hljs-comment">// 设置ChromeDriver路径</span><br>        System.setProperty(<span class="hljs-string">&quot;webdriver.chrome.driver&quot;</span>, <span class="hljs-string">&quot;path/to/chromedriver&quot;</span>);<br><br>        <span class="hljs-comment">// 创建ChromeDriver实例</span><br>        driver = new ChromeDriver();<br>    &#125;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-keyword">public</span> void testLogin() &#123;<br>        <span class="hljs-comment">// 打开网页</span><br>        driver.<span class="hljs-keyword">get</span>(<span class="hljs-string">&quot;https://example.com&quot;</span>);<br><br>        <span class="hljs-comment">// 找到用户名和密码输入框，并输入值</span><br>        WebElement usernameInput = driver.findElement(By.id(<span class="hljs-string">&quot;username&quot;</span>));<br>        WebElement passwordInput = driver.findElement(By.id(<span class="hljs-string">&quot;password&quot;</span>));<br>        usernameInput.sendKeys(<span class="hljs-string">&quot;myusername&quot;</span>);<br>        passwordInput.sendKeys(<span class="hljs-string">&quot;mypassword&quot;</span>);<br><br>        <span class="hljs-comment">// 找到登录按钮，并点击</span><br>        WebElement loginButton = driver.findElement(By.id(<span class="hljs-string">&quot;loginButton&quot;</span>));<br>        loginButton.click();<br><br>        <span class="hljs-comment">// 验证登录成功后的操作，例如验证登录后的页面元素是否正确显示等</span><br>        WebElement welcomeMessage = driver.findElement(By.id(<span class="hljs-string">&quot;welcomeMessage&quot;</span>));<br>        Assert.assertEquals(<span class="hljs-string">&quot;Welcome, User!&quot;</span>, welcomeMessage.getText());<br>    &#125;<br><br>    <span class="hljs-meta">@After</span><br>    <span class="hljs-keyword">public</span> void teardown() &#123;<br>        <span class="hljs-comment">// 关闭浏览器</span><br>        driver.quit();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>在这个示例中，我们使用Chrome浏览器驱动，打开网页，模拟输入用户名和密码，并验证登录后的操作。在测试之前，我们使用**@Before<strong>注解设置了ChromeDriver实例，在测试之后，使用</strong>@After**注解关闭浏览器。</p><p>4、运行测试：运行你的测试代码，可以使用你所使用的测试框架提供的命令或集成开发环境（IDE）中的测试运行功能来执行测试。</p><p><strong>另外，Selenium还可以与其他测试框架和工具集成，例如JUnit、TestNG、Cucumber等，以扩展测试的能力和灵活性。</strong></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Selenium是一个用于自动化Web应用程序测试的强大工具。它支持多种编程语言，包括Java、Python、C#等。下面是使用Selenium进行测试的一般步骤：&lt;br&gt;1、安装Selenium：首先，需要在测试环境中安装Selenium。具体的安装步骤可能因使用的编程语</summary>
+      
+    
+    
+    
+    
+    <category term="软件测试" scheme="http://precipitation0224.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android Studio测试</title>
     <link href="http://precipitation0224.github.io/2023/05/11/androidTst/"/>
     <id>http://precipitation0224.github.io/2023/05/11/androidTst/</id>
@@ -473,29 +495,6 @@
     
     
     <category term="操作系统" scheme="http://precipitation0224.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>联邦学习下的多视图聚类</title>
-    <link href="http://precipitation0224.github.io/2023/02/27/fedmvc/"/>
-    <id>http://precipitation0224.github.io/2023/02/27/fedmvc/</id>
-    <published>2023-02-26T19:54:02.000Z</published>
-    <updated>2023-03-23T12:05:41.284Z</updated>
-    
-    <content type="html"><![CDATA[<p>多视图聚类是指利用多个视图或特征描述同一组样本，在不同视图或特征空间中聚类样本。联邦学习是一种分布式机器学习框架，可以实现在数据分散的情况下进行模型训练。</p><p>在联邦学习中，多个设备或数据源共同训练模型，每个设备或数据源负责一部分数据，并通过模型的迭代来学习全局模型，从而避免了数据集中的隐私泄露问题。</p><p>在以联邦学习为背景的多视图聚类中，可以采用以下几种思路：</p><ol><li>基于<strong>模型</strong>的方法：在联邦学习框架下，利用各设备或数据源训练出的模型，对不同视图的数据进行预测，将预测结果作为新的特征，然后进行聚类。这种方法需要每个设备或数据源都具有相同的模型架构和参数设置。</li><li>基于<strong>特征</strong>的方法：在联邦学习框架下，将各设备或数据源的特征向量作为不同视图，在不同视图之间进行特征选择和特征融合，得到新的特征向量，然后进行聚类。</li><li>基于<strong>信息传递</strong>的方法：在联邦学习框架下，将各设备或数据源的聚类结果进行信息传递，利用传递的聚类结果得到新的特征向量，然后进行聚类。这种方法可以利用不同设备或数据源之间的信息交流和知识共享，提高聚类效果。</li><li>基于<strong>深度学习</strong>的方法：在联邦学习框架下，利用深度学习模型对不同视图的数据进行特征提取和特征融合，得到新的特征向量，然后进行聚类。这种方法需要在联邦学习框架下训练深度学习模型，并利用模型进行特征提取和融合。</li></ol><p>总之，基于联邦学习的多视图聚类需要充分利用各设备或数据源之间的信息交流和知识共享，结合不同视图之间的特征和模型，实现更精确和高效的聚类。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;多视图聚类是指利用多个视图或特征描述同一组样本，在不同视图或特征空间中聚类样本。联邦学习是一种分布式机器学习框架，可以实现在数据分散的情况下进行模型训练。&lt;/p&gt;
-&lt;p&gt;在联邦学习中，多个设备或数据源共同训练模型，每个设备或数据源负责一部分数据，并通过模型的迭代来学习全局模</summary>
-      
-    
-    
-    
-    
-    <category term="科研" scheme="http://precipitation0224.github.io/tags/%E7%A7%91%E7%A0%94/"/>
     
   </entry>
   

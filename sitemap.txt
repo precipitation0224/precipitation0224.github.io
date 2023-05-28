@@ -1,3 +1,4 @@
+http://precipitation0224.github.io/2023/05/15/seleniumTst/
 http://precipitation0224.github.io/2023/05/11/androidTst/
 http://precipitation0224.github.io/2023/05/27/fedrep/
 http://precipitation0224.github.io/2023/05/24/fedmvt/
