@@ -2,6 +2,78 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://precipitation0224.github.io/2023/07/03/07-03-redis_Set/</loc>
+    
+    <lastmod>2023-08-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://precipitation0224.github.io/2023/07/03/07-03-redis_SortedSet/</loc>
+    
+    <lastmod>2023-08-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://precipitation0224.github.io/2023/07/03/07-03-redis_Hash/</loc>
+    
+    <lastmod>2023-08-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://precipitation0224.github.io/2023/07/03/07-02-redis_List/</loc>
+    
+    <lastmod>2023-08-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://precipitation0224.github.io/2023/07/03/07-02-redis_String/</loc>
+    
+    <lastmod>2023-08-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://precipitation0224.github.io/2023/07/03/07-02-redis_ds/</loc>
+    
+    <lastmod>2023-08-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://precipitation0224.github.io/2023/06/28/06-28-tcp_qa/</loc>
+    
+    <lastmod>2023-08-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://precipitation0224.github.io/2023/06/27/06-26-tcp/</loc>
+    
+    <lastmod>2023-08-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://precipitation0224.github.io/2023/05/15/seleniumTst/</loc>
     
     <lastmod>2023-05-28</lastmod>
@@ -481,134 +553,141 @@
 
   <url>
     <loc>http://precipitation0224.github.io/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
+    <loc>http://precipitation0224.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2023-08-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://precipitation0224.github.io/tags/Redis/</loc>
+    <lastmod>2023-08-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>http://precipitation0224.github.io/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/C/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/my-notes/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/WebServer/</loc>
-    <lastmod>2023-05-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://precipitation0224.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/%E7%A7%91%E7%A0%94/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%92%8C%E5%A4%9A%E8%A7%86%E5%9B%BE%E8%81%9A%E7%B1%BB/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/golang/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/Golang/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/WebServer%E9%A1%B9%E7%9B%AE/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/SQLite%E9%A1%B9%E7%9B%AE/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/C-11/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/mysql/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/interview/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://precipitation0224.github.io/tags/my-os/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-08-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

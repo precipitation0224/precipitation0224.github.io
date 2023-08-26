@@ -20,22 +20,22 @@
   <meta name="author" content="Yummy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="FedClassAvg: Local Representation Learning for Personalized Federated Learning on Heterogeneous Neural Networks 个性化联合学习旨在允许众多客户在不交换私人数据的情况下，以高效沟通的方式参与协作培训，同时培训个性化模型。然而，许多个性化联合学习算法假设客户端具有相同的神经网络结构，而针对不">
+    <meta name="description" content="Redis 自己构建了一种名为简单动态字符串（simple dynamic string，SDS）的抽象类型， 并将 SDS 用作 Redis 的默认字符串表示。 SDS结构： 123456789struct sdshdr &amp;#123;    &#x2F;&#x2F; 记录 buf 数组中已使用字节的数量    &#x2F;&#x2F; 等于 SDS 所保存字符串的长度    int len;    &#x2F;&#x2F; 记录 buf 数组中未使用字节">
 <meta property="og:type" content="article">
-<meta property="og:title" content="联邦学习下的表征学习相关paper">
-<meta property="og:url" content="http://precipitation0224.github.io/2023/05/27/fedrep/index.html">
+<meta property="og:title" content="Redis数据结构——String实现">
+<meta property="og:url" content="http://precipitation0224.github.io/2023/07/03/07-02-redis_String/index.html">
 <meta property="og:site_name" content="yummy home">
-<meta property="og:description" content="FedClassAvg: Local Representation Learning for Personalized Federated Learning on Heterogeneous Neural Networks 个性化联合学习旨在允许众多客户在不交换私人数据的情况下，以高效沟通的方式参与协作培训，同时培训个性化模型。然而，许多个性化联合学习算法假设客户端具有相同的神经网络结构，而针对不">
+<meta property="og:description" content="Redis 自己构建了一种名为简单动态字符串（simple dynamic string，SDS）的抽象类型， 并将 SDS 用作 Redis 的默认字符串表示。 SDS结构： 123456789struct sdshdr &amp;#123;    &#x2F;&#x2F; 记录 buf 数组中已使用字节的数量    &#x2F;&#x2F; 等于 SDS 所保存字符串的长度    int len;    &#x2F;&#x2F; 记录 buf 数组中未使用字节">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-05-27T11:39:45.000Z">
-<meta property="article:modified_time" content="2023-05-28T03:52:32.080Z">
+<meta property="article:published_time" content="2023-07-02T19:31:25.000Z">
+<meta property="article:modified_time" content="2023-08-24T05:57:40.750Z">
 <meta property="article:author" content="Yummy">
-<meta property="article:tag" content="联邦学习和多视图聚类">
+<meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>联邦学习下的表征学习相关paper - yummy home</title>
+  <title>Redis数据结构——String实现 - yummy home</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="联邦学习下的表征学习相关paper"></span>
+            <span id="subtitle" data-typed-text="Redis数据结构——String实现"></span>
           
         </div>
 
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-05-27 11:39" pubdate>
-          May 27, 2023 am
+        <time datetime="2023-07-02 19:31" pubdate>
+          July 2, 2023 pm
         </time>
       </span>
     
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k words
+          795 words
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          13 mins
+          7 mins
         
       </span>
     
@@ -274,17 +274,27 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">联邦学习下的表征学习相关paper</h1>
+            <h1 style="display: none">Redis数据结构——String实现</h1>
             
             
               <div class="markdown-body">
                 
-                <p><strong>FedClassAvg: Local Representation Learning for Personalized Federated Learning on Heterogeneous Neural Networks</strong></p>
-<p>个性化联合学习旨在允许众多客户在不交换私人数据的情况下，以高效沟通的方式参与协作培训，同时培训个性化模型。然而，许多个性化联合学习算法假设客户端具有相同的神经网络结构，而针对不同模型的算法仍未得到充分研究。在这项研究中，我们提出了一种新的个性化联合学习方法，称为联合分类器平均(FedClassAvg)。用于有监督学习任务的深度神经网络由特征提取器层和分类器层组成。FedClassAvg将分类器权重聚合为特征空间上决策边界的协议，以便具有不独立且相同分布(非IID)数据的客户可以了解稀缺标签。此外，应用局部特征表示学习来稳定决策边界，提高客户的局部特征提取能力。现有的方法需要收集辅助数据或模型权重来生成对应的数据，而FedClassAvg只需要客户端与几个完全连接的层进行通信，这是非常高效的通信效率。此外，FedClassAvg不需要额外的优化问题，如知识转移，这需要密集的计算开销。我们通过大量的实验对FedClassAvg进行了评估，并证明了它在异类个性化联合学习任务上的性能优于目前最先进的算法。</p>
-<p><strong>Think Locally, Act Globally: Federated Learning with Local and Global Representations</strong></p>
-<p>联合学习是一种对分布在多个设备上的私有数据进行模型训练的方法。为了保持设备数据的私密性，全局模型仅通过传递参数和更新进行训练，这对大型模型的可扩展性构成了挑战。为此，我们提出了一种新的联合学习算法，该算法联合学习每个设备上的紧凑局部表示和所有设备上的全局模型。因此，全局模型可以更小，因为它只对局部表示进行操作，从而减少了传递的参数的数量。从理论上讲，我们提供了一个泛化分析，它表明局部和全局模型的组合既减少了数据中的方差，也减少了设备分布之间的方差。经验上，我们证明了本地模型能够在保持性能的同时实现有效沟通的训练。我们还评估了从真实移动数据中预测个性化情绪的任务，其中隐私是关键。最后，本地模型处理来自新设备的异类数据，并学习混淆种族、年龄和性别等受保护属性的公平表示法。</p>
-<p><strong>Collaborative Unsupervised Visual Representation Learning from Decentralized Data</strong></p>
-<p>无监督表示学习利用互联网上的集中数据取得了出色的性能。然而，隐私保护意识的增强限制了分散的未标记图像数据的共享，这些数据在多方(例如移动电话和相机)中呈爆炸性增长。因此，一个自然的问题是如何利用这些数据来学习下游任务的可视化表示，同时保护数据隐私。针对这一问题，我们提出了一种新的联邦无监督学习框架FEDU。在该框架中，每一方使用在线网络和目标网络的对比学习来独立地从未标记的数据中训练模型。然后，中央服务器聚合训练的模型，并用聚合的模型更新客户端的模型。它保护数据隐私，因为每一方都只能访问其原始数据。多个缔约方之间分散的数据通常是非独立和相同分布的(非IID)，导致性能下降。为了应对这一挑战，我们提出了两种简单而有效的方法：1)我们设计了通信协议，只上传在线网络的编码者进行服务器聚合，并使用聚合的编码者更新它们；2)我们引入了一个新的模块，根据非IID引起的分歧来动态决定如何更新预测器。预测器是在线网络的另一个组成部分。广泛的实验和消融证明了FEDU的有效性和重要性。在非IID数据的线性和半监督评估中，它的性能比只有一方的训练方法高出5%以上，比其他方法高出14%以上。</p>
+                <p>Redis 自己构建了一种名为简单动态字符串（simple dynamic string，SDS）的抽象类型， 并将 SDS 用作 Redis 的默认字符串表示。</p>
+<p>SDS结构：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sdshdr</span> &#123;</span><br>    <span class="hljs-comment">// 记录 buf 数组中已使用字节的数量</span><br>    <span class="hljs-comment">// 等于 SDS 所保存字符串的长度</span><br>    <span class="hljs-type">int</span> len;<br>    <span class="hljs-comment">// 记录 buf 数组中未使用字节的数量</span><br>    <span class="hljs-type">int</span> <span class="hljs-built_in">free</span>;<br>    <span class="hljs-comment">// 字节数组，用于保存字符串</span><br>    <span class="hljs-type">char</span> buf[];<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>free 属性的值为 0 ， 表示这个 SDS 没有分配任何未使用空间。</p>
+<p>len 属性的值为 5 ， 表示这个 SDS 保存了一个五字节长的字符串。</p>
+<p>buf 属性是一个 char 类型的数组， 数组的前五个字节分别保存了 ‘R’ 、 ‘e’ 、 ‘d’ 、 ‘i’ 、 ‘s’ 五个字符， 而最后一个字节则保存了空字符 ‘\0’ 。 SDS 与 C 语言字符串比较相近，但拥有更过的优势：</p>
+<ol>
+<li>SDS 获取字符串长度时间复杂度O(1)：因为 SDS 通过 len 字段来存储长度，使用时直接读取就可以；C 语言要想获取字符串长度需要遍历整个字符串，时间复杂度O(N)。</li>
+<li>SDS 能杜绝缓冲区的溢出：因为当 SDS API 要对 SDS 进行修改时，会先检查 SDS 的空间是否足够，如果不够的话 SDS 会自动扩容，So，不会造成缓冲区溢出。而 C 语言则不剧本这个功能。</li>
+<li>SDS 能减少修改字符串时带来的内存重分配次数：<ul>
+<li>空间预分配：当SDS 扩容时不只是会增加需要的空间大小，还会额外的分配一些未使用的空间。分配的规则是：如果分配后SDS的长度小于 1MB，那么会分配等于分配后SDS 的大小的未使用空间，简单说就是，SDS 动态分配后是 16KB，那么就会多分配 16KB 的未使用空间；如果 小于 1MB，那么久分配 1MB 的未使用空间。</li>
+<li>惰性空间释放： 惰性空间释放用于优化 SDS 的字符串缩短操作：当 SDS 的 API 需要缩短 SDS 保存的字符串时，并不会立即内存重分配来回收多出来的字节，而是用 free 来记录未使用空间。</li>
+</ul>
+</li>
+</ol>
 
                 
               </div>
@@ -297,7 +307,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%92%8C%E5%A4%9A%E8%A7%86%E5%9B%BE%E8%81%9A%E7%B1%BB/">#联邦学习和多视图聚类</a>
+        <a href="/tags/Redis/">#Redis</a>
       
     </div>
   
@@ -309,8 +319,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>联邦学习下的表征学习相关paper</div>
-      <div>http://precipitation0224.github.io/2023/05/27/fedrep/</div>
+      <div>Redis数据结构——String实现</div>
+      <div>http://precipitation0224.github.io/2023/07/03/07-02-redis_String/</div>
     </div>
     <div class="license-meta">
       
@@ -322,7 +332,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>May 27, 2023</div>
+          <div>July 2, 2023</div>
         </div>
       
       
@@ -354,9 +364,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/06/27/06-26-tcp/" title="TCP连接断开解析">
+                      <a href="/2023/07/03/07-02-redis_List/" title="Redis数据结构——List实现">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">TCP连接断开解析</span>
+                        <span class="hidden-mobile">Redis数据结构——List实现</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -364,8 +374,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/05/24/fedmvt/" title="联邦多视图表征训练">
-                        <span class="hidden-mobile">联邦多视图表征训练</span>
+                      <a href="/2023/07/03/07-02-redis_ds/" title="Redis数据结构">
+                        <span class="hidden-mobile">Redis数据结构</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

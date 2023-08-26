@@ -229,6 +229,326 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/07/03/07-03-redis_Set/" target="_self">
+          Redis数据结构——Set实现
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/03/07-03-redis_Set/" target="_self">
+        <div>
+          整数集合（intset）是集合键的底层实现之一： 当一个集合只包含整数值元素， 并且这个集合的元素数量不多时， Redis 就会使用整数集合作为集合键的底层实现。 整数集合（intset）是 Redis 用于保存整数值的集合抽象数据结构， 它可以保存类型为 int16_t 、 int32_t 或者 int64_t 的整数值， 并且保证集合中不会出现重复元素。 每个 intset.h&#x2F;in
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-03 15:28" pubdate>
+              2023-07-03
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Redis/">#Redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/07/03/07-03-redis_SortedSet/" target="_self">
+          Redis数据结构——SortedSet实现
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/03/07-03-redis_SortedSet/" target="_self">
+        <div>
+          跳跃表（skiplist）是一种有序数据结构， 它通过在每个节点中维持多个指向其他节点的指针， 从而达到快速访问节点的目的。跳跃表支持平均 O(\log N) 最坏 O(N) 复杂度的节点查找， 还可以通过顺序性操作来批量处理节点。在大部分情况下， 跳跃表的效率可以和平衡树相媲美， 并且因为跳跃表的实现比平衡树要来得更为简单， 所以有不少程序都使用跳跃表来代替平衡树。 Redis 使用跳跃表作为有
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-03 15:28" pubdate>
+              2023-07-03
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Redis/">#Redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/07/03/07-03-redis_Hash/" target="_self">
+          Redis数据结构——Hash实现
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/03/07-03-redis_Hash/" target="_self">
+        <div>
+          字典， 又称符号表（symbol table）、关联数组（associative array）或者映射（map）， 是一种用于保存键值对（key-value pair）的抽象数据结构。其中 Key 是唯一的。类似 Java 的 Map。 Redis 字典所使用的哈希表由 dict.h&#x2F;dictht 结构定义： 12345678910111213141516typedef struct d
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-03 10:16" pubdate>
+              2023-07-03
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Redis/">#Redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/07/03/07-02-redis_List/" target="_self">
+          Redis数据结构——List实现
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/03/07-02-redis_List/" target="_self">
+        <div>
+          链表提供了高效的节点重排能力，以及顺序性的节点访问方式，并且可以通过增删节点来灵活地调整链表的长度。链表在 Redis 中的应用非常广泛，比如 List 的底层实现之一链表，当一个 List 包含了数量比较多的元素，又或者列表中包含的元素都是比较长的字符串时，Redis 就会使用链表作为 List 的底层实现。除了用作 List 的底层实现之外，发布与订阅、慢查询、监视器等动能也用到了链表， Re
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-02 22:16" pubdate>
+              2023-07-02
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Redis/">#Redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/07/03/07-02-redis_String/" target="_self">
+          Redis数据结构——String实现
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/03/07-02-redis_String/" target="_self">
+        <div>
+          Redis 自己构建了一种名为简单动态字符串（simple dynamic string，SDS）的抽象类型， 并将 SDS 用作 Redis 的默认字符串表示。 SDS结构： 123456789struct sdshdr &#123;    // 记录 buf 数组中已使用字节的数量    // 等于 SDS 所保存字符串的长度    int len;    // 记录 buf 数组中未使用字节
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-02 19:31" pubdate>
+              2023-07-02
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Redis/">#Redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/07/03/07-02-redis_ds/" target="_self">
+          Redis数据结构
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/07/03/07-02-redis_ds/" target="_self">
+        <div>
+          五种数据结构 1. String  如果一个字符串对象保存的是整数值， 并且这个整数值可以用 long 类型来表示， 那么字符串对象会将整数值保存在字符串对象结构的 ptr 属性里面（将 void* 转换成 long ）， 并将字符串对象的编码设置为 int 。 如果字符串对象保存的是一个字符串值， 并且这个字符串值的长度大于 39 字节， 那么字符串对象将使用一个简单动态字符串（SDS）来保存这
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-07-02 16:11" pubdate>
+              2023-07-02
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Redis/">#Redis</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/06/28/06-28-tcp_qa/" target="_self">
+          TCP相关问题
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/28/06-28-tcp_qa/" target="_self">
+        <div>
+          1、为什么建立连接协议是三次握手，而关闭连接却是四次握手呢？ 建立连接时，ACK和SYN可以放在一个报文里来发送。而关闭连接时，被动关闭方可能还需要发送一些数据后，再发送FIN报文表示同意现在可以关闭连接了，所以它这里的ACK报文和FIN报文多数情况下都是分开发送的。  2、为什么TIME_WAIT状态还需要等2MSL后才能返回到CLOSED状态？ 两个存在的理由：1、无法保证最后发送的ACK报文
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-06-28 12:11" pubdate>
+              2023-06-28
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/06/27/06-26-tcp/" target="_self">
+          TCP连接断开解析
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/27/06-26-tcp/" target="_self">
+        <div>
+          TCP状态码有6种标示： ① SYN(synchronous建立联机)； ② ACK(acknowledgement 确认) ③ PSH(push传送) ④ FIN(finish结束) ⑤ RST(reset重置) ⑥ URG(urgent紧急) Sequence number(顺序号码) &#x2F;&#x2F;Acknowledge number(确认号码) 第一次握手：主机A发送位码为SYN
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-06-26 22:11" pubdate>
+              2023-06-26
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/05/27/fedrep/" target="_self">
           联邦学习下的表征学习相关paper
         </a>
@@ -296,326 +616,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%92%8C%E5%A4%9A%E8%A7%86%E5%9B%BE%E8%81%9A%E7%B1%BB/">#联邦学习和多视图聚类</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/05/15/seleniumTst/" target="_self">
-          使用Selenium进行web测试
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/15/seleniumTst/" target="_self">
-        <div>
-          Selenium是一个用于自动化Web应用程序测试的强大工具。它支持多种编程语言，包括Java、Python、C#等。下面是使用Selenium进行测试的一般步骤：1、安装Selenium：首先，需要在测试环境中安装Selenium。具体的安装步骤可能因使用的编程语言和测试框架而有所不同。2、配置测试环境：在测试项目中，需要引入Selenium库和相关依赖。具体的配置方式也因使用的编程语言和测试框
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-05-14 22:11" pubdate>
-              2023-05-14
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/">#软件测试</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/05/11/androidTst/" target="_self">
-          Android Studio测试
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/05/11/androidTst/" target="_self">
-        <div>
-          使用Android Studio进行测试  单元测试（Unit Testing）：Android Studio内置了JUnit测试框架，你可以编写和运行单元测试来验证应用程序中的独立单元（如方法、类等）的功能是否按预期工作。单元测试通常用于测试业务逻辑、算法等核心功能。 仪器化测试（Instrumented Testing）：Android Studio提供了一个称为AndroidJUnitRun
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-05-10 21:58" pubdate>
-              2023-05-10
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/">#软件测试</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/04/23/gotest/" target="_self">
-          Go语言中的测试及第三方库Ginkgo使用
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/04/23/gotest/" target="_self">
-        <div>
-          软件测试的定义：通过模拟实际使用环境，发现并报告软件中的缺陷和错误的过程，软件测试很重要，它可以保证软件的质量和可靠性，同时减少因缺陷而造成的损失和成本。 软件测试生命周期通常包括计划、分析、设计、执行和评估阶段。分析阶段，分析需求和确定的范围；设计阶段，编写测试用例和测试脚本；执行阶段，执行测试并记录结果；评估阶段，评估测试的效果，生成测试报告。 软件测试方法包括功能测试、性能测试、安全测试、易
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-04-22 19:14" pubdate>
-              2023-04-22
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Golang/">#Golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/30/gogc/" target="_self">
-          golang中的GC
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/30/gogc/" target="_self">
-        <div>
-          Go语言采用了一种基于垃圾回收的内存管理机制，即使用垃圾回收器来自动管理内存分配和释放，以便可以更轻松地编写代码，而不必担心内存分配和释放的问题。 在Go语言中，内存分配是通过调用new或make函数来完成的。new函数用于分配值类型（如int、struct等）的内存，而make函数用于分配引用类型（如slice、map、channel等）的内存。 看一个示例，使用new和make来分配内存 12
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-29 20:11" pubdate>
-              2023-03-29
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/golang/">#golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/27/gmp/" target="_self">
-          GMP-Goroutine的调度器
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/27/gmp/" target="_self">
-        <div>
-          GMP指的是Goroutine Multiprocessing。 Goroutine是Go语言的一种轻量级线程，可以在单个进程中同时运行多个Goroutine，并且Goroutine之间可以相互通信和同步。GMP则是指在多核CPU上利用Goroutine 实现多进程并发的技术，也被称为”Go并发编程“。 GMP技术充分利用了现代多核处理器的特点，通过将任务分配到多个Goroutine上实现并行计算
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-27 09:50" pubdate>
-              2023-03-27
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/golang/">#golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/27/grountinechan/" target="_self">
-          Golang中Goroutine和Channel的Demo
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/27/grountinechan/" target="_self">
-        <div>
-          Golang中Goroutine和Channel的实例 123456789101112131415161718192021222324252627282930313233package mainimport (	&quot;fmt&quot;	&quot;time&quot;)func worker(id int, jobs &lt;-chan int, results chan&lt;- int
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-26 22:08" pubdate>
-              2023-03-26
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/golang/">#golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/23/goroutine/" target="_self">
-          goroutine和mutex协作
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/23/goroutine/" target="_self">
-        <div>
-          Goroutine 是 Golang 中的轻量级线程，可以由 Go 语言的运行时（runtime）进行调度。Goroutine 可以在单个线程中实现并发执行，因此可以在一个程序中创建大量的 Goroutine，而不会造成系统资源的浪费。 在golang中，创建协程的方式很简单，使用go关键字： 123go func() &#123;    // 这里是 Goroutine 的代码逻辑&#125;(
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-22 21:35" pubdate>
-              2023-03-22
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/golang/">#golang</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/14/LFU/" target="_self">
-          LFU
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/03/14/LFU/" target="_self">
-        <div>
-          LFU缓存 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253class LFUCache &#123;public:    LFUCache(int capacity): capacity(capacity), min_freq(0) &#123; &#
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-13 22:48" pubdate>
-              2023-03-13
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
             
           </div>
         

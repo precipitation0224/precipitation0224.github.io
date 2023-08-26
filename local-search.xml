@@ -4,6 +4,158 @@
   
   
   <entry>
+    <title>Redis数据结构——Set实现</title>
+    <link href="/2023/07/03/07-03-redis_Set/"/>
+    <url>/2023/07/03/07-03-redis_Set/</url>
+    
+    <content type="html"><![CDATA[<p>整数集合（intset）是集合键的底层实现之一： 当一个集合只包含整数值元素， 并且这个集合的元素数量不多时， Redis 就会使用整数集合作为集合键的底层实现。</p><p>整数集合（intset）是 Redis 用于保存整数值的集合抽象数据结构， 它可以保存类型为 int16_t 、 int32_t 或者 int64_t 的整数值， 并且保证集合中不会出现重复元素。</p><p>每个 intset.h&#x2F;intset 结构表示一个整数集合：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">intset</span> &#123;</span><br><br>    <span class="hljs-comment">// 编码方式</span><br>    <span class="hljs-type">uint32_t</span> encoding;<br><br>    <span class="hljs-comment">// 集合包含的元素数量</span><br>    <span class="hljs-type">uint32_t</span> length;<br><br>    <span class="hljs-comment">// 保存元素的数组</span><br>    <span class="hljs-type">int8_t</span> contents[];<br><br>&#125; intset;<br></code></pre></td></tr></table></figure><p>contents 数组是整数集合的底层实现： 整数集合的每个元素都是 contents 数组的一个数组项（item）， 各个项在数组中按值的大小从小到大有序地排列， 并且数组中不包含任何重复项。</p><p>length 属性记录了整数集合包含的元素数量， 也即是 contents 数组的长度。</p><p>虽然 intset 结构将 contents 属性声明为 int8_t 类型的数组， 但实际上 contents 数组并不保存任何 int8_t 类型的值 —— contents 数组的真正类型取决于 encoding 属性的值：如果 encoding 属性的值为 INTSET_ENC_INT16 ， 那么 contents 就是一个 int16_t 类型的数组， 数组里的每个项都是一个 int16_t 类型的整数值 （最小值为 -32,768 ，最大值为 32,767 ）。</p><p>关于整数集合的总结：</p><ul><li>整数集合是集合键的底层实现之一。</li><li>整数集合的底层实现为数组， 这个数组以有序、无重复的方式保存集合元素， 在有需要时， 程序会根据新添加元素的类型， 改变这个数组的类型。</li><li>升级操作为整数集合带来了操作上的灵活性， 并且尽可能地节约了内存。</li><li>整数集合只支持升级操作， 不支持降级操作。</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Redis</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Redis数据结构——SortedSet实现</title>
+    <link href="/2023/07/03/07-03-redis_SortedSet/"/>
+    <url>/2023/07/03/07-03-redis_SortedSet/</url>
+    
+    <content type="html"><![CDATA[<p>跳跃表（skiplist）是一种有序数据结构， 它通过在每个节点中维持多个指向其他节点的指针， 从而达到快速访问节点的目的。<br>跳跃表支持平均 O(\log N) 最坏 O(N) 复杂度的节点查找， 还可以通过顺序性操作来批量处理节点。在大部分情况下， 跳跃表的效率可以和平衡树相媲美， 并且因为跳跃表的实现比平衡树要来得更为简单， 所以有不少程序都使用跳跃表来代替平衡树。</p><p>Redis 使用跳跃表作为有序集合键的底层实现之一： 如果一个有序集合包含的元素数量比较多，又或者有序集合中元素的成员（member）是比较长的字符串时，Redis 就会使用跳跃表来作为有序集合键的底层实现。</p><p>Redis 只在两个地方用到了跳跃表， 一个是实现有序集合键， 另一个是在集群节点中用作内部数据结构， 除此之外， 跳跃表在 Redis 里面没有其他用途。</p><p>Redis 的跳跃表由 redis.h&#x2F;zskiplistNode 和 redis.h&#x2F;zskiplist 两个结构定义， 其中 zskiplistNode 结构用于表示跳跃表节点， 而 zskiplist 结构则用于保存跳跃表节点的相关信息， 比如节点的数量， 以及指向表头节点和表尾节点的指针， 等等。</p><p>跳跃表节点的实现由 redis.h&#x2F;zskiplistNode 结构定义：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistNode</span> &#123;</span><br><br>    <span class="hljs-comment">// 后退指针</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistNode</span> *<span class="hljs-title">backward</span>;</span><br><br>    <span class="hljs-comment">// 分值</span><br>    <span class="hljs-type">double</span> score;<br><br>    <span class="hljs-comment">// 成员对象</span><br>    robj *obj;<br><br>    <span class="hljs-comment">// 层</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistLevel</span> &#123;</span><br><br>        <span class="hljs-comment">// 前进指针</span><br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistNode</span> *<span class="hljs-title">forward</span>;</span><br><br>        <span class="hljs-comment">// 跨度</span><br>        <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> span;<br><br>    &#125; level[];<br><br>&#125; zskiplistNode;<br></code></pre></td></tr></table></figure><p>zskiplist 结构的定义如下：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplist</span> &#123;</span><br><br>    <span class="hljs-comment">// 表头节点和表尾节点</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistNode</span> *<span class="hljs-title">header</span>, *<span class="hljs-title">tail</span>;</span><br><br>    <span class="hljs-comment">// 表中节点的数量</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> length;<br><br>    <span class="hljs-comment">// 表中层数最大的节点的层数</span><br>    <span class="hljs-type">int</span> level;<br><br>&#125; zskiplist;<br></code></pre></td></tr></table></figure><p>关于跳跃表的总结：</p><ul><li>跳跃表是有序集合的底层实现之一， 除此之外它在 Redis 中没有其他应用。</li><li>Redis 的跳跃表实现由 zskiplist 和 zskiplistNode 两个结构组成， 其中 zskiplist 用于保存跳跃表信息（比如表头节点、表尾节点、长度）， 而 zskiplistNode 则用于表示跳跃表节点。</li><li>每个跳跃表节点的层高都是 1 至 32 之间的随机数。</li><li>在同一个跳跃表中， 多个节点可以包含相同的分值， 但每个节点的成员对象必须是唯一的。</li><li>跳跃表中的节点按照分值大小进行排序， 当分值相同时， 节点按照成员对象的大小进行排序。</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Redis</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Redis数据结构——Hash实现</title>
+    <link href="/2023/07/03/07-03-redis_Hash/"/>
+    <url>/2023/07/03/07-03-redis_Hash/</url>
+    
+    <content type="html"><![CDATA[<p>字典， 又称符号表（symbol table）、关联数组（associative array）或者映射（map）， 是一种用于保存键值对（key-value pair）的抽象数据结构。其中 Key 是唯一的。类似 Java 的 Map。</p><p>Redis 字典所使用的哈希表由 dict.h&#x2F;dictht 结构定义：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dictht</span> &#123;</span><br><br>    <span class="hljs-comment">// 哈希表数组</span><br>    dictEntry **table;<br><br>    <span class="hljs-comment">// 哈希表大小</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> size;<br><br>    <span class="hljs-comment">// 哈希表大小掩码，用于计算索引值</span><br>    <span class="hljs-comment">// 总是等于 size - 1</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> sizemask;<br><br>    <span class="hljs-comment">// 该哈希表已有节点的数量</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> used;<br><br>&#125; dictht;<br></code></pre></td></tr></table></figure><p>table 属性是一个数组， 数组中的每个元素都是一个指向 dict.h&#x2F;dictEntry 结构的指针， 每个 dictEntry 结构保存着一个键值对。</p><p>size 属性记录了哈希表的大小， 也即是 table 数组的大小， 而 used 属性则记录了哈希表目前已有节点（键值对）的数量。</p><p>sizemask 属性的值总是等于 size - 1 ， 这个属性和哈希值一起决定一个键应该被放到 table 数组的哪个索引上面。</p><p>哈希表节点使用 dictEntry 结构表示， 每个 dictEntry 结构都保存着一个键值对：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dictEntry</span> &#123;</span><br><br>    <span class="hljs-comment">// 键</span><br>    <span class="hljs-type">void</span> *key;<br><br>    <span class="hljs-comment">// 值</span><br>    <span class="hljs-class"><span class="hljs-keyword">union</span> &#123;</span><br>        <span class="hljs-type">void</span> *val;<br>        <span class="hljs-type">uint64_t</span> u64;<br>        <span class="hljs-type">int64_t</span> s64;<br>    &#125; v;<br><br>    <span class="hljs-comment">// 指向下个哈希表节点，形成链表</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dictEntry</span> *<span class="hljs-title">next</span>;</span><br><br>&#125; dictEntry;<br></code></pre></td></tr></table></figure><p>key 属性保存着键值对中的键， 而 v 属性则保存着键值对中的值， 其中键值对的值可以是一个指针， 或者是一个 uint64_t 整数， 又或者是一个 int64_t 整数。</p><p>next 属性是指向另一个哈希表节点的指针， 这个指针可以将多个哈希值相同的键值对连接在一次， 以此来解决键冲突（collision）的问题。</p><p>Redis 中的字典由 dict.h&#x2F;dict 结构表示：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dict</span> &#123;</span><br><br>    <span class="hljs-comment">// 类型特定函数</span><br>    dictType *type;<br><br>    <span class="hljs-comment">// 私有数据</span><br>    <span class="hljs-type">void</span> *privdata;<br><br>    <span class="hljs-comment">// 哈希表</span><br>    dictht ht[<span class="hljs-number">2</span>];<br><br>    <span class="hljs-comment">// rehash 索引</span><br>    <span class="hljs-comment">// 当 rehash 不在进行时，值为 -1</span><br>    <span class="hljs-type">int</span> rehashidx; <span class="hljs-comment">/* rehashing not in progress if rehashidx == -1 */</span><br><br>&#125; dict;<br></code></pre></td></tr></table></figure><p>type 属性和 privdata 属性是针对不同类型的键值对， 为创建多态字典而设置的：</p><ul><li>type 属性是一个指向 dictType 结构的指针， 每个 dictType 结构保存了一簇用于操作特定类型键值对的函数， Redis 会为用途不同的字典设置不同的类型特定函数。</li><li>而 privdata 属性则保存了需要传给那些类型特定函数的可选参数。</li></ul><p>ht 属性是一个包含两个项的数组， 数组中的每个项都是一个 dictht 哈希表， 一般情况下， 字典只使用 ht[0] 哈希表， ht[1] 哈希表只会在对 ht[0] 哈希表进行 rehash 时使用。</p><p>除了 ht[1] 之外， 另一个和 rehash 有关的属性就是 rehashidx ： 它记录了 rehash 目前的进度， 如果目前没有在进行 rehash ， 那么它的值为 -1 。</p><p>当将一个新的键值对插入到字典中，需要计算索引值，Redis 计算索引值的方法是：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 使用字典设置的哈希函数，计算键 key 的哈希值</span><br><span class="hljs-built_in">hash</span> = <span class="hljs-built_in">dict</span>-&gt;<span class="hljs-built_in">type</span>-&gt;hashFunction(key);<br><br><span class="hljs-comment"># 使用哈希表的 sizemask 属性和哈希值，计算出索引值</span><br><span class="hljs-comment"># 根据情况不同， ht[x] 可以是 ht[0] 或者 ht[1]</span><br>index = <span class="hljs-built_in">hash</span> &amp; <span class="hljs-built_in">dict</span>-&gt;ht[x].sizemask;<br></code></pre></td></tr></table></figure><p><strong>Redis 的字典实现的特性可以总结如下：</strong></p><ul><li>字典被广泛用于实现 Redis 的各种功能， 其中包括数据库和哈希键。</li><li>Redis 中的字典使用哈希表作为底层实现， 每个字典带有两个哈希表， 一个用于平时使用， 另一个仅在进行 rehash 时使用。</li><li>当字典被用作数据库的底层实现， 或者哈希键的底层实现时， Redis 使用 MurmurHash2 算法来计算键的哈希值。</li><li>哈希表使用链地址法来解决键冲突， 被分配到同一个索引上的多个键值对会连接成一个单向链表。</li><li>在对哈希表进行扩展或者收缩操作时， 程序需要将现有哈希表包含的所有键值对 rehash 到新哈希表里面， 并且这个 rehash 过程并不是一次性地完成的， 而是渐进式地完成的。</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Redis</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Redis数据结构——List实现</title>
+    <link href="/2023/07/03/07-02-redis_List/"/>
+    <url>/2023/07/03/07-02-redis_List/</url>
+    
+    <content type="html"><![CDATA[<p>链表提供了高效的节点重排能力，以及顺序性的节点访问方式，并且可以通过增删节点来灵活地调整链表的长度。链表在 Redis 中的应用非常广泛，比如 List 的底层实现之一链表，当一个 List 包含了数量比较多的元素，又或者列表中包含的元素都是比较长的字符串时，Redis 就会使用链表作为 List 的底层实现。除了用作 List 的底层实现之外，发布与订阅、慢查询、监视器等动能也用到了链表， Redis 服务器本身还使用链表来保存多个客户端的状态信息，以及使用链表来构建客户端输出缓冲区。<br>每个链表节点使用一个 adlist.h&#x2F;listNode 结构来表示：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">listNode</span> &#123;</span><br><br>    <span class="hljs-comment">// 前置节点</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">listNode</span> *<span class="hljs-title">prev</span>;</span><br><br>    <span class="hljs-comment">// 后置节点</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">listNode</span> *<span class="hljs-title">next</span>;</span><br><br>    <span class="hljs-comment">// 节点的值</span><br>    <span class="hljs-type">void</span> *value;<br><br>&#125; listNode;<br></code></pre></td></tr></table></figure><p>虽然仅仅使用多个 listNode 结构就可以组成链表， 但使用 adlist.h&#x2F;list 来持有链表的话， 操作起来会更方便：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">list</span> &#123;</span><br><br>    <span class="hljs-comment">// 表头节点</span><br>    listNode *head;<br><br>    <span class="hljs-comment">// 表尾节点</span><br>    listNode *tail;<br><br>    <span class="hljs-comment">// 链表所包含的节点数量</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> len;<br><br>    <span class="hljs-comment">// 节点值复制函数</span><br>    <span class="hljs-type">void</span> *(*dup)(<span class="hljs-type">void</span> *ptr);<br><br>    <span class="hljs-comment">// 节点值释放函数</span><br>    <span class="hljs-type">void</span> (*<span class="hljs-built_in">free</span>)(<span class="hljs-type">void</span> *ptr);<br><br>    <span class="hljs-comment">// 节点值对比函数</span><br>    <span class="hljs-type">int</span> (*match)(<span class="hljs-type">void</span> *ptr, <span class="hljs-type">void</span> *key);<br><br>&#125; <span class="hljs-built_in">list</span>;<br></code></pre></td></tr></table></figure><p>list 结构为链表提供了表头指针 head 、表尾指针 tail ， 以及链表长度计数器 len ， 而 dup 、 free 和 match 成员则是用于实现多态链表所需的类型特定函数：</p><ul><li>dup 函数用于复制链表节点所保存的值；</li><li>free 函数用于释放链表节点所保存的值；</li><li>match 函数则用于对比链表节点所保存的值和另一个输入值是否相等。</li></ul><p><strong>Redis 的链表实现的特性可以总结如下：</strong></p><p>双端： 链表节点带有 prev 和 next 指针， 获取某个节点的前置节点和后置节点的复杂度都是 O(1) 。</p><p>无环： 表头节点的 prev 指针和表尾节点的 next 指针都指向 NULL ， 对链表的访问以 NULL 为终点。</p><p>带表头指针和表尾指针： 通过 list 结构的 head 指针和 tail 指针， 程序获取链表的表头节点和表尾节点的复杂度为 O(1) 。</p><p>带链表长度计数器： 程序使用 list 结构的 len 属性来对 list 持有的链表节点进行计数， 程序获取链表中节点数量的复杂度为 O(1) 。</p><p>多态： 链表节点使用 void* 指针来保存节点值， 并且可以通过 list 结构的 dup 、 free 、 match 三个属性为节点值设置类型特定函数， 所以链表可以用于保存各种不同类型的值。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Redis</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Redis数据结构——String实现</title>
+    <link href="/2023/07/03/07-02-redis_String/"/>
+    <url>/2023/07/03/07-02-redis_String/</url>
+    
+    <content type="html"><![CDATA[<p>Redis 自己构建了一种名为简单动态字符串（simple dynamic string，SDS）的抽象类型， 并将 SDS 用作 Redis 的默认字符串表示。</p><p>SDS结构：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sdshdr</span> &#123;</span><br>    <span class="hljs-comment">// 记录 buf 数组中已使用字节的数量</span><br>    <span class="hljs-comment">// 等于 SDS 所保存字符串的长度</span><br>    <span class="hljs-type">int</span> len;<br>    <span class="hljs-comment">// 记录 buf 数组中未使用字节的数量</span><br>    <span class="hljs-type">int</span> <span class="hljs-built_in">free</span>;<br>    <span class="hljs-comment">// 字节数组，用于保存字符串</span><br>    <span class="hljs-type">char</span> buf[];<br>&#125;;<br></code></pre></td></tr></table></figure><p>free 属性的值为 0 ， 表示这个 SDS 没有分配任何未使用空间。</p><p>len 属性的值为 5 ， 表示这个 SDS 保存了一个五字节长的字符串。</p><p>buf 属性是一个 char 类型的数组， 数组的前五个字节分别保存了 ‘R’ 、 ‘e’ 、 ‘d’ 、 ‘i’ 、 ‘s’ 五个字符， 而最后一个字节则保存了空字符 ‘\0’ 。 SDS 与 C 语言字符串比较相近，但拥有更过的优势：</p><ol><li>SDS 获取字符串长度时间复杂度O(1)：因为 SDS 通过 len 字段来存储长度，使用时直接读取就可以；C 语言要想获取字符串长度需要遍历整个字符串，时间复杂度O(N)。</li><li>SDS 能杜绝缓冲区的溢出：因为当 SDS API 要对 SDS 进行修改时，会先检查 SDS 的空间是否足够，如果不够的话 SDS 会自动扩容，So，不会造成缓冲区溢出。而 C 语言则不剧本这个功能。</li><li>SDS 能减少修改字符串时带来的内存重分配次数：<ul><li>空间预分配：当SDS 扩容时不只是会增加需要的空间大小，还会额外的分配一些未使用的空间。分配的规则是：如果分配后SDS的长度小于 1MB，那么会分配等于分配后SDS 的大小的未使用空间，简单说就是，SDS 动态分配后是 16KB，那么就会多分配 16KB 的未使用空间；如果 小于 1MB，那么久分配 1MB 的未使用空间。</li><li>惰性空间释放： 惰性空间释放用于优化 SDS 的字符串缩短操作：当 SDS 的 API 需要缩短 SDS 保存的字符串时，并不会立即内存重分配来回收多出来的字节，而是用 free 来记录未使用空间。</li></ul></li></ol>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Redis</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Redis数据结构</title>
+    <link href="/2023/07/03/07-02-redis_ds/"/>
+    <url>/2023/07/03/07-02-redis_ds/</url>
+    
+    <content type="html"><![CDATA[<p>五种数据结构</p><p><strong>1. String</strong></p><ul><li>如果一个字符串对象保存的是整数值， 并且这个整数值可以用 long 类型来表示， 那么字符串对象会将整数值保存在字符串对象结构的 ptr 属性里面（将 void* 转换成 long ）， 并将字符串对象的编码设置为 int 。</li><li>如果字符串对象保存的是一个字符串值， 并且这个字符串值的长度大于 39 字节， 那么字符串对象将使用一个简单动态字符串（SDS）来保存这个字符串值， 并将对象的编码设置为 raw。</li><li>如果字符串对象保存的是一个字符串值， 并且这个字符串值的长度小于等于 39 字节， 那么字符串对象将使用 embstr 编码的方式来保存这个字符串值。</li></ul><p><strong>2. List</strong></p><ul><li>列表对象的编码可以是 ziplist 或者 linkedlist 。</li><li>列表对象保存的所有字符串元素的长度都小于 64 字节并且保存的元素数量小于 512 个，使用 ziplist 编码；否则使用 linkedlist；</li></ul><p><strong>3. Hash</strong></p><ul><li>哈希对象的编码可以是 ziplist 或者 hashtable 。</li><li>哈希对象保存的所有键值对的键和值的字符串长度都小于 64 字节并且保存的键值对数量小于 512 个，使用ziplist 编码；否则使用hashtable；</li></ul><p><strong>4. Set</strong></p><ul><li>集合对象的编码可以是 intset 或者 hashtable 。</li><li>集合对象保存的所有元素都是整数值并且保存的元素数量不超过 512 个，使用intset 编码；否则使用hashtable；</li></ul><p><strong>5. Sorted Set</strong></p><ul><li>有序集合的编码可以是 ziplist 或者 skiplist</li><li>有序集合保存的元素数量小于 128 个并且保存的所有元素成员的长度都小于 64 字节。使用 ziplist 编码；否则使用skiplist。</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>Redis</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>TCP相关问题</title>
+    <link href="/2023/06/28/06-28-tcp_qa/"/>
+    <url>/2023/06/28/06-28-tcp_qa/</url>
+    
+    <content type="html"><![CDATA[<p>1、为什么建立连接协议是三次握手，而关闭连接却是四次握手呢？</p><p>建立连接时，ACK和SYN可以放在一个报文里来发送。而关闭连接时，被动关闭方可能还需要发送一些数据后，再发送FIN报文表示同意现在可以关闭连接了，所以它这里的ACK报文和FIN报文多数情况下都是分开发送的。 </p><p>2、为什么TIME_WAIT状态还需要等2MSL后才能返回到CLOSED状态？</p><p>两个存在的理由：1、无法保证最后发送的ACK报文会一定被对方收到，所以需要重发可能丢失的ACK报文。2、关闭链接一段时间后可能会在相同的IP地址和端口建立新的连接，为了防止旧连接的重复分组在新连接已经终止后再现。2MSL足以让分组最多存活msl秒被丢弃。 </p><p>3、为什么必须是三次握手，不能用两次握手进行连接？</p><p>记住服务器的资源宝贵不能浪费! 如果在断开连接后，第一次握手请求连接的包才到会使服务器打开连接，占用资源而且容易被恶意攻击！防止攻击的方法，缩短服务器等待时间。两次握手容易死锁。如果服务器的应答分组在传输中丢失，将不知道S建立什么样的序列号，C认为连接还未建立成功，将忽略S发来的任何数据分组，只等待连接确认应答分组。而S在发出的分组超时后，重复发送同样的分组。这样就形成了死锁。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>操作系统</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>TCP连接断开解析</title>
+    <link href="/2023/06/27/06-26-tcp/"/>
+    <url>/2023/06/27/06-26-tcp/</url>
+    
+    <content type="html"><![CDATA[<p>TCP状态码有6种标示：</p><p>① SYN(synchronous建立联机)；</p><p>② ACK(acknowledgement 确认)</p><p>③ PSH(push传送)</p><p>④ FIN(finish结束)</p><p>⑤ RST(reset重置)</p><p>⑥ URG(urgent紧急)</p><p>Sequence number(顺序号码) &#x2F;&#x2F;Acknowledge number(确认号码)</p><p>第一次握手：主机A发送位码为SYN&#x3D;1，随机产生seq number&#x3D;1234567的数据包到服务器，主机B由SYN&#x3D;1知道，A要求建立联机；</p><p>第二次握手，主机B收到请求后要确认联机信息，向A发送ack number&#x3D;(主机A的seq+1)，SYN&#x3D;1,ACK&#x3D;1，随机产生seq number&#x3D;7654321的包；</p><p>第三次握手：主机A收到后检查ack number是否正确，即第一次发送的seq number+1，以及位码ACK是否为1，若正确，主机A会再发送ack number&#x3D;（主机B的seq+1）,ACK&#x3D;1，主机B收到后确认seq值与ACK&#x3D;1则连接建立成功。</p><p>四次握手是指终止TCP连接协议时，需要在客户端和服务器之间发送四个包</p><p>第一次挥手：主动关闭方发送第一个包，其中FIN标志位为1，发送顺序号seq为X。</p><p>第二次挥手：被动关闭方收到FIN包后发送第二个包，其中发送顺序号seq为Z，接收顺序号ack为X+1。</p><p>第三次挥手：被动关闭方再发送第三个包，其中FIN标志位为1，发送顺序号seq为Y，接收顺序号ack为X。</p><p>第四次挥手：主动关闭方发送第四个包，其中发送顺序号为X，接收顺序号为Y。至此，完成四次挥手。</p><p>超时重传指的是，发送数据包在一定的时间周期内没有收到相应的ACK，等待一定的时间，超时之后就认为这个数据包丢失，就会重新发送。这个等待时间被称为RTO. </p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>操作系统</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>联邦学习下的表征学习相关paper</title>
     <link href="/2023/05/27/fedrep/"/>
     <url>/2023/05/27/fedrep/</url>

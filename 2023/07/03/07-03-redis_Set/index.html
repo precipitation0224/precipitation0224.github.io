@@ -20,22 +20,22 @@
   <meta name="author" content="Yummy">
   <meta name="keywords" content="">
   
-    <meta name="description" content="FedClassAvg: Local Representation Learning for Personalized Federated Learning on Heterogeneous Neural Networks 个性化联合学习旨在允许众多客户在不交换私人数据的情况下，以高效沟通的方式参与协作培训，同时培训个性化模型。然而，许多个性化联合学习算法假设客户端具有相同的神经网络结构，而针对不">
+    <meta name="description" content="整数集合（intset）是集合键的底层实现之一： 当一个集合只包含整数值元素， 并且这个集合的元素数量不多时， Redis 就会使用整数集合作为集合键的底层实现。 整数集合（intset）是 Redis 用于保存整数值的集合抽象数据结构， 它可以保存类型为 int16_t 、 int32_t 或者 int64_t 的整数值， 并且保证集合中不会出现重复元素。 每个 intset.h&#x2F;in">
 <meta property="og:type" content="article">
-<meta property="og:title" content="联邦学习下的表征学习相关paper">
-<meta property="og:url" content="http://precipitation0224.github.io/2023/05/27/fedrep/index.html">
+<meta property="og:title" content="Redis数据结构——Set实现">
+<meta property="og:url" content="http://precipitation0224.github.io/2023/07/03/07-03-redis_Set/index.html">
 <meta property="og:site_name" content="yummy home">
-<meta property="og:description" content="FedClassAvg: Local Representation Learning for Personalized Federated Learning on Heterogeneous Neural Networks 个性化联合学习旨在允许众多客户在不交换私人数据的情况下，以高效沟通的方式参与协作培训，同时培训个性化模型。然而，许多个性化联合学习算法假设客户端具有相同的神经网络结构，而针对不">
+<meta property="og:description" content="整数集合（intset）是集合键的底层实现之一： 当一个集合只包含整数值元素， 并且这个集合的元素数量不多时， Redis 就会使用整数集合作为集合键的底层实现。 整数集合（intset）是 Redis 用于保存整数值的集合抽象数据结构， 它可以保存类型为 int16_t 、 int32_t 或者 int64_t 的整数值， 并且保证集合中不会出现重复元素。 每个 intset.h&#x2F;in">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-05-27T11:39:45.000Z">
-<meta property="article:modified_time" content="2023-05-28T03:52:32.080Z">
+<meta property="article:published_time" content="2023-07-03T15:28:38.000Z">
+<meta property="article:modified_time" content="2023-08-24T06:53:37.790Z">
 <meta property="article:author" content="Yummy">
-<meta property="article:tag" content="联邦学习和多视图聚类">
+<meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>联邦学习下的表征学习相关paper - yummy home</title>
+  <title>Redis数据结构——Set实现 - yummy home</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="联邦学习下的表征学习相关paper"></span>
+            <span id="subtitle" data-typed-text="Redis数据结构——Set实现"></span>
           
         </div>
 
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-05-27 11:39" pubdate>
-          May 27, 2023 am
+        <time datetime="2023-07-03 15:28" pubdate>
+          July 3, 2023 pm
         </time>
       </span>
     
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k words
+          806 words
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          13 mins
+          7 mins
         
       </span>
     
@@ -274,17 +274,26 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">联邦学习下的表征学习相关paper</h1>
+            <h1 style="display: none">Redis数据结构——Set实现</h1>
             
             
               <div class="markdown-body">
                 
-                <p><strong>FedClassAvg: Local Representation Learning for Personalized Federated Learning on Heterogeneous Neural Networks</strong></p>
-<p>个性化联合学习旨在允许众多客户在不交换私人数据的情况下，以高效沟通的方式参与协作培训，同时培训个性化模型。然而，许多个性化联合学习算法假设客户端具有相同的神经网络结构，而针对不同模型的算法仍未得到充分研究。在这项研究中，我们提出了一种新的个性化联合学习方法，称为联合分类器平均(FedClassAvg)。用于有监督学习任务的深度神经网络由特征提取器层和分类器层组成。FedClassAvg将分类器权重聚合为特征空间上决策边界的协议，以便具有不独立且相同分布(非IID)数据的客户可以了解稀缺标签。此外，应用局部特征表示学习来稳定决策边界，提高客户的局部特征提取能力。现有的方法需要收集辅助数据或模型权重来生成对应的数据，而FedClassAvg只需要客户端与几个完全连接的层进行通信，这是非常高效的通信效率。此外，FedClassAvg不需要额外的优化问题，如知识转移，这需要密集的计算开销。我们通过大量的实验对FedClassAvg进行了评估，并证明了它在异类个性化联合学习任务上的性能优于目前最先进的算法。</p>
-<p><strong>Think Locally, Act Globally: Federated Learning with Local and Global Representations</strong></p>
-<p>联合学习是一种对分布在多个设备上的私有数据进行模型训练的方法。为了保持设备数据的私密性，全局模型仅通过传递参数和更新进行训练，这对大型模型的可扩展性构成了挑战。为此，我们提出了一种新的联合学习算法，该算法联合学习每个设备上的紧凑局部表示和所有设备上的全局模型。因此，全局模型可以更小，因为它只对局部表示进行操作，从而减少了传递的参数的数量。从理论上讲，我们提供了一个泛化分析，它表明局部和全局模型的组合既减少了数据中的方差，也减少了设备分布之间的方差。经验上，我们证明了本地模型能够在保持性能的同时实现有效沟通的训练。我们还评估了从真实移动数据中预测个性化情绪的任务，其中隐私是关键。最后，本地模型处理来自新设备的异类数据，并学习混淆种族、年龄和性别等受保护属性的公平表示法。</p>
-<p><strong>Collaborative Unsupervised Visual Representation Learning from Decentralized Data</strong></p>
-<p>无监督表示学习利用互联网上的集中数据取得了出色的性能。然而，隐私保护意识的增强限制了分散的未标记图像数据的共享，这些数据在多方(例如移动电话和相机)中呈爆炸性增长。因此，一个自然的问题是如何利用这些数据来学习下游任务的可视化表示，同时保护数据隐私。针对这一问题，我们提出了一种新的联邦无监督学习框架FEDU。在该框架中，每一方使用在线网络和目标网络的对比学习来独立地从未标记的数据中训练模型。然后，中央服务器聚合训练的模型，并用聚合的模型更新客户端的模型。它保护数据隐私，因为每一方都只能访问其原始数据。多个缔约方之间分散的数据通常是非独立和相同分布的(非IID)，导致性能下降。为了应对这一挑战，我们提出了两种简单而有效的方法：1)我们设计了通信协议，只上传在线网络的编码者进行服务器聚合，并使用聚合的编码者更新它们；2)我们引入了一个新的模块，根据非IID引起的分歧来动态决定如何更新预测器。预测器是在线网络的另一个组成部分。广泛的实验和消融证明了FEDU的有效性和重要性。在非IID数据的线性和半监督评估中，它的性能比只有一方的训练方法高出5%以上，比其他方法高出14%以上。</p>
+                <p>整数集合（intset）是集合键的底层实现之一： 当一个集合只包含整数值元素， 并且这个集合的元素数量不多时， Redis 就会使用整数集合作为集合键的底层实现。</p>
+<p>整数集合（intset）是 Redis 用于保存整数值的集合抽象数据结构， 它可以保存类型为 int16_t 、 int32_t 或者 int64_t 的整数值， 并且保证集合中不会出现重复元素。</p>
+<p>每个 intset.h&#x2F;intset 结构表示一个整数集合：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">intset</span> &#123;</span><br><br>    <span class="hljs-comment">// 编码方式</span><br>    <span class="hljs-type">uint32_t</span> encoding;<br><br>    <span class="hljs-comment">// 集合包含的元素数量</span><br>    <span class="hljs-type">uint32_t</span> length;<br><br>    <span class="hljs-comment">// 保存元素的数组</span><br>    <span class="hljs-type">int8_t</span> contents[];<br><br>&#125; intset;<br></code></pre></td></tr></table></figure>
+
+<p>contents 数组是整数集合的底层实现： 整数集合的每个元素都是 contents 数组的一个数组项（item）， 各个项在数组中按值的大小从小到大有序地排列， 并且数组中不包含任何重复项。</p>
+<p>length 属性记录了整数集合包含的元素数量， 也即是 contents 数组的长度。</p>
+<p>虽然 intset 结构将 contents 属性声明为 int8_t 类型的数组， 但实际上 contents 数组并不保存任何 int8_t 类型的值 —— contents 数组的真正类型取决于 encoding 属性的值：如果 encoding 属性的值为 INTSET_ENC_INT16 ， 那么 contents 就是一个 int16_t 类型的数组， 数组里的每个项都是一个 int16_t 类型的整数值 （最小值为 -32,768 ，最大值为 32,767 ）。</p>
+<p>关于整数集合的总结：</p>
+<ul>
+<li>整数集合是集合键的底层实现之一。</li>
+<li>整数集合的底层实现为数组， 这个数组以有序、无重复的方式保存集合元素， 在有需要时， 程序会根据新添加元素的类型， 改变这个数组的类型。</li>
+<li>升级操作为整数集合带来了操作上的灵活性， 并且尽可能地节约了内存。</li>
+<li>整数集合只支持升级操作， 不支持降级操作。</li>
+</ul>
 
                 
               </div>
@@ -297,7 +306,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0%E5%92%8C%E5%A4%9A%E8%A7%86%E5%9B%BE%E8%81%9A%E7%B1%BB/">#联邦学习和多视图聚类</a>
+        <a href="/tags/Redis/">#Redis</a>
       
     </div>
   
@@ -309,8 +318,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>联邦学习下的表征学习相关paper</div>
-      <div>http://precipitation0224.github.io/2023/05/27/fedrep/</div>
+      <div>Redis数据结构——Set实现</div>
+      <div>http://precipitation0224.github.io/2023/07/03/07-03-redis_Set/</div>
     </div>
     <div class="license-meta">
       
@@ -322,7 +331,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>Posted on</div>
-          <div>May 27, 2023</div>
+          <div>July 3, 2023</div>
         </div>
       
       
@@ -354,18 +363,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/06/27/06-26-tcp/" title="TCP连接断开解析">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">TCP连接断开解析</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/05/24/fedmvt/" title="联邦多视图表征训练">
-                        <span class="hidden-mobile">联邦多视图表征训练</span>
+                      <a href="/2023/07/03/07-03-redis_SortedSet/" title="Redis数据结构——SortedSet实现">
+                        <span class="hidden-mobile">Redis数据结构——SortedSet实现</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

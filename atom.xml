@@ -6,7 +6,7 @@
   <link href="http://precipitation0224.github.io/atom.xml" rel="self"/>
   
   <link href="http://precipitation0224.github.io/"/>
-  <updated>2023-05-28T03:52:32.080Z</updated>
+  <updated>2023-08-24T06:53:37.790Z</updated>
   <id>http://precipitation0224.github.io/</id>
   
   <author>
@@ -15,6 +15,195 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Redis数据结构——Set实现</title>
+    <link href="http://precipitation0224.github.io/2023/07/03/07-03-redis_Set/"/>
+    <id>http://precipitation0224.github.io/2023/07/03/07-03-redis_Set/</id>
+    <published>2023-07-03T15:28:38.000Z</published>
+    <updated>2023-08-24T06:53:37.790Z</updated>
+    
+    <content type="html"><![CDATA[<p>整数集合（intset）是集合键的底层实现之一： 当一个集合只包含整数值元素， 并且这个集合的元素数量不多时， Redis 就会使用整数集合作为集合键的底层实现。</p><p>整数集合（intset）是 Redis 用于保存整数值的集合抽象数据结构， 它可以保存类型为 int16_t 、 int32_t 或者 int64_t 的整数值， 并且保证集合中不会出现重复元素。</p><p>每个 intset.h&#x2F;intset 结构表示一个整数集合：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">intset</span> &#123;</span><br><br>    <span class="hljs-comment">// 编码方式</span><br>    <span class="hljs-type">uint32_t</span> encoding;<br><br>    <span class="hljs-comment">// 集合包含的元素数量</span><br>    <span class="hljs-type">uint32_t</span> length;<br><br>    <span class="hljs-comment">// 保存元素的数组</span><br>    <span class="hljs-type">int8_t</span> contents[];<br><br>&#125; intset;<br></code></pre></td></tr></table></figure><p>contents 数组是整数集合的底层实现： 整数集合的每个元素都是 contents 数组的一个数组项（item）， 各个项在数组中按值的大小从小到大有序地排列， 并且数组中不包含任何重复项。</p><p>length 属性记录了整数集合包含的元素数量， 也即是 contents 数组的长度。</p><p>虽然 intset 结构将 contents 属性声明为 int8_t 类型的数组， 但实际上 contents 数组并不保存任何 int8_t 类型的值 —— contents 数组的真正类型取决于 encoding 属性的值：如果 encoding 属性的值为 INTSET_ENC_INT16 ， 那么 contents 就是一个 int16_t 类型的数组， 数组里的每个项都是一个 int16_t 类型的整数值 （最小值为 -32,768 ，最大值为 32,767 ）。</p><p>关于整数集合的总结：</p><ul><li>整数集合是集合键的底层实现之一。</li><li>整数集合的底层实现为数组， 这个数组以有序、无重复的方式保存集合元素， 在有需要时， 程序会根据新添加元素的类型， 改变这个数组的类型。</li><li>升级操作为整数集合带来了操作上的灵活性， 并且尽可能地节约了内存。</li><li>整数集合只支持升级操作， 不支持降级操作。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;整数集合（intset）是集合键的底层实现之一： 当一个集合只包含整数值元素， 并且这个集合的元素数量不多时， Redis 就会使用整数集合作为集合键的底层实现。&lt;/p&gt;
+&lt;p&gt;整数集合（intset）是 Redis 用于保存整数值的集合抽象数据结构， 它可以保存类型为 i</summary>
+      
+    
+    
+    
+    
+    <category term="Redis" scheme="http://precipitation0224.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis数据结构——SortedSet实现</title>
+    <link href="http://precipitation0224.github.io/2023/07/03/07-03-redis_SortedSet/"/>
+    <id>http://precipitation0224.github.io/2023/07/03/07-03-redis_SortedSet/</id>
+    <published>2023-07-03T15:28:38.000Z</published>
+    <updated>2023-08-24T06:51:21.551Z</updated>
+    
+    <content type="html"><![CDATA[<p>跳跃表（skiplist）是一种有序数据结构， 它通过在每个节点中维持多个指向其他节点的指针， 从而达到快速访问节点的目的。<br>跳跃表支持平均 O(\log N) 最坏 O(N) 复杂度的节点查找， 还可以通过顺序性操作来批量处理节点。在大部分情况下， 跳跃表的效率可以和平衡树相媲美， 并且因为跳跃表的实现比平衡树要来得更为简单， 所以有不少程序都使用跳跃表来代替平衡树。</p><p>Redis 使用跳跃表作为有序集合键的底层实现之一： 如果一个有序集合包含的元素数量比较多，又或者有序集合中元素的成员（member）是比较长的字符串时，Redis 就会使用跳跃表来作为有序集合键的底层实现。</p><p>Redis 只在两个地方用到了跳跃表， 一个是实现有序集合键， 另一个是在集群节点中用作内部数据结构， 除此之外， 跳跃表在 Redis 里面没有其他用途。</p><p>Redis 的跳跃表由 redis.h&#x2F;zskiplistNode 和 redis.h&#x2F;zskiplist 两个结构定义， 其中 zskiplistNode 结构用于表示跳跃表节点， 而 zskiplist 结构则用于保存跳跃表节点的相关信息， 比如节点的数量， 以及指向表头节点和表尾节点的指针， 等等。</p><p>跳跃表节点的实现由 redis.h&#x2F;zskiplistNode 结构定义：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistNode</span> &#123;</span><br><br>    <span class="hljs-comment">// 后退指针</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistNode</span> *<span class="hljs-title">backward</span>;</span><br><br>    <span class="hljs-comment">// 分值</span><br>    <span class="hljs-type">double</span> score;<br><br>    <span class="hljs-comment">// 成员对象</span><br>    robj *obj;<br><br>    <span class="hljs-comment">// 层</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistLevel</span> &#123;</span><br><br>        <span class="hljs-comment">// 前进指针</span><br>        <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistNode</span> *<span class="hljs-title">forward</span>;</span><br><br>        <span class="hljs-comment">// 跨度</span><br>        <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> span;<br><br>    &#125; level[];<br><br>&#125; zskiplistNode;<br></code></pre></td></tr></table></figure><p>zskiplist 结构的定义如下：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplist</span> &#123;</span><br><br>    <span class="hljs-comment">// 表头节点和表尾节点</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">zskiplistNode</span> *<span class="hljs-title">header</span>, *<span class="hljs-title">tail</span>;</span><br><br>    <span class="hljs-comment">// 表中节点的数量</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> length;<br><br>    <span class="hljs-comment">// 表中层数最大的节点的层数</span><br>    <span class="hljs-type">int</span> level;<br><br>&#125; zskiplist;<br></code></pre></td></tr></table></figure><p>关于跳跃表的总结：</p><ul><li>跳跃表是有序集合的底层实现之一， 除此之外它在 Redis 中没有其他应用。</li><li>Redis 的跳跃表实现由 zskiplist 和 zskiplistNode 两个结构组成， 其中 zskiplist 用于保存跳跃表信息（比如表头节点、表尾节点、长度）， 而 zskiplistNode 则用于表示跳跃表节点。</li><li>每个跳跃表节点的层高都是 1 至 32 之间的随机数。</li><li>在同一个跳跃表中， 多个节点可以包含相同的分值， 但每个节点的成员对象必须是唯一的。</li><li>跳跃表中的节点按照分值大小进行排序， 当分值相同时， 节点按照成员对象的大小进行排序。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;跳跃表（skiplist）是一种有序数据结构， 它通过在每个节点中维持多个指向其他节点的指针， 从而达到快速访问节点的目的。&lt;br&gt;跳跃表支持平均 O(\log N) 最坏 O(N) 复杂度的节点查找， 还可以通过顺序性操作来批量处理节点。在大部分情况下， 跳跃表的效率可以</summary>
+      
+    
+    
+    
+    
+    <category term="Redis" scheme="http://precipitation0224.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis数据结构——Hash实现</title>
+    <link href="http://precipitation0224.github.io/2023/07/03/07-03-redis_Hash/"/>
+    <id>http://precipitation0224.github.io/2023/07/03/07-03-redis_Hash/</id>
+    <published>2023-07-03T10:16:25.000Z</published>
+    <updated>2023-08-24T06:45:56.754Z</updated>
+    
+    <content type="html"><![CDATA[<p>字典， 又称符号表（symbol table）、关联数组（associative array）或者映射（map）， 是一种用于保存键值对（key-value pair）的抽象数据结构。其中 Key 是唯一的。类似 Java 的 Map。</p><p>Redis 字典所使用的哈希表由 dict.h&#x2F;dictht 结构定义：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dictht</span> &#123;</span><br><br>    <span class="hljs-comment">// 哈希表数组</span><br>    dictEntry **table;<br><br>    <span class="hljs-comment">// 哈希表大小</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> size;<br><br>    <span class="hljs-comment">// 哈希表大小掩码，用于计算索引值</span><br>    <span class="hljs-comment">// 总是等于 size - 1</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> sizemask;<br><br>    <span class="hljs-comment">// 该哈希表已有节点的数量</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> used;<br><br>&#125; dictht;<br></code></pre></td></tr></table></figure><p>table 属性是一个数组， 数组中的每个元素都是一个指向 dict.h&#x2F;dictEntry 结构的指针， 每个 dictEntry 结构保存着一个键值对。</p><p>size 属性记录了哈希表的大小， 也即是 table 数组的大小， 而 used 属性则记录了哈希表目前已有节点（键值对）的数量。</p><p>sizemask 属性的值总是等于 size - 1 ， 这个属性和哈希值一起决定一个键应该被放到 table 数组的哪个索引上面。</p><p>哈希表节点使用 dictEntry 结构表示， 每个 dictEntry 结构都保存着一个键值对：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dictEntry</span> &#123;</span><br><br>    <span class="hljs-comment">// 键</span><br>    <span class="hljs-type">void</span> *key;<br><br>    <span class="hljs-comment">// 值</span><br>    <span class="hljs-class"><span class="hljs-keyword">union</span> &#123;</span><br>        <span class="hljs-type">void</span> *val;<br>        <span class="hljs-type">uint64_t</span> u64;<br>        <span class="hljs-type">int64_t</span> s64;<br>    &#125; v;<br><br>    <span class="hljs-comment">// 指向下个哈希表节点，形成链表</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dictEntry</span> *<span class="hljs-title">next</span>;</span><br><br>&#125; dictEntry;<br></code></pre></td></tr></table></figure><p>key 属性保存着键值对中的键， 而 v 属性则保存着键值对中的值， 其中键值对的值可以是一个指针， 或者是一个 uint64_t 整数， 又或者是一个 int64_t 整数。</p><p>next 属性是指向另一个哈希表节点的指针， 这个指针可以将多个哈希值相同的键值对连接在一次， 以此来解决键冲突（collision）的问题。</p><p>Redis 中的字典由 dict.h&#x2F;dict 结构表示：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">dict</span> &#123;</span><br><br>    <span class="hljs-comment">// 类型特定函数</span><br>    dictType *type;<br><br>    <span class="hljs-comment">// 私有数据</span><br>    <span class="hljs-type">void</span> *privdata;<br><br>    <span class="hljs-comment">// 哈希表</span><br>    dictht ht[<span class="hljs-number">2</span>];<br><br>    <span class="hljs-comment">// rehash 索引</span><br>    <span class="hljs-comment">// 当 rehash 不在进行时，值为 -1</span><br>    <span class="hljs-type">int</span> rehashidx; <span class="hljs-comment">/* rehashing not in progress if rehashidx == -1 */</span><br><br>&#125; dict;<br></code></pre></td></tr></table></figure><p>type 属性和 privdata 属性是针对不同类型的键值对， 为创建多态字典而设置的：</p><ul><li>type 属性是一个指向 dictType 结构的指针， 每个 dictType 结构保存了一簇用于操作特定类型键值对的函数， Redis 会为用途不同的字典设置不同的类型特定函数。</li><li>而 privdata 属性则保存了需要传给那些类型特定函数的可选参数。</li></ul><p>ht 属性是一个包含两个项的数组， 数组中的每个项都是一个 dictht 哈希表， 一般情况下， 字典只使用 ht[0] 哈希表， ht[1] 哈希表只会在对 ht[0] 哈希表进行 rehash 时使用。</p><p>除了 ht[1] 之外， 另一个和 rehash 有关的属性就是 rehashidx ： 它记录了 rehash 目前的进度， 如果目前没有在进行 rehash ， 那么它的值为 -1 。</p><p>当将一个新的键值对插入到字典中，需要计算索引值，Redis 计算索引值的方法是：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 使用字典设置的哈希函数，计算键 key 的哈希值</span><br><span class="hljs-built_in">hash</span> = <span class="hljs-built_in">dict</span>-&gt;<span class="hljs-built_in">type</span>-&gt;hashFunction(key);<br><br><span class="hljs-comment"># 使用哈希表的 sizemask 属性和哈希值，计算出索引值</span><br><span class="hljs-comment"># 根据情况不同， ht[x] 可以是 ht[0] 或者 ht[1]</span><br>index = <span class="hljs-built_in">hash</span> &amp; <span class="hljs-built_in">dict</span>-&gt;ht[x].sizemask;<br></code></pre></td></tr></table></figure><p><strong>Redis 的字典实现的特性可以总结如下：</strong></p><ul><li>字典被广泛用于实现 Redis 的各种功能， 其中包括数据库和哈希键。</li><li>Redis 中的字典使用哈希表作为底层实现， 每个字典带有两个哈希表， 一个用于平时使用， 另一个仅在进行 rehash 时使用。</li><li>当字典被用作数据库的底层实现， 或者哈希键的底层实现时， Redis 使用 MurmurHash2 算法来计算键的哈希值。</li><li>哈希表使用链地址法来解决键冲突， 被分配到同一个索引上的多个键值对会连接成一个单向链表。</li><li>在对哈希表进行扩展或者收缩操作时， 程序需要将现有哈希表包含的所有键值对 rehash 到新哈希表里面， 并且这个 rehash 过程并不是一次性地完成的， 而是渐进式地完成的。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;字典， 又称符号表（symbol table）、关联数组（associative array）或者映射（map）， 是一种用于保存键值对（key-value pair）的抽象数据结构。其中 Key 是唯一的。类似 Java 的 Map。&lt;/p&gt;
+&lt;p&gt;Redis 字典所使用</summary>
+      
+    
+    
+    
+    
+    <category term="Redis" scheme="http://precipitation0224.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis数据结构——List实现</title>
+    <link href="http://precipitation0224.github.io/2023/07/03/07-02-redis_List/"/>
+    <id>http://precipitation0224.github.io/2023/07/03/07-02-redis_List/</id>
+    <published>2023-07-02T22:16:25.000Z</published>
+    <updated>2023-08-24T06:02:40.660Z</updated>
+    
+    <content type="html"><![CDATA[<p>链表提供了高效的节点重排能力，以及顺序性的节点访问方式，并且可以通过增删节点来灵活地调整链表的长度。链表在 Redis 中的应用非常广泛，比如 List 的底层实现之一链表，当一个 List 包含了数量比较多的元素，又或者列表中包含的元素都是比较长的字符串时，Redis 就会使用链表作为 List 的底层实现。除了用作 List 的底层实现之外，发布与订阅、慢查询、监视器等动能也用到了链表， Redis 服务器本身还使用链表来保存多个客户端的状态信息，以及使用链表来构建客户端输出缓冲区。<br>每个链表节点使用一个 adlist.h&#x2F;listNode 结构来表示：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">listNode</span> &#123;</span><br><br>    <span class="hljs-comment">// 前置节点</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">listNode</span> *<span class="hljs-title">prev</span>;</span><br><br>    <span class="hljs-comment">// 后置节点</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">listNode</span> *<span class="hljs-title">next</span>;</span><br><br>    <span class="hljs-comment">// 节点的值</span><br>    <span class="hljs-type">void</span> *value;<br><br>&#125; listNode;<br></code></pre></td></tr></table></figure><p>虽然仅仅使用多个 listNode 结构就可以组成链表， 但使用 adlist.h&#x2F;list 来持有链表的话， 操作起来会更方便：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">list</span> &#123;</span><br><br>    <span class="hljs-comment">// 表头节点</span><br>    listNode *head;<br><br>    <span class="hljs-comment">// 表尾节点</span><br>    listNode *tail;<br><br>    <span class="hljs-comment">// 链表所包含的节点数量</span><br>    <span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> len;<br><br>    <span class="hljs-comment">// 节点值复制函数</span><br>    <span class="hljs-type">void</span> *(*dup)(<span class="hljs-type">void</span> *ptr);<br><br>    <span class="hljs-comment">// 节点值释放函数</span><br>    <span class="hljs-type">void</span> (*<span class="hljs-built_in">free</span>)(<span class="hljs-type">void</span> *ptr);<br><br>    <span class="hljs-comment">// 节点值对比函数</span><br>    <span class="hljs-type">int</span> (*match)(<span class="hljs-type">void</span> *ptr, <span class="hljs-type">void</span> *key);<br><br>&#125; <span class="hljs-built_in">list</span>;<br></code></pre></td></tr></table></figure><p>list 结构为链表提供了表头指针 head 、表尾指针 tail ， 以及链表长度计数器 len ， 而 dup 、 free 和 match 成员则是用于实现多态链表所需的类型特定函数：</p><ul><li>dup 函数用于复制链表节点所保存的值；</li><li>free 函数用于释放链表节点所保存的值；</li><li>match 函数则用于对比链表节点所保存的值和另一个输入值是否相等。</li></ul><p><strong>Redis 的链表实现的特性可以总结如下：</strong></p><p>双端： 链表节点带有 prev 和 next 指针， 获取某个节点的前置节点和后置节点的复杂度都是 O(1) 。</p><p>无环： 表头节点的 prev 指针和表尾节点的 next 指针都指向 NULL ， 对链表的访问以 NULL 为终点。</p><p>带表头指针和表尾指针： 通过 list 结构的 head 指针和 tail 指针， 程序获取链表的表头节点和表尾节点的复杂度为 O(1) 。</p><p>带链表长度计数器： 程序使用 list 结构的 len 属性来对 list 持有的链表节点进行计数， 程序获取链表中节点数量的复杂度为 O(1) 。</p><p>多态： 链表节点使用 void* 指针来保存节点值， 并且可以通过 list 结构的 dup 、 free 、 match 三个属性为节点值设置类型特定函数， 所以链表可以用于保存各种不同类型的值。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;链表提供了高效的节点重排能力，以及顺序性的节点访问方式，并且可以通过增删节点来灵活地调整链表的长度。链表在 Redis 中的应用非常广泛，比如 List 的底层实现之一链表，当一个 List 包含了数量比较多的元素，又或者列表中包含的元素都是比较长的字符串时，Redis 就</summary>
+      
+    
+    
+    
+    
+    <category term="Redis" scheme="http://precipitation0224.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis数据结构——String实现</title>
+    <link href="http://precipitation0224.github.io/2023/07/03/07-02-redis_String/"/>
+    <id>http://precipitation0224.github.io/2023/07/03/07-02-redis_String/</id>
+    <published>2023-07-02T19:31:25.000Z</published>
+    <updated>2023-08-24T05:57:40.750Z</updated>
+    
+    <content type="html"><![CDATA[<p>Redis 自己构建了一种名为简单动态字符串（simple dynamic string，SDS）的抽象类型， 并将 SDS 用作 Redis 的默认字符串表示。</p><p>SDS结构：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sdshdr</span> &#123;</span><br>    <span class="hljs-comment">// 记录 buf 数组中已使用字节的数量</span><br>    <span class="hljs-comment">// 等于 SDS 所保存字符串的长度</span><br>    <span class="hljs-type">int</span> len;<br>    <span class="hljs-comment">// 记录 buf 数组中未使用字节的数量</span><br>    <span class="hljs-type">int</span> <span class="hljs-built_in">free</span>;<br>    <span class="hljs-comment">// 字节数组，用于保存字符串</span><br>    <span class="hljs-type">char</span> buf[];<br>&#125;;<br></code></pre></td></tr></table></figure><p>free 属性的值为 0 ， 表示这个 SDS 没有分配任何未使用空间。</p><p>len 属性的值为 5 ， 表示这个 SDS 保存了一个五字节长的字符串。</p><p>buf 属性是一个 char 类型的数组， 数组的前五个字节分别保存了 ‘R’ 、 ‘e’ 、 ‘d’ 、 ‘i’ 、 ‘s’ 五个字符， 而最后一个字节则保存了空字符 ‘\0’ 。 SDS 与 C 语言字符串比较相近，但拥有更过的优势：</p><ol><li>SDS 获取字符串长度时间复杂度O(1)：因为 SDS 通过 len 字段来存储长度，使用时直接读取就可以；C 语言要想获取字符串长度需要遍历整个字符串，时间复杂度O(N)。</li><li>SDS 能杜绝缓冲区的溢出：因为当 SDS API 要对 SDS 进行修改时，会先检查 SDS 的空间是否足够，如果不够的话 SDS 会自动扩容，So，不会造成缓冲区溢出。而 C 语言则不剧本这个功能。</li><li>SDS 能减少修改字符串时带来的内存重分配次数：<ul><li>空间预分配：当SDS 扩容时不只是会增加需要的空间大小，还会额外的分配一些未使用的空间。分配的规则是：如果分配后SDS的长度小于 1MB，那么会分配等于分配后SDS 的大小的未使用空间，简单说就是，SDS 动态分配后是 16KB，那么就会多分配 16KB 的未使用空间；如果 小于 1MB，那么久分配 1MB 的未使用空间。</li><li>惰性空间释放： 惰性空间释放用于优化 SDS 的字符串缩短操作：当 SDS 的 API 需要缩短 SDS 保存的字符串时，并不会立即内存重分配来回收多出来的字节，而是用 free 来记录未使用空间。</li></ul></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Redis 自己构建了一种名为简单动态字符串（simple dynamic string，SDS）的抽象类型， 并将 SDS 用作 Redis 的默认字符串表示。&lt;/p&gt;
+&lt;p&gt;SDS结构：&lt;/p&gt;
+&lt;figure class=&quot;highlight c&quot;&gt;&lt;table&gt;&lt;t</summary>
+      
+    
+    
+    
+    
+    <category term="Redis" scheme="http://precipitation0224.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Redis数据结构</title>
+    <link href="http://precipitation0224.github.io/2023/07/03/07-02-redis_ds/"/>
+    <id>http://precipitation0224.github.io/2023/07/03/07-02-redis_ds/</id>
+    <published>2023-07-02T16:11:20.000Z</published>
+    <updated>2023-08-24T05:50:48.716Z</updated>
+    
+    <content type="html"><![CDATA[<p>五种数据结构</p><p><strong>1. String</strong></p><ul><li>如果一个字符串对象保存的是整数值， 并且这个整数值可以用 long 类型来表示， 那么字符串对象会将整数值保存在字符串对象结构的 ptr 属性里面（将 void* 转换成 long ）， 并将字符串对象的编码设置为 int 。</li><li>如果字符串对象保存的是一个字符串值， 并且这个字符串值的长度大于 39 字节， 那么字符串对象将使用一个简单动态字符串（SDS）来保存这个字符串值， 并将对象的编码设置为 raw。</li><li>如果字符串对象保存的是一个字符串值， 并且这个字符串值的长度小于等于 39 字节， 那么字符串对象将使用 embstr 编码的方式来保存这个字符串值。</li></ul><p><strong>2. List</strong></p><ul><li>列表对象的编码可以是 ziplist 或者 linkedlist 。</li><li>列表对象保存的所有字符串元素的长度都小于 64 字节并且保存的元素数量小于 512 个，使用 ziplist 编码；否则使用 linkedlist；</li></ul><p><strong>3. Hash</strong></p><ul><li>哈希对象的编码可以是 ziplist 或者 hashtable 。</li><li>哈希对象保存的所有键值对的键和值的字符串长度都小于 64 字节并且保存的键值对数量小于 512 个，使用ziplist 编码；否则使用hashtable；</li></ul><p><strong>4. Set</strong></p><ul><li>集合对象的编码可以是 intset 或者 hashtable 。</li><li>集合对象保存的所有元素都是整数值并且保存的元素数量不超过 512 个，使用intset 编码；否则使用hashtable；</li></ul><p><strong>5. Sorted Set</strong></p><ul><li>有序集合的编码可以是 ziplist 或者 skiplist</li><li>有序集合保存的元素数量小于 128 个并且保存的所有元素成员的长度都小于 64 字节。使用 ziplist 编码；否则使用skiplist。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;五种数据结构&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. String&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果一个字符串对象保存的是整数值， 并且这个整数值可以用 long 类型来表示， 那么字符串对象会将整数值保存在字符串对象结构的 ptr 属性里面（将 void* 转</summary>
+      
+    
+    
+    
+    
+    <category term="Redis" scheme="http://precipitation0224.github.io/tags/Redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TCP相关问题</title>
+    <link href="http://precipitation0224.github.io/2023/06/28/06-28-tcp_qa/"/>
+    <id>http://precipitation0224.github.io/2023/06/28/06-28-tcp_qa/</id>
+    <published>2023-06-28T12:11:30.000Z</published>
+    <updated>2023-08-24T05:35:03.636Z</updated>
+    
+    <content type="html"><![CDATA[<p>1、为什么建立连接协议是三次握手，而关闭连接却是四次握手呢？</p><p>建立连接时，ACK和SYN可以放在一个报文里来发送。而关闭连接时，被动关闭方可能还需要发送一些数据后，再发送FIN报文表示同意现在可以关闭连接了，所以它这里的ACK报文和FIN报文多数情况下都是分开发送的。 </p><p>2、为什么TIME_WAIT状态还需要等2MSL后才能返回到CLOSED状态？</p><p>两个存在的理由：1、无法保证最后发送的ACK报文会一定被对方收到，所以需要重发可能丢失的ACK报文。2、关闭链接一段时间后可能会在相同的IP地址和端口建立新的连接，为了防止旧连接的重复分组在新连接已经终止后再现。2MSL足以让分组最多存活msl秒被丢弃。 </p><p>3、为什么必须是三次握手，不能用两次握手进行连接？</p><p>记住服务器的资源宝贵不能浪费! 如果在断开连接后，第一次握手请求连接的包才到会使服务器打开连接，占用资源而且容易被恶意攻击！防止攻击的方法，缩短服务器等待时间。两次握手容易死锁。如果服务器的应答分组在传输中丢失，将不知道S建立什么样的序列号，C认为连接还未建立成功，将忽略S发来的任何数据分组，只等待连接确认应答分组。而S在发出的分组超时后，重复发送同样的分组。这样就形成了死锁。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;1、为什么建立连接协议是三次握手，而关闭连接却是四次握手呢？&lt;/p&gt;
+&lt;p&gt;建立连接时，ACK和SYN可以放在一个报文里来发送。而关闭连接时，被动关闭方可能还需要发送一些数据后，再发送FIN报文表示同意现在可以关闭连接了，所以它这里的ACK报文和FIN报文多数情况下都是分开</summary>
+      
+    
+    
+    
+    
+    <category term="操作系统" scheme="http://precipitation0224.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TCP连接断开解析</title>
+    <link href="http://precipitation0224.github.io/2023/06/27/06-26-tcp/"/>
+    <id>http://precipitation0224.github.io/2023/06/27/06-26-tcp/</id>
+    <published>2023-06-26T22:11:30.000Z</published>
+    <updated>2023-08-24T05:32:36.699Z</updated>
+    
+    <content type="html"><![CDATA[<p>TCP状态码有6种标示：</p><p>① SYN(synchronous建立联机)；</p><p>② ACK(acknowledgement 确认)</p><p>③ PSH(push传送)</p><p>④ FIN(finish结束)</p><p>⑤ RST(reset重置)</p><p>⑥ URG(urgent紧急)</p><p>Sequence number(顺序号码) &#x2F;&#x2F;Acknowledge number(确认号码)</p><p>第一次握手：主机A发送位码为SYN&#x3D;1，随机产生seq number&#x3D;1234567的数据包到服务器，主机B由SYN&#x3D;1知道，A要求建立联机；</p><p>第二次握手，主机B收到请求后要确认联机信息，向A发送ack number&#x3D;(主机A的seq+1)，SYN&#x3D;1,ACK&#x3D;1，随机产生seq number&#x3D;7654321的包；</p><p>第三次握手：主机A收到后检查ack number是否正确，即第一次发送的seq number+1，以及位码ACK是否为1，若正确，主机A会再发送ack number&#x3D;（主机B的seq+1）,ACK&#x3D;1，主机B收到后确认seq值与ACK&#x3D;1则连接建立成功。</p><p>四次握手是指终止TCP连接协议时，需要在客户端和服务器之间发送四个包</p><p>第一次挥手：主动关闭方发送第一个包，其中FIN标志位为1，发送顺序号seq为X。</p><p>第二次挥手：被动关闭方收到FIN包后发送第二个包，其中发送顺序号seq为Z，接收顺序号ack为X+1。</p><p>第三次挥手：被动关闭方再发送第三个包，其中FIN标志位为1，发送顺序号seq为Y，接收顺序号ack为X。</p><p>第四次挥手：主动关闭方发送第四个包，其中发送顺序号为X，接收顺序号为Y。至此，完成四次挥手。</p><p>超时重传指的是，发送数据包在一定的时间周期内没有收到相应的ACK，等待一定的时间，超时之后就认为这个数据包丢失，就会重新发送。这个等待时间被称为RTO. </p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;TCP状态码有6种标示：&lt;/p&gt;
+&lt;p&gt;① SYN(synchronous建立联机)；&lt;/p&gt;
+&lt;p&gt;② ACK(acknowledgement 确认)&lt;/p&gt;
+&lt;p&gt;③ PSH(push传送)&lt;/p&gt;
+&lt;p&gt;④ FIN(finish结束)&lt;/p&gt;
+&lt;p&gt;⑤ RST(res</summary>
+      
+    
+    
+    
+    
+    <category term="操作系统" scheme="http://precipitation0224.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>联邦学习下的表征学习相关paper</title>
@@ -294,207 +483,6 @@
     
     
     <category term="C++" scheme="http://precipitation0224.github.io/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>浮点数和MD5,Base64</title>
-    <link href="http://precipitation0224.github.io/2023/03/11/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/"/>
-    <id>http://precipitation0224.github.io/2023/03/11/%E6%B5%AE%E7%82%B9%E6%95%B0%E5%92%8CMD5-Bae64/</id>
-    <published>2023-03-10T18:32:32.000Z</published>
-    <updated>2023-03-23T12:11:09.639Z</updated>
-    
-    <content type="html"><![CDATA[<p>4、浮点数的存储方式</p><ol><li><p>符号位：‘+’存储为0，‘-’存储为1</p></li><li><p>将数字转化成二进制数</p></li><li><p>将二进制数规范化为 1.xxxxxxxx*2^n</p></li><li><p>将n转化为指数（+127） 尾数xxxx后面补零</p></li></ol><p>5、介绍MD5、Base64</p><p>MD5即Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语言普遍已有MD5实现。将数据（如汉字）运算为另一固定长度值，是杂凑算法的基础原理，MD5的前身有MD2、MD3和MD4。md5运算结果是一个固定长度为128位的二进制数，经过一系列的运算得到32个16进制数。</p><p>Base64是一种使用64基的位置计数法。它使用2的最大次方来代表仅可打印的ASCII字符。这使它可用来作为电子邮件的传输编码。在Base64中的变量使用字符A-Z、a-z和0-9，这样共有62个字符，用来作为开始的64个数字，最后两个用来作为数字的符号在不同的系统中而不同。一些如unencode的其他编码方法，和之后binhex的版本使用不同的64字符集来代表6个二进制数字，但是它们不叫Base64。</p><p>MD5加密算法是不可逆的，base64加密算法是可逆的；MD5加密算法是不可逆的，base64加密算法是可逆的</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;4、浮点数的存储方式&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;符号位：‘+’存储为0，‘-’存储为1&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;将数字转化成二进制数&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;将二进制数规范化为 1.xxxxxxxx*2^n&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;将n转</summary>
-      
-    
-    
-    
-    
-    <category term="interview" scheme="http://precipitation0224.github.io/tags/interview/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vector动态扩容机制</title>
-    <link href="http://precipitation0224.github.io/2023/03/10/vectorexpand/"/>
-    <id>http://precipitation0224.github.io/2023/03/10/vectorexpand/</id>
-    <published>2023-03-09T21:30:57.000Z</published>
-    <updated>2023-04-07T13:34:47.302Z</updated>
-    
-    <content type="html"><![CDATA[<p>vector中的动态扩容</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/* push_back() */</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">Alloc</span>&gt;<br><span class="hljs-type">void</span> vector&lt;T, Alloc&gt;::<span class="hljs-built_in">push_back</span>(<span class="hljs-type">const</span> value_type&amp; val)<br>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish != <span class="hljs-keyword">this</span>-&gt;_M_impl._M_end_of_storage) &#123; <span class="hljs-comment">// 如果还有剩余空间，直接插入元素</span><br>        _Alloc_traits::<span class="hljs-built_in">construct</span>(<span class="hljs-keyword">this</span>-&gt;_M_impl, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish, val);<br>        ++<span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish;<br>    &#125;<br>    <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// 否则需要重新分配空间</span><br>        _M_insert_aux(<span class="hljs-built_in">end</span>(), val);<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">Alloc</span>&gt;<br><span class="hljs-type">void</span> vector&lt;T, Alloc&gt;::_M_insert_aux(iterator position, <span class="hljs-type">const</span> T&amp; x)<br>&#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish != <span class="hljs-keyword">this</span>-&gt;_M_impl._M_end_of_storage) &#123; <span class="hljs-comment">// 如果还有剩余空间，直接插入元素</span><br>        _Alloc_traits::<span class="hljs-built_in">construct</span>(<span class="hljs-keyword">this</span>-&gt;_M_impl, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish, *(<span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish - <span class="hljs-number">1</span>));<br>        ++<span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish;<br>        T x_copy = x;<br>        std::<span class="hljs-built_in">copy_backward</span>(position, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish - <span class="hljs-number">2</span>, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish - <span class="hljs-number">1</span>);<br>        *position = x_copy;<br>    &#125;<br>    <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">// 否则需要扩容</span><br>        <span class="hljs-type">const</span> size_type old_size = <span class="hljs-built_in">size</span>();<br>        <span class="hljs-type">const</span> size_type new_size = old_size != <span class="hljs-number">0</span> ? <span class="hljs-number">2</span> * old_size : <span class="hljs-number">1</span>;<br>        iterator new_start = _M_allocate(new_size);<br>        iterator new_finish = new_start;<br>        <span class="hljs-keyword">try</span> &#123;<br>            new_finish = std::__uninitialized_copy_a(<span class="hljs-keyword">this</span>-&gt;_M_impl._M_start, position, new_start, _M_get_Tp_allocator());<br>            _Alloc_traits::<span class="hljs-built_in">construct</span>(_M_get_Tp_allocator(), new_finish, x);<br>            ++new_finish;<br>            new_finish = std::__uninitialized_copy_a(position, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish, new_finish, _M_get_Tp_allocator());<br>        &#125;<br>        <span class="hljs-built_in">catch</span> (...) &#123;<br>            _M_destroy(new_start, new_finish);<br>            _M_deallocate(new_start, new_size);<br>            <span class="hljs-keyword">throw</span>;<br>        &#125;<br>        _M_destroy(<span class="hljs-built_in">begin</span>(), <span class="hljs-built_in">end</span>());<br>        _M_deallocate(<span class="hljs-keyword">this</span>-&gt;_M_impl._M_start, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_end_of_storage - <span class="hljs-keyword">this</span>-&gt;_M_impl._M_start);<br>        <span class="hljs-keyword">this</span>-&gt;_M_impl._M_start = new_start;<br>        <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish = new_finish;<br>        <span class="hljs-keyword">this</span>-&gt;_M_impl._M_end_of_storage = new_start + new_size;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><ol><li>vector的底层实现使用了动态数组，即在内存中分配一段连续的空间来存储元素。</li><li>当vector的元素数量达到其容量时，需要进行扩容。vector的扩容是通过重新分配一段更大的内存空间，并将原有的元素拷贝到新空间来实现的。</li><li>为了避免频繁的扩容操作，vector采用了倍增策略来确定新的容量大小。即在扩容时，将原有容量乘以一个系数，通常为2，来计算新的容量大小。</li><li>在实现中，vector使用了allocator来管理内存分配，以保证分配的内存块是对齐的并遵循C++的类型安全规则。</li></ol><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/* reverse() */</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">class</span> <span class="hljs-title class_">T</span>, <span class="hljs-keyword">class</span> <span class="hljs-title class_">Alloc</span>&gt;<br><span class="hljs-type">void</span> vector&lt;T, Alloc&gt;::<span class="hljs-built_in">reverse</span>() <span class="hljs-keyword">noexcept</span> &#123;<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>-&gt;_M_ipml._M_finish-<span class="hljs-keyword">this</span>-&gt;_M_impl._M_start&gt;<span class="hljs-number">1</span>) &#123;<br>        std::_reverse(<span class="hljs-keyword">this</span>-&gt;_M_impl._M_start, <span class="hljs-keyword">this</span>-&gt;_M_impl._M_finish);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>在源代码中，可以看到当vector内部存储的元素数量大于1时，才会调用std::__reverse()函数对其进行反转。下面是std::__reverse()函数的源代码：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/* std::_reverse() */</span><br><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> _BidirectionalIterator&gt;<br><span class="hljs-keyword">inline</span> <span class="hljs-type">void</span> __reverse(_BidirectionalIterator __first, _BidirectionalIterator __last)<br>&#123;<br>    <span class="hljs-comment">// 反转区间[first, last)中的元素</span><br>    <span class="hljs-comment">// 首尾两个迭代器分别指向区间的首尾</span><br>    <span class="hljs-keyword">while</span> (__first != __last &amp;&amp; __first != --__last) &#123;<br>        <span class="hljs-comment">// 将首尾两个元素进行交换</span><br>        std::<span class="hljs-built_in">iter_swap</span>(__first, __last);<br>        <span class="hljs-comment">// 将迭代器向前和向后移动</span><br>        ++__first;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><p>在std::__reverse()函数中，使用了双向迭代器，并利用std::iter_swap()函数将首尾两个元素进行交换，然后将迭代器向前和向后移动，直到迭代器相遇或者前一个迭代器等于后一个迭代器减1。通过分析以上源代码，我们可以看到STL中reverse()函数的实现采用了双向迭代器，并利用std::iter_swap()函数交换元素，这个函数是标准库中定义的交换元素的函数。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;vector中的动态扩容&lt;/p&gt;
-&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/sp</summary>
-      
-    
-    
-    
-    
-    <category term="C++" scheme="http://precipitation0224.github.io/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>虚函数动态绑定</title>
-    <link href="http://precipitation0224.github.io/2023/03/08/virtualpointer/"/>
-    <id>http://precipitation0224.github.io/2023/03/08/virtualpointer/</id>
-    <published>2023-03-07T20:01:55.000Z</published>
-    <updated>2023-03-23T12:10:10.008Z</updated>
-    
-    <content type="html"><![CDATA[<p>14、虚函数如何实现动态转发，每个类都有虚函数表吗</p><p>虚函数是在某基类中声明为<em><strong>virtual</strong></em>并在一个或多个派生类中被重新定义的成员函数。是实现动态多态的一种方法。</p><p>函数是通过<strong>虚函数表</strong>来实现的。每一个含有虚函数的类，都会有一个虚函数表用来存放虚函数的地址，同时类会有一个<strong>虚表指针</strong>去指向虚函数表的首地址,<strong>对象的首地址就存放着虚表指针</strong>。</p><p><strong>虚函数表：</strong>要讲清楚动态绑定的流程，首先需要了解清楚类里面虚函数表的定义，虚函数表是记录虚函数入口地址的一串数组（实际是一个函数指针数组），它只存在于定义了虚函数的类里面，这里给出一个例子来展示类中虚函数表的存在：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>&#123;<br>    <span class="hljs-comment">//空类的大小为1</span><br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>&#123;<br>    <span class="hljs-type">int</span> m; <span class="hljs-comment">//大小为4，成员变量会占用类空间</span><br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span>&#123;<br>    <span class="hljs-type">int</span> m;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">//大小为4，非虚函数不会占用类空间</span><br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">D</span>&#123;<br>    <span class="hljs-type">int</span> m;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span>; <span class="hljs-comment">//大小为16，定义虚函数会增加类的大小，但是这个增加不是虚函数带来了的，而是指向虚函数表的指针所占的空间</span><br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">E</span>&#123;<br>    <span class="hljs-type">int</span> m;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span></span>;<span class="hljs-comment">//大小为16，从这儿可以看到，类里面的多个虚函数都维护在一个虚函数表里面，只有一个指向虚函数表的指针</span><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">g</span><span class="hljs-params">()</span></span>;<br>&#125;;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    cout&lt;&lt;<span class="hljs-built_in">sizeof</span>(A)&lt;&lt;endl;<br>    cout&lt;&lt;<span class="hljs-built_in">sizeof</span>(B)&lt;&lt;endl;<br>    cout&lt;&lt;<span class="hljs-built_in">sizeof</span>(C)&lt;&lt;endl;<br>    cout&lt;&lt;<span class="hljs-built_in">sizeof</span>(D)&lt;&lt;endl;<br>    cout&lt;&lt;<span class="hljs-built_in">sizeof</span>(E)&lt;&lt;endl;<br>    <span class="hljs-comment">//cout&lt;&lt;sizeof(B)&lt;&lt;endl;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br><span class="hljs-comment">//实际上，虚函数不占用类对象的存储空间，</span><br><span class="hljs-comment">//所以含有一个以上的虚函数的类对象大小与仅含一个虚函数大小相同</span><br><span class="hljs-comment">//同时，针对每个类，只维护一个【虚函数表（函数指针数组数组）】</span><br><span class="hljs-comment">//用于存放该类中虚函数的地址，每个【含一个及以上虚函数的对象都会含有一个指向该类虚函数表的指针】。</span><br></code></pre></td></tr></table></figure><p><strong>动态绑定虚函数工作原理：</strong> 前面提到，每一个类会为所有虚函数数维护一个虚函数表，并且有一个指针指向这个表的首地址，这个虚函数表记录着所有的虚函数的入口地址。那么在动态绑定时，编译器是如何给基类指针返回一个正确的函数入口地址，这里给出一个例子：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span>&#123;<br>        <span class="hljs-keyword">protected</span>:<br>        <span class="hljs-type">int</span> a1;<br>        <span class="hljs-type">int</span> a2;<br>        <span class="hljs-keyword">public</span>:<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;A::display()&quot;</span>&lt;&lt;endl;&#125;<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">clone</span><span class="hljs-params">()</span></span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;A::clone()&quot;</span>&lt;&lt;endl;&#125;<br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span>: <span class="hljs-keyword">public</span> A&#123;<br>        <span class="hljs-keyword">protected</span>:<br>        <span class="hljs-type">int</span> b;<br>        <span class="hljs-keyword">public</span>:<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;B::display()&quot;</span>&lt;&lt;endl;&#125; <span class="hljs-function"><span class="hljs-keyword">override</span></span><br><span class="hljs-function">        <span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;B::init()&quot;</span>&lt;&lt;endl;&#125;<br>&#125;;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span>: <span class="hljs-keyword">public</span> B&#123;<br>        <span class="hljs-keyword">protected</span>:<br>        <span class="hljs-type">int</span> c;<br>        <span class="hljs-keyword">public</span>:<br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">display</span><span class="hljs-params">()</span></span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;C::display()&quot;</span>&lt;&lt;endl;&#125; <span class="hljs-function"><span class="hljs-keyword">override</span></span><br><span class="hljs-function">        <span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">execute</span><span class="hljs-params">()</span></span>&#123; cout&lt;&lt;<span class="hljs-string">&quot;C::execute()&quot;</span>&lt;&lt;endl;&#125; <br>        <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-type">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span></span>&#123;cout&lt;&lt;<span class="hljs-string">&quot;C::init()&quot;</span>&lt;&lt;endl;&#125; <span class="hljs-keyword">override</span><br></code></pre></td></tr></table></figure><p>这里给出A,B,C三个类的内存情况，如下图。可以得出这么几个结论：</p><ol><li>类的内存占用由成员变量和指向虚函数表的指针组成，同时派生类的成员变量是会把基类的成员变量都继承的</li><li>同名虚函数在基类和派生类中的虚函数表中，索引是一致的，如下图，A,B,C的display的索引都是0</li><li>派生类中，一旦对基类中的虚函数进行了覆盖，那么派生类的虚函数表中响应函数的入口地址会被替换成覆盖后的函数的地址。</li><li>一旦有新的虚函数定义，会加入到当前虚函数表的末端。</li></ol><p>虚表是属于类的，而不是属于某个具体的对象，一个类只需要一个虚表即可。同一个类的所有对象都使用同一个虚表。</p><p>为了指定对象的虚表，对象内部包含一个虚表的指针，来指向自己所使用的虚表。为了让每个包含虚表的类的对象都拥有一个虚表指针，编译器在类中添加了一个指针，*__vptr，用来指向虚表。这样，当类的对象在创建时便拥有了这个指针，且这个指针的值会自动被设置为指向类的虚表。</p><p><em><strong>reference link</strong></em>: <a href="https://zhuanlan.zhihu.com/p/75172640">https://zhuanlan.zhihu.com/p/75172640</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;14、虚函数如何实现动态转发，每个类都有虚函数表吗&lt;/p&gt;
-&lt;p&gt;虚函数是在某基类中声明为&lt;em&gt;&lt;strong&gt;virtual&lt;/strong&gt;&lt;/em&gt;并在一个或多个派生类中被重新定义的成员函数。是实现动态多态的一种方法。&lt;/p&gt;
-&lt;p&gt;函数是通过&lt;strong&gt;虚函数</summary>
-      
-    
-    
-    
-    
-    <category term="interview" scheme="http://precipitation0224.github.io/tags/interview/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>http缺陷，tls和QUIC</title>
-    <link href="http://precipitation0224.github.io/2023/03/07/tls/"/>
-    <id>http://precipitation0224.github.io/2023/03/07/tls/</id>
-    <published>2023-03-06T19:53:04.000Z</published>
-    <updated>2023-03-23T12:09:46.219Z</updated>
-    
-    <content type="html"><![CDATA[<p>10、http安全保证，tls，如何握手</p><p>HTTP协议没有任何的加密以及身份验证的机制，非常容易遭到窃听、劫持、篡改等。不安全的原因主要包含以下方面：</p><ol><li>通信使用明文，内容可能被窃听。</li><li>不验证通信方的身份，因此有可能遭到伪装。</li><li>无法验证报文的完整性，所以有可能被篡改。</li><li>传统的HTTP请求过程都是明文传输的，所谓的明文指的是没有经过加密的信息，如果HTTP请求和响应被黑客拦截，并且里面含有密码等敏感数据的话，会非常危险。</li></ol><p><em><strong>QUIC</strong></em> 协议 (RFC 9000) 旨在提高 Web 性能并减少访问延迟，同时保持通信机密。 一种基本方法是通过将 QUIC 握手与 TLS 1.3 握手集成并将多个 QUIC 数据包合并到一个 UDP 数据报中来减少初始往返时间 (RTT)。</p><p>总的来说，QUIC 相比于 HTTP&#x2F;2.0 来说，具有下面这些优势：</p><ul><li>使用 UDP 协议，不需要三次连接进行握手，而且也会缩短 TLS 建立连接的时间。</li><li>解决了队头阻塞问题</li><li>实现动态可插拔，在应用层实现了拥塞控制算法，可以随时切换。</li><li>报文头和报文体分别进行认证和加密处理，保障安全性。</li><li>连接能够平滑迁移</li></ul><p>连接平滑迁移指的是，你的手机或者移动设备在 4G 信号下和 WiFi 等网络情况下切换，不会断线重连，用户甚至无任何感知，能够直接实现平滑的信号切换。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;10、http安全保证，tls，如何握手&lt;/p&gt;
-&lt;p&gt;HTTP协议没有任何的加密以及身份验证的机制，非常容易遭到窃听、劫持、篡改等。不安全的原因主要包含以下方面：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;通信使用明文，内容可能被窃听。&lt;/li&gt;
-&lt;li&gt;不验证通信方的身份，因此有可能遭</summary>
-      
-    
-    
-    
-    
-    <category term="interview" scheme="http://precipitation0224.github.io/tags/interview/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>string的缺陷和指针选择</title>
-    <link href="http://precipitation0224.github.io/2023/03/05/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/"/>
-    <id>http://precipitation0224.github.io/2023/03/05/string%E7%9A%84%E7%BC%BA%E9%99%B7%E5%92%8C%E6%8C%87%E9%92%88%E9%80%89%E6%8B%A9/</id>
-    <published>2023-03-05T13:07:29.000Z</published>
-    <updated>2023-03-23T12:08:53.215Z</updated>
-    
-    <content type="html"><![CDATA[<p>2、std::string的缺陷</p><p>最大的缺点是 std::string 是「字节串」而非「字符串」</p><ol><li>它是可变对象，任何对 string 对象的操作都会改变原对象的值而不是重新生成一个 string 对象，线程不安全；</li><li>不能很好的处理宽字节的字符；</li><li>没有足够多的好用的函数，没有format格式输出，要借助要用stdio.h头文件里的 sprintf 函数。</li></ol><p>3、智能指针和原生指针的开销</p><p><strong>泛型指针：</strong></p><p>泛型指针有多种含义。1) 指void*指针，可以指向任意数据类型，因此具有“泛型”含义。2) 指具有指针特性的泛型数据结构，包含泛型的迭代器、智能指针等。 广义的迭代器是一种不透明指针，能够实现遍历访问操作。通常所说的迭代器是指狭义的迭代器，即基于C++的STL中基于泛型的iterator_traits实现的类的实例。总体来说，泛型指针和迭代器是两个不同的概念，其中的交集则是通常提到的迭代器类。</p><p><strong>原生指针：</strong></p><p>原生指针就是普通指针， 定义类似：类型 <em>变量名（int <em>p）;相反的若是一个类重载了‘</em>’和‘-&gt;’的运算符，能够像指针同样用‘</em>’和‘-&gt;’操做，就不是原生的，如iterator等。说“原生”是指“最简朴最基本的那一种”。因为现在很多东西都抽象化理论化了，所以“以前的那种最简朴最基本的指针”只是一个抽象概念（比如iterator）的表现形式之一。</p><p>c++的原生指针又可以分为普通指针，成员指针，函数指针。</p><p><strong>智能指针：</strong></p><p>智能指针是c++2.0的新特性之一，其最大的特点在于其结合了指针和对象构造析构的优点RAII，使得其在其生存期结束时可以及时释放其所管理的资源（动态内存分配得到的资源）。由于 C++ 语言没有自动内存回收机制，程序员每次得自己处理内存相关问题，但用智能指针便可以有效缓解这类问题。 一般是把指针封装到一个称之为智能指针类中，这个类中另外还封装了一个使用计数器，对指针的复制等操作将导致该计数器的值加1，对指针的delete操作则会减1，值为0时，指针为NULL。下面是智能指针的选择。</p><p>（1）如果程序要使用多个指向同一个对象的指针，应选择 shared_ptr。这样的情况包括三种：</p><ol><li>有一个指针数组，并使用一些辅助指针来标示特定的元素，如最大的元素和最小的元素；</li><li>两个对象包含都指向第三个对象的指针；</li><li>STL 容器包含指针。很多 STL 算法都支持复制和赋值操作，这些操作可用于 shared_ptr，但不能用于 unique_ptr（编译器发出 warning）和 auto_ptr（行为不确定）。如果你的编译器没有提供 shared_ptr，可使用 Boost 库提供的 shared_ptr。</li></ol><p>（2）如果程序不需要多个指向同一个对象的指针，则可使用 unique_ptr。如果函数使用 new 分配内存，并返还指向该内存的指针，将其返回类型声明为 unique_ptr 是不错的选择。这样，所有权转让给接受返回值的 unique_ptr，而该智能指针将负责调用 delete。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;2、std::string的缺陷&lt;/p&gt;
-&lt;p&gt;最大的缺点是 std::string 是「字节串」而非「字符串」&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;它是可变对象，任何对 string 对象的操作都会改变原对象的值而不是重新生成一个 string 对象，线程不安全；&lt;/li&gt;
-&lt;li</summary>
-      
-    
-    
-    
-    
-    <category term="interview" scheme="http://precipitation0224.github.io/tags/interview/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>静态库和动态库</title>
-    <link href="http://precipitation0224.github.io/2023/03/04/staticlib/"/>
-    <id>http://precipitation0224.github.io/2023/03/04/staticlib/</id>
-    <published>2023-03-03T20:08:03.000Z</published>
-    <updated>2023-03-23T12:08:19.694Z</updated>
-    
-    <content type="html"><![CDATA[<p>静态库需要有库文件和头文件，编译程序要通过”-l libname”参数编译；</p><p>linux是.a文件，windows是.lib文件</p><p>制作流程，先通过gcc生成.o文件，再通过ar(<strong>参数选项rcs</strong>)将.o文件打包生成.a文件。</p><p>动态库在运行程序之前还需要配置动态库的加载路径</p><p>linux是.so文件，windows是.dll文件</p><p>通过gcc生成.o文件(<strong>参数选项fpic</strong>)，再通过gcc生成.so文件(<strong>参数选项shared</strong>)。</p><p>静态库和动态库的区别，静态库链接时，静态库中的代码会打包到可执行程序中，编译时加载，发布程序无需提供静态库，移植方便，消耗内存，更新部署复杂；动态库链接时，动态库代码不会打包到可执行程序中，运行时加载，发布程序时要提供动态库，内存占用小，更新部署发布简单。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;静态库需要有库文件和头文件，编译程序要通过”-l libname”参数编译；&lt;/p&gt;
-&lt;p&gt;linux是.a文件，windows是.lib文件&lt;/p&gt;
-&lt;p&gt;制作流程，先通过gcc生成.o文件，再通过ar(&lt;strong&gt;参数选项rcs&lt;/strong&gt;)将.o文件打包生成</summary>
-      
-    
-    
-    
-    
-    <category term="操作系统" scheme="http://precipitation0224.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>预防sql注入</title>
-    <link href="http://precipitation0224.github.io/2023/03/02/sql/"/>
-    <id>http://precipitation0224.github.io/2023/03/02/sql/</id>
-    <published>2023-03-02T10:35:06.000Z</published>
-    <updated>2023-03-23T12:08:06.804Z</updated>
-    
-    <content type="html"><![CDATA[<p>11、避免sql注入</p><p><em><strong>SQL 注入（SQL Injection）</strong></em>，是 Web 开发中最常见的一种安全漏洞。</p><p>可以用它来从数据库获取敏感信息、利用数据库的特性执行添加用户、导出文件等一系列恶意操作，甚至有可能获取数据库乃至系统用户最高权限。</p><ol><li>严格限制 Web 应用的数据库的操作权限，给连接数据库的用户提供满足需要的最低权限，最大限度的减少注入攻击对数据库的危害</li><li>校验参数的数据格式是否合法（可以使用正则或特殊字符的判断）</li><li>对进入数据库的特殊字符进行转义处理，或编码转换</li><li>预编译 SQL（Java 中使用 PreparedStatement），参数化查询方式，避免 SQL 拼接</li><li>发布前，利用工具进行 SQL 注入检测</li><li>报错信息不要包含 SQL 信息输出到 Web 页面</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;11、避免sql注入&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;SQL 注入（SQL Injection）&lt;/strong&gt;&lt;/em&gt;，是 Web 开发中最常见的一种安全漏洞。&lt;/p&gt;
-&lt;p&gt;可以用它来从数据库获取敏感信息、利用数据库的特性执行添加用户、导出文件等一系列恶意操作</summary>
-      
-    
-    
-    
-    
-    <category term="interview" scheme="http://precipitation0224.github.io/tags/interview/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>select原理和缺点</title>
-    <link href="http://precipitation0224.github.io/2023/03/02/slio/"/>
-    <id>http://precipitation0224.github.io/2023/03/02/slio/</id>
-    <published>2023-03-01T20:19:33.000Z</published>
-    <updated>2023-03-23T12:07:55.479Z</updated>
-    
-    <content type="html"><![CDATA[<p>select是一种IO多路复用计数，思想如下：</p><ol><li>要构造关于文件描述符的列表，将要监听的文件描述符添加到表中，列表的数据类型是fd_set，是一个整型数组，总共是1024bits，每一个bit表示一个文件描述符的事件，1代表检测，0代表不检测；</li><li>系统调用select()，监听列表中的文件描述符的事件，函数本身是阻塞的，直到文件描述符的一个或多个进行IO时，函数才返回，修改文件描述符的值，0为未检测到事件，1为检测到事件；</li><li>select()返回时，会告诉进程有多少描述符要进行IO操作，遍历列表IO。</li></ol><p>select同时也有缺点</p><ol><li>调用select就要要fd集合从用户态拷贝到内核态，开销很大；</li><li>内核要遍历所有fd；</li><li>支持的文件描述符数量太小，1024bits；</li><li>文件描述符集合不能重用，内核检测到事件就要修改，每次都要重置；</li><li>select只知道有几个fd发生事件，具体哪几个还要遍历集合才知道。</li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;select是一种IO多路复用计数，思想如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;要构造关于文件描述符的列表，将要监听的文件描述符添加到表中，列表的数据类型是fd_set，是一个整型数组，总共是1024bits，每一个bit表示一个文件描述符的事件，1代表检测，0代表不检测；&lt;/l</summary>
-      
-    
-    
-    
-    
-    <category term="操作系统" scheme="http://precipitation0224.github.io/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
     
   </entry>
   
