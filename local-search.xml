@@ -4,6 +4,44 @@
   
   
   <entry>
+    <title>redis集群搭建Linux</title>
+    <link href="/2023/07/12/redis_cluster/"/>
+    <url>/2023/07/12/redis_cluster/</url>
+    
+    <content type="html"><![CDATA[<p>首先，复制redis，修改端口号，这里设置为7001-7006六个端口号</p><p><img src="/../picture/r1.png" alt="image.png"></p><p>得到了下面的目录结构</p><p><img src="/../picture/r2.png"></p><p>然后写一个shell，同时启动6个redis节点</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd redis01<br>./redis-server redis.conf<br><br>cd ../redis02<br>./redis-server redis.conf<br><br>cd ../redis03<br>./redis-server redis.conf<br><br>cd ../redis04<br>./redis-server redis.conf<br><br>cd ../redis05<br>./redis-server redis.conf<br><br>cd ../redis06<br>./redis-server redis.conf<br><br>cd ..<br></code></pre></td></tr></table></figure><p>最后，测试的结果如下：</p><p><img src="/../picture/r3.png" alt="image.png"></p><p><img src="/../picture/r4.png"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>redis</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>github token登录方式</title>
+    <link href="/2023/07/10/github_token/"/>
+    <url>/2023/07/10/github_token/</url>
+    
+    <content type="html"><![CDATA[<p>issue：通过linux连接个人github用户时，不能通过账号密码登录</p><p>于是找到了用github生成的token取代账号密码的方式</p><p>具体步骤如下：</p><p>1、打开settings</p><p><img src="/../picture/g1.png" alt="img"></p><p>2、在左侧导航栏中进入Developer settings</p><p><img src="/../picture/g2.png" alt="img"></p><p>3、左侧导航栏中选择Tokens(classic)，点击Generate new token（classic）</p><p><img src="/../picture/g3.png" alt="img"></p><p>4、这里选择repo，可以设置过期时间</p><p><img src="/../picture/g4.png" alt="img"></p><p>5、最后点击Genderate token</p><p><img src="/../picture/g5.png" alt="img"></p><p>6、在你部署的文档中（一般yml）用repo的格式完成连接</p><p><img src="/../picture/g6.png" alt="img"></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>github</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Redis数据结构——Set实现</title>
     <link href="/2023/07/03/07-03-redis_Set/"/>
     <url>/2023/07/03/07-03-redis_Set/</url>

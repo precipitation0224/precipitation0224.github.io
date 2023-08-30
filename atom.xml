@@ -6,7 +6,7 @@
   <link href="http://precipitation0224.github.io/atom.xml" rel="self"/>
   
   <link href="http://precipitation0224.github.io/"/>
-  <updated>2023-08-24T06:53:37.790Z</updated>
+  <updated>2023-08-30T04:49:11.641Z</updated>
   <id>http://precipitation0224.github.io/</id>
   
   <author>
@@ -15,6 +15,57 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>redis集群搭建Linux</title>
+    <link href="http://precipitation0224.github.io/2023/07/12/redis_cluster/"/>
+    <id>http://precipitation0224.github.io/2023/07/12/redis_cluster/</id>
+    <published>2023-07-12T15:36:29.000Z</published>
+    <updated>2023-08-30T04:49:11.641Z</updated>
+    
+    <content type="html"><![CDATA[<p>首先，复制redis，修改端口号，这里设置为7001-7006六个端口号</p><p><img src="/../picture/r1.png" alt="image.png"></p><p>得到了下面的目录结构</p><p><img src="/../picture/r2.png"></p><p>然后写一个shell，同时启动6个redis节点</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd redis01<br>./redis-server redis.conf<br><br>cd ../redis02<br>./redis-server redis.conf<br><br>cd ../redis03<br>./redis-server redis.conf<br><br>cd ../redis04<br>./redis-server redis.conf<br><br>cd ../redis05<br>./redis-server redis.conf<br><br>cd ../redis06<br>./redis-server redis.conf<br><br>cd ..<br></code></pre></td></tr></table></figure><p>最后，测试的结果如下：</p><p><img src="/../picture/r3.png" alt="image.png"></p><p><img src="/../picture/r4.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;首先，复制redis，修改端口号，这里设置为7001-7006六个端口号&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/../picture/r1.png&quot; alt=&quot;image.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;得到了下面的目录结构&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/../picture</summary>
+      
+    
+    
+    
+    
+    <category term="redis" scheme="http://precipitation0224.github.io/tags/redis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>github token登录方式</title>
+    <link href="http://precipitation0224.github.io/2023/07/10/github_token/"/>
+    <id>http://precipitation0224.github.io/2023/07/10/github_token/</id>
+    <published>2023-07-10T13:19:38.000Z</published>
+    <updated>2023-08-30T01:00:37.659Z</updated>
+    
+    <content type="html"><![CDATA[<p>issue：通过linux连接个人github用户时，不能通过账号密码登录</p><p>于是找到了用github生成的token取代账号密码的方式</p><p>具体步骤如下：</p><p>1、打开settings</p><p><img src="/../picture/g1.png" alt="img"></p><p>2、在左侧导航栏中进入Developer settings</p><p><img src="/../picture/g2.png" alt="img"></p><p>3、左侧导航栏中选择Tokens(classic)，点击Generate new token（classic）</p><p><img src="/../picture/g3.png" alt="img"></p><p>4、这里选择repo，可以设置过期时间</p><p><img src="/../picture/g4.png" alt="img"></p><p>5、最后点击Genderate token</p><p><img src="/../picture/g5.png" alt="img"></p><p>6、在你部署的文档中（一般yml）用repo的格式完成连接</p><p><img src="/../picture/g6.png" alt="img"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;issue：通过linux连接个人github用户时，不能通过账号密码登录&lt;/p&gt;
+&lt;p&gt;于是找到了用github生成的token取代账号密码的方式&lt;/p&gt;
+&lt;p&gt;具体步骤如下：&lt;/p&gt;
+&lt;p&gt;1、打开settings&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/../pictur</summary>
+      
+    
+    
+    
+    
+    <category term="github" scheme="http://precipitation0224.github.io/tags/github/"/>
+    
+  </entry>
   
   <entry>
     <title>Redis数据结构——Set实现</title>
@@ -433,56 +484,6 @@
     
     
     <category term="算法" scheme="http://precipitation0224.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LRU</title>
-    <link href="http://precipitation0224.github.io/2023/03/14/LRU/"/>
-    <id>http://precipitation0224.github.io/2023/03/14/LRU/</id>
-    <published>2023-03-13T22:48:03.000Z</published>
-    <updated>2023-03-24T05:22:03.118Z</updated>
-    
-    <content type="html"><![CDATA[<p>LRU缓存机制</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">LRUCache</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-comment">// 快速查询和删除（哈希表）、快速查询最久未使用、删除元素、移动元素（链表）</span><br><br>    <span class="hljs-built_in">LRUCache</span>(<span class="hljs-type">int</span> capacity): <span class="hljs-built_in">capacity</span>(capacity) &#123;<br><br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-type">int</span> key)</span> </span>&#123;<br>        <span class="hljs-comment">// 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 </span><br>        <span class="hljs-keyword">if</span> (st.<span class="hljs-built_in">count</span>(key) == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">auto</span> it = st[key];<br><br>        <span class="hljs-comment">// 标志该 key 为「最近使用」</span><br>        lst.<span class="hljs-built_in">splice</span>(lst.<span class="hljs-built_in">begin</span>(), lst, it);<br>        <span class="hljs-keyword">return</span> it-&gt;second;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">put</span><span class="hljs-params">(<span class="hljs-type">int</span> key, <span class="hljs-type">int</span> value)</span> </span>&#123;<br>        <span class="hljs-comment">// 如果关键字 key 已经存在，则变更其数据值 value</span><br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">auto</span> it = st.<span class="hljs-built_in">find</span>(key); it != st.<span class="hljs-built_in">end</span>()) &#123;<br>            it-&gt;second-&gt;second = value;<br>            <span class="hljs-comment">// 标志该 key 为「最近使用」</span><br>            lst.<span class="hljs-built_in">splice</span>(lst.<span class="hljs-built_in">begin</span>(), lst, it-&gt;second);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br><br>        <span class="hljs-comment">// 如果插入操作会导致关键字数量超过 capacity，则应该先 逐出 最久未使用的关键字。</span><br>        <span class="hljs-keyword">if</span> (st.<span class="hljs-built_in">size</span>() == capacity) &#123;<br>            st.<span class="hljs-built_in">erase</span>(lst.<span class="hljs-built_in">rbegin</span>()-&gt;first);<br>            lst.<span class="hljs-built_in">pop_back</span>();<br>        &#125;<br><br>        <span class="hljs-comment">// 如果不存在，则向缓存中插入该组 key-value</span><br>        lst.<span class="hljs-built_in">emplace_front</span>(key, value);<br>        st[key] = lst.<span class="hljs-built_in">begin</span>();<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-keyword">typedef</span> pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt; Pair;<br>    <span class="hljs-type">int</span> capacity;<br>    list&lt;Pair&gt; lst; <span class="hljs-comment">// &lt;key, value&gt;</span><br>    unordered_map&lt;<span class="hljs-type">int</span>, list&lt;Pair&gt;::iterator&gt; st; <span class="hljs-comment">// &lt;key, key_value_pair_iterator&gt;</span><br>&#125;;<br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;LRU缓存机制&lt;/p&gt;
-&lt;figure class=&quot;highlight cpp&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;b</summary>
-      
-    
-    
-    
-    
-    <category term="算法" scheme="http://precipitation0224.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>迭代器的随机访问</title>
-    <link href="http://precipitation0224.github.io/2023/03/12/iteratoraccess/"/>
-    <id>http://precipitation0224.github.io/2023/03/12/iteratoraccess/</id>
-    <published>2023-03-11T21:31:49.000Z</published>
-    <updated>2023-04-07T13:35:38.421Z</updated>
-    
-    <content type="html"><![CDATA[<p>STL中的随机访问迭代器是在其他迭代器基础上实现的，其本质是对指针的封装，可以像指针一样进行算数运算和随机访问，需要支持以下的操作</p><ul><li>迭代器加减运算</li><li>迭代器之间的比较运算</li><li>迭代器和指针之间的转换</li><li>通过迭代器访问元素</li></ul><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><br><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">RandomAccessIterator</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-keyword">using</span> difference_type = std::<span class="hljs-type">ptrdiff_t</span>;<br>    <span class="hljs-keyword">using</span> value_type = T;<br>    <span class="hljs-keyword">using</span> pointer = T*;<br>    <span class="hljs-keyword">using</span> reference = T&amp;;<br>    <span class="hljs-keyword">using</span> iterator_category = std::random_access_iterator_tag;<br><br>    <span class="hljs-built_in">RandomAccessIterator</span>() = <span class="hljs-keyword">default</span>;<br>    <span class="hljs-built_in">RandomAccessIterator</span>(pointer p) : <span class="hljs-built_in">ptr_</span>(p) &#123;&#125;<br>    <span class="hljs-built_in">RandomAccessIterator</span>(<span class="hljs-type">const</span> RandomAccessIterator&amp; other) : <span class="hljs-built_in">ptr_</span>(other.ptr_) &#123;&#125;<br>    ~<span class="hljs-built_in">RandomAccessIterator</span>() = <span class="hljs-keyword">default</span>;<br><br>    RandomAccessIterator&amp; <span class="hljs-keyword">operator</span>=(<span class="hljs-type">const</span> RandomAccessIterator&amp; other) &#123;<br>        ptr_ = other.ptr_;<br>        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>    &#125;<br><br>    reference <span class="hljs-keyword">operator</span>*() <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> *ptr_;<br>    &#125;<br><br>    pointer <span class="hljs-keyword">operator</span>-&gt;() <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> ptr_;<br>    &#125;<br><br>    RandomAccessIterator&amp; <span class="hljs-keyword">operator</span>++() &#123;<br>        ++ptr_;<br>        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>    &#125;<br><br>    RandomAccessIterator <span class="hljs-keyword">operator</span>++(<span class="hljs-type">int</span>) &#123;<br>        <span class="hljs-function">RandomAccessIterator <span class="hljs-title">tmp</span><span class="hljs-params">(*<span class="hljs-keyword">this</span>)</span></span>;<br>        ++ptr_;<br>        <span class="hljs-keyword">return</span> tmp;<br>    &#125;<br><br>    RandomAccessIterator&amp; <span class="hljs-keyword">operator</span>--() &#123;<br>        --ptr_;<br>        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>    &#125;<br><br>    RandomAccessIterator <span class="hljs-keyword">operator</span>--(<span class="hljs-type">int</span>) &#123;<br>        <span class="hljs-function">RandomAccessIterator <span class="hljs-title">tmp</span><span class="hljs-params">(*<span class="hljs-keyword">this</span>)</span></span>;<br>        --ptr_;<br>        <span class="hljs-keyword">return</span> tmp;<br>    &#125;<br><br>    RandomAccessIterator&amp; <span class="hljs-keyword">operator</span>+=(difference_type n) &#123;<br>        ptr_ += n;<br>        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>    &#125;<br><br>    RandomAccessIterator <span class="hljs-keyword">operator</span>+(difference_type n) <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-function">RandomAccessIterator <span class="hljs-title">tmp</span><span class="hljs-params">(*<span class="hljs-keyword">this</span>)</span></span>;<br>        <span class="hljs-keyword">return</span> tmp += n;<br>    &#125;<br><br>    RandomAccessIterator&amp; <span class="hljs-keyword">operator</span>-=(difference_type n) &#123;<br>        ptr_ -= n;<br>        <span class="hljs-keyword">return</span> *<span class="hljs-keyword">this</span>;<br>    &#125;<br><br>    RandomAccessIterator <span class="hljs-keyword">operator</span>-(difference_type n) <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-function">RandomAccessIterator <span class="hljs-title">tmp</span><span class="hljs-params">(*<span class="hljs-keyword">this</span>)</span></span>;<br>        <span class="hljs-keyword">return</span> tmp -= n;<br>    &#125;<br><br>    difference_type <span class="hljs-keyword">operator</span>-(<span class="hljs-type">const</span> RandomAccessIterator&amp; other) <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> ptr_ - other.ptr_;<br>    &#125;<br><br>    <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>==(<span class="hljs-type">const</span> RandomAccessIterator&amp; other) <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> ptr_ == other.ptr_;<br>    &#125;<br><br>    <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>!=(<span class="hljs-type">const</span> RandomAccessIterator&amp; other) <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> ptr_ != other.ptr_;<br>    &#125;<br><br>    <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>&lt;(<span class="hljs-type">const</span> RandomAccessIterator&amp; other) <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> ptr_ &lt; other.ptr_;<br>    &#125;<br><br>    <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>&gt;(<span class="hljs-type">const</span> RandomAccessIterator&amp; other) <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> ptr_ &gt; other.ptr_;<br>    &#125;<br><br>    <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>&lt;=(<span class="hljs-type">const</span> RandomAccessIterator&amp; other) <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> ptr_ &lt;= other.ptr_;<br>    &#125;<br><br>    <span class="hljs-type">bool</span> <span class="hljs-keyword">operator</span>&gt;=(<span class="hljs-type">const</span> RandomAccessIterator&amp; other) <span class="hljs-type">const</span> &#123;<br>        <span class="hljs-keyword">return</span> ptr_ &gt;= other.ptr_;<br>    &#125;<br><br><span class="hljs-keyword">private</span>:<br>    pointer ptr_;<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> arr[] = &#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>&#125;;<br>    <span class="hljs-function">RandomAccessIterator&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">it</span><span class="hljs-params">(arr)</span></span>;<br>    <span class="hljs-function">RandomAccessIterator&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">it_end</span><span class="hljs-params">(arr + <span class="hljs-number">5</span>)</span></span>;<br><br>    <span class="hljs-comment">// 随机访问第3个元素</span><br>    <span class="hljs-type">int</span> value1 = *(it + <span class="hljs-number">2</span>);<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;value1 = &quot;</span> &lt;&lt; value1 &lt;&lt; std::endl;<br><br>    <span class="hljs-comment">// 随机访问第1个元素</span><br>    <span class="hljs-type">int</span> value2 = *(it_end - <span class="hljs-number">4</span>);<br>    std::cout &lt;&lt; <span class="hljs-string">&quot;value2 = &quot;</span> &lt;&lt; value2 &lt;&lt; std::endl;<br><br>    <span class="hljs-comment">// 通过迭代器访问元素</span><br>    <span class="hljs-keyword">for</span> (RandomAccessIterator&lt;<span class="hljs-type">int</span>&gt; it_tmp = it; it_tmp != it_end; ++it_tmp) &#123;<br>        std::cout &lt;&lt; *it_tmp &lt;&lt; <span class="hljs-string">&quot; &quot;</span>;<br>    &#125;<br>    std::cout &lt;&lt; std::endl;<br><br>    <span class="hljs-comment">// 比较迭代器大小</span><br><span class="hljs-type">bool</span> result1 = it &lt; it_end;<br><span class="hljs-type">bool</span> result2 = it + <span class="hljs-number">1</span> &gt;= it_end <span class="hljs-number">-3</span>;<br>std::cout &lt;&lt; <span class="hljs-string">&quot;result1 = &quot;</span> &lt;&lt; result1 &lt;&lt; std::endl;<br>std::cout &lt;&lt; <span class="hljs-string">&quot;result2 = &quot;</span> &lt;&lt; result2 &lt;&lt; std::endl;<br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure><p>在代码中，我们定义了一个模板类<code>RandomAccessIterator</code>，并且实现了随机访问迭代器所需的各个成员函数。在<code>main()</code>函数中，我们使用了<code>RandomAccessIterator</code>来访问一个数组，并展示了随机访问第3个和第1个元素的方式，以及通过迭代器遍历整个数组，比较迭代器的大小等操作。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;STL中的随机访问迭代器是在其他迭代器基础上实现的，其本质是对指针的封装，可以像指针一样进行算数运算和随机访问，需要支持以下的操作&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;迭代器加减运算&lt;/li&gt;
-&lt;li&gt;迭代器之间的比较运算&lt;/li&gt;
-&lt;li&gt;迭代器和指针之间的转换&lt;/li&gt;
-&lt;li&gt;</summary>
-      
-    
-    
-    
-    
-    <category term="C++" scheme="http://precipitation0224.github.io/tags/C/"/>
     
   </entry>
   
